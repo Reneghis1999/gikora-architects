@@ -1,36 +1,127 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🏛️ GIKORA ARCHITECTS
 
-## Getting Started
+**Studio d’architecture contemporain basé à Lomé**, spécialisé dans la conception architecturale, le design d’intérieur et la visualisation 3D.
 
-First, run the development server:
+---
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+##  À propos du projet
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+GIKORA Architects est une landing page moderne conçue pour représenter l’identité d’un cabinet d’architecture haut de gamme.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Le projet met en avant une approche minimaliste, élégante et immersive inspirée des studios d’architecture internationaux.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+---
 
-## Learn More
+##  Objectif
 
-To learn more about Next.js, take a look at the following resources:
+Créer une expérience web premium qui reflète :
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- Une identité architecturale forte
+- Une direction artistique minimaliste et élégante
+- Une expérience utilisateur fluide et immersive
+- Une présentation claire des projets et services
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+---
 
-## Deploy on Vercel
+##  Stack technique
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- **Next.js 14+ (App Router)**
+- **React**
+- **Tailwind CSS**
+- **ShadCN UI**
+- **Lucide Icons**
+- **Next/Image optimization**
+- **Google Fonts (Orbitron + typographie système)**
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+---
+
+##  Direction artistique
+
+- Palette : beige architectural (#faf9f7), brun profond (#5A3E2B)
+- Style : minimalisme premium / Awwwards-inspired
+- UI : large espaces, typographie fine, animations douces
+- Références : studios d’architecture internationaux
+
+---
+
+##  Fonctionnalités
+
+-  Hero section immersive avec slider automatique
+-  Loader fullscreen premium avec branding GIKORA
+-  Navigation sticky avec effets hover avancés
+-  Section projets mise en avant (4 réalisations)
+-  Section “À propos” avec storytelling architectural
+-  Section philosophie émotionnelle
+-  Design 100% responsive
+-  UX fluide et moderne
+
+---
+
+##  Aperçu du projet
+
+> (Ajoute ici des screenshots du site)
+
+
+/public/screenshots/hero.png
+/public/screenshots/projects.png
+
+
+---
+
+##  Structure du projet
+
+
+app/
+├── layout.tsx
+├── page.tsx
+
+components/
+├── Navbar.tsx
+├── Hero.tsx
+├── About.tsx
+├── FeaturedProjects.tsx
+├── Philosophy.tsx
+├── Loader.tsx
+├── AppClient.tsx
+
+public/
+├── images/
+├── projects/
+
+
+---
+
+##  Pages prévues
+
+- `/` → Landing page
+- `/projects` → Portfolio complet
+- `/about` → Présentation du studio
+- `/equipe` → Équipe
+- `/contact` → Contact & formulaire
+
+---
+
+##  Vision du projet
+
+Ce projet vise à simuler un vrai site de cabinet d’architecture international, avec une attention particulière portée à :
+
+- la cohérence visuelle
+- la qualité des animations
+- l’expérience utilisateur
+- la narration architecturale
+
+---
+
+
+
+---
+
+##  Statut
+
+🚧 En développement — version initiale du site vitrine
+
+---
+
+## ⭐ Remarque
+
+Ce projet est conçu comme un portfolio professionnel et une base évolutive pour des projets réels de clients dans le domaine
