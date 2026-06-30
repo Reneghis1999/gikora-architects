@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import Navbar from "@/components/Navbar";
 import Loader from "@/components/Loader";
 
 export default function AppClient({
@@ -25,7 +24,7 @@ export default function AppClient({
 
       {!loading && (
         <>
-          <Navbar />
+          
           {children}
         </>
       )}
