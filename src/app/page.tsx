@@ -1,3 +1,4 @@
+import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
 import Aboutsection from "@/components/Aboutsection";
 import FeaturedProjects from "@/components/FeaturedProject";
@@ -11,6 +12,7 @@ import StatsSection from "@/components/Statsection";
 export default function Home() {
   return (
     <main>
+      <Navbar />
       <Hero />
       <StatsSection />
       <Aboutsection />

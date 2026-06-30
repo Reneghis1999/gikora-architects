@@ -51,7 +51,7 @@ export default function Footer() {
                 </Link>
               </li>
               <li>
-                <Link className="hover:text-[#5A3E2B] transition" href="/equipe">
+                <Link className="hover:text-[#5A3E2B] transition" href="/team">
                   Équipe
                 </Link>
               </li>
