@@ -66,8 +66,8 @@ export default function Footer() {
 
             <ul className="space-y-4 text-sm text-neutral-700">
               <li>Lomé, Togo</li>
-              <li>+228 90 00 00 00</li>
-              <li>contact@gikora-architects.com</li>
+              <li>(+228) 93 63 15 78</li>
+              <li>gikoragroup@gmail.com</li>
             </ul>
 
             <div className="mt-6">

@@ -144,12 +144,13 @@ export default function FeaturedProjects() {
               className="
                 w-full sm:w-auto
                 rounded-none 
-                bg-[#5A3E2B] 
+                bg-black
                 px-6 sm:px-8 
                 py-5 sm:py-6
                 text-sm sm:text-base
                 uppercase tracking-[0.18em] 
                 hover:bg-[#4B3324]
+                cursor-pointer
               "
             >
               Découvrir tous les projets
