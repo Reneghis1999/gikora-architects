@@ -169,16 +169,16 @@ export default function ProjectsPage() {
   return (
     <section className="bg-white py-28 px-6 lg:px-20">
 
-       {/* BACK TO HOME BUTTON */}
-            <div className="fixed top-6 left-6 z-50">
-              <Link
-                href="/"
-                className="flex items-center gap-2 text-sm uppercase tracking-[0.2em] text-[#5A3E2B] hover:text-black transition-colors duration-300 group"
-              >
-                <ArrowLeft className="h-4 w-4 transition-transform duration-300 group-hover:-translate-x-1" />
-                Retour
-              </Link>
-            </div>
+      {/* BACK BUTTON */}
+      <div className="fixed top-6 left-6 z-50">
+        <Link
+          href="/"
+          className="flex items-center gap-2 text-sm uppercase tracking-[0.2em] text-[#5A3E2B] hover:text-black transition"
+        >
+          <ArrowLeft className="h-4 w-4" />
+          Retour
+        </Link>
+      </div>
 
       {/* HEADER */}
       <div className="text-center mb-20">
@@ -210,20 +210,26 @@ export default function ProjectsPage() {
                 fill
                 className="object-cover transition-transform duration-700 group-hover:scale-110"
               />
+
+              {/* OVERLAY */}
+              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent" />
             </div>
 
-            {/* OVERLAY */}
-            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent opacity-0 group-hover:opacity-100 transition duration-500" />
-
             {/* TEXT */}
-            <div className="absolute bottom-6 left-6 right-6 text-white opacity-0 group-hover:opacity-100 transition duration-500">
+            <div className="
+              absolute bottom-6 left-6 right-6 text-white
+              opacity-100 md:opacity-0 md:group-hover:opacity-100
+              transition duration-500
+            ">
               {project.location && (
                 <p className="text-xs tracking-[0.25em] uppercase text-white/70">
                   {project.location}
                 </p>
               )}
 
-              <h3 className="text-xl font-light mt-2">{project.title}</h3>
+              <h3 className="text-xl font-light mt-2">
+                {project.title}
+              </h3>
 
               <div className="mt-4">
                 <span className="text-xs uppercase tracking-[0.2em] border-b border-white/40 pb-1">
