@@ -50,7 +50,7 @@ export default function Philosophy() {
           </p>
 
           <p className="mt-5 text-xs sm:text-sm uppercase tracking-[0.3em] text-white/50">
-            Gikora Architects
+            Gikora_Architects
           </p>
 
         </div>
