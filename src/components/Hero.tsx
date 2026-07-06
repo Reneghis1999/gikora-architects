@@ -9,7 +9,7 @@ import { Button } from "@/components/ui/button";
 
 const images = [
   "/images/hero1.png",
-  "/images/hero2.png",
+  "/images/image.png",
   "/images/hero3.png",
   "/images/hero4.png",
 ];

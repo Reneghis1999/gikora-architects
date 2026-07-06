@@ -45,10 +45,10 @@ export default function About() {
 
             {/* DESCRIPTION */}
             <p className="mt-6 text-base leading-7 text-neutral-600">
-              Créée au TOGO à Lomé, Gikora Architects est une agence fondée
+              Créée au TOGO à Lomé, Gikora_Architects est une agence fondée
               par l’initiative de Arthur Kofi AWAGA, architecte agréé à
-              l’Ordre National des Architectes du TOGO (ONAT)
-              N° 1982/71/92.
+              l’Ordre National des Architectes du TOGO ONAT
+              N° 245.
               <br />
               <br />
               Une pluralité de personnalités et de parcours fédérée autour
