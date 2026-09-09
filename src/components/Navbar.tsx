@@ -45,7 +45,7 @@ export default function Navbar() {
           {/* LOGO */}
           <Link href="/">
             <Image
-              src="/images/gikoralogo.png"
+              src="/images/image (2).webp"
               alt="GIKORA"
               width={180}
               height={60}
@@ -73,7 +73,7 @@ export default function Navbar() {
           <div className="hidden lg:flex">
             <Link href="/contact">
               <Button
-                className={`rounded-none px-8 uppercase tracking-[0.18em] ${
+                className={`rounded-none px-8 uppercase cursor-pointer tracking-[0.18em] ${
                   isScrolled
                     ? "bg-black text-white"
                     : "bg-white/10 text-white border border-white/30"

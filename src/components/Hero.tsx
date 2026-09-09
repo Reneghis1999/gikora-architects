@@ -8,10 +8,11 @@ import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 const images = [
-  "/images/hero1.png",
-  "/images/image.png",
-  "/images/hero3.png",
-  "/images/hero4.png",
+  "/images/1.jpg",
+  "/images/rt_5 - Photo.png",
+  "/images/1.jpg",
+  "/images/1.png",
+  "/images/test 1_7 - Photo.png",
 ];
 
 export default function Hero() {
@@ -27,7 +28,6 @@ export default function Hero() {
 
   return (
     <section className="relative h-[100dvh] w-full overflow-hidden">
-
       {/* IMAGES */}
       {images.map((image, index) => (
         <div
@@ -54,9 +54,7 @@ export default function Hero() {
       {/* CONTENT */}
       <div className="relative z-10 flex h-full items-center justify-center sm:justify-start">
         <div className="mx-auto w-full max-w-7xl px-5 sm:px-6 lg:px-8">
-
           <div className="max-w-2xl text-center sm:text-left -translate-y-6 sm:translate-y-0">
-
             {/* TITLE */}
             <h1 className="text-white font-light leading-[1.1] text-[2.3rem] sm:text-5xl md:text-6xl lg:text-7xl">
               Au-delà
@@ -68,13 +66,12 @@ export default function Hero() {
 
             {/* TEXT */}
             <p className="mt-5 sm:mt-6 max-w-xl text-sm sm:text-base md:text-lg leading-6 sm:leading-7 text-white/75 mx-auto sm:mx-0">
-              GIKORA Architects crée une architecture contemporaine qui combine élégance,
-              fonctionnalité et design intemporel.
+              GIKORA Architects crée une architecture contemporaine qui combine
+              élégance, fonctionnalité et design intemporel.
             </p>
 
             {/* BUTTONS */}
             <div className="mt-7 sm:mt-8 flex flex-col sm:flex-row gap-3 sm:gap-4 sm:items-center justify-center sm:justify-start">
-
               <Link href="/projects" className="w-full sm:w-auto">
                 <Button
                   size="lg"
@@ -94,15 +91,12 @@ export default function Hero() {
                   Nous contacter
                 </Button>
               </Link>
-
             </div>
           </div>
-
         </div>
       </div>
 
       {/* STATS */}
-     
 
       {/* INDICATEURS */}
       <div className="absolute bottom-6 sm:bottom-10 left-1/2 z-20 flex -translate-x-1/2 gap-2 sm:gap-3">
@@ -119,7 +113,6 @@ export default function Hero() {
           />
         ))}
       </div>
-
     </section>
   );
 }

@@ -9,9 +9,9 @@
   --color-foreground: var(--foreground);
 
   /* FONT SYSTEM */
-  --font-sans: var(--font-orbitron);
+  --font-sans: var(--font-aclonica), Aclonica, sans-serif;
   --font-mono: var(--font-geist-mono);
-  --font-heading: var(--font-orbitron);
+  --font-heading: var(--font-aclonica), Aclonica, sans-serif;
 
   --color-sidebar-ring: var(--sidebar-ring);
   --color-sidebar-border: var(--sidebar-border);
@@ -120,19 +120,19 @@
   --sidebar-border: oklch(1 0 0 / 10%);
   --sidebar-ring: oklch(0.556 0 0);
 }
+
 html {
   scroll-behavior: smooth;
 }
+
 @layer base {
   * {
     @apply border-border outline-ring/50;
   }
 
+  html,
   body {
     @apply bg-background text-foreground;
-  }
-
-  html {
-    @apply font-sans;
+    font-family: Aclonica, sans-serif;
   }
 }

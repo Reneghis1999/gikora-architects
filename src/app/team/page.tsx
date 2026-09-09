@@ -13,7 +13,7 @@ export default function EquipePage() {
     },
     {
       name: "Stephane MILOGO",
-      role: "Architecte Associé",
+      role: "Architecte Associé", 
       image: "/team/4.jpg",
     },
     {

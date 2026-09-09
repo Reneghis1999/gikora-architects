@@ -1,12 +1,13 @@
 import type { Metadata } from "next";
 import "./globals.css";
 
-import { Orbitron } from "next/font/google";
+import { Aclonica } from "next/font/google";
 import AppClient from "@/components/AppClient";
 
-const orbitron = Orbitron({
+const aclonica = Aclonica({
+  weight: "400",
   subsets: ["latin"],
-  variable: "--font-orbitron",
+  variable: "--font-aclonica",
   display: "swap",
 });
 
@@ -23,6 +24,9 @@ export const metadata: Metadata = {
     "modern architecture",
   ],
   authors: [{ name: "GIKORA ARCHITECTS" }],
+  icons: {
+    icon: "/icones/fw_32.png",
+  },
   openGraph: {
     title: "GIKORA ARCHITECTS",
     description: "Architecture & Design Studio",
@@ -34,8 +38,8 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="fr" className={orbitron.variable}>
-      <body>
+    <html lang="fr" className={aclonica.variable}>
+      <body className={aclonica.className}>
         <AppClient>{children}</AppClient>
       </body>
     </html>
