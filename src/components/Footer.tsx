@@ -14,7 +14,7 @@ export default function Footer() {
           {/* BRAND */}
           <div>
             <Image
-              src="/images/gikoralogo.png"
+              src="/images/image (2).webp"
               alt="Gikora Architects"
               width={160}
               height={60}
