@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import Image from "next/image";
-import { Menu, X } from "lucide-react";
+import { ArrowUpRight, Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 const navLinks = [
@@ -20,30 +20,40 @@ export default function Navbar() {
 
   useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 40);
+
     handleScroll();
+
     window.addEventListener("scroll", handleScroll);
+
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // SCROLL LOCK SIMPLE (PAS DE BUG)
   useEffect(() => {
     document.body.style.overflow = open ? "hidden" : "";
+
+    return () => {
+      document.body.style.overflow = "";
+    };
   }, [open]);
 
   return (
     <>
-      {/* NAVBAR */}
+      {/* =========================
+          NAVBAR
+      ========================== */}
       <header
-        className={`fixed inset-x-0 top-0 z-[100] transition-all duration-300 ${
+        className={`fixed inset-x-0 top-0 z-[100] transition-all duration-500 ${
           isScrolled
-            ? "bg-white/90 backdrop-blur-xl border-b border-neutral-200 shadow-sm"
+            ? "border-b border-neutral-200 bg-white/90 shadow-sm backdrop-blur-xl"
             : "bg-transparent"
         }`}
       >
         <div className="mx-auto flex h-24 max-w-7xl items-center justify-between px-6 lg:px-8">
-
           {/* LOGO */}
-          <Link href="/">
+          <Link
+            href="/"
+            className="relative z-[120] transition-opacity duration-300 hover:opacity-75"
+          >
             <Image
               src="/images/image (2).webp"
               alt="GIKORA"
@@ -54,94 +64,164 @@ export default function Navbar() {
             />
           </Link>
 
-          {/* DESKTOP NAV */}
-          <nav className="hidden lg:flex items-center gap-10">
+          {/* =========================
+              DESKTOP NAV
+          ========================== */}
+          <nav className="hidden items-center gap-10 lg:flex">
             {navLinks.map((link) => (
               <Link
                 key={link.href}
                 href={link.href}
-                className={`text-sm uppercase tracking-[0.18em] ${
-                  isScrolled ? "text-neutral-800" : "text-white"
+                className={`group relative flex items-center gap-2 py-3 text-sm uppercase tracking-[0.18em] transition-colors duration-300 ${
+                  isScrolled
+                    ? "text-neutral-800"
+                    : "text-white"
                 }`}
               >
-                {link.label}
+                {/* Ligne animée */}
+                <span
+                  className={`absolute bottom-0 left-0 h-px w-0 transition-all duration-500 ease-out group-hover:w-full ${
+                    isScrolled ? "bg-black" : "bg-white"
+                  }`}
+                />
+
+                {/* Petit numéro / marqueur */}
+                <span
+                  className={`absolute -left-4 top-1/2 h-1 w-1 -translate-y-1/2 rounded-full opacity-0 transition-all duration-300 group-hover:opacity-100 ${
+                    isScrolled ? "bg-black" : "bg-white"
+                  }`}
+                />
+
+                <span className="transition-transform duration-300 group-hover:-translate-y-0.5">
+                  {link.label}
+                </span>
+
+                {/* Flèche */}
+                <ArrowUpRight
+                  size={13}
+                  strokeWidth={1.5}
+                  className="translate-y-1 opacity-0 transition-all duration-300 group-hover:translate-y-0 group-hover:opacity-100"
+                />
               </Link>
             ))}
           </nav>
 
-          {/* CTA */}
+          {/* =========================
+              CTA
+          ========================== */}
           <div className="hidden lg:flex">
             <Link href="/contact">
               <Button
-                className={`rounded-none px-8 uppercase cursor-pointer tracking-[0.18em] ${
+                className={`cursor-pointer group relative h-12 overflow-hidden rounded-none border px-8 uppercase tracking-[0.18em] transition-all duration-500 ${
                   isScrolled
-                    ? "bg-black text-white"
-                    : "bg-white/10 text-white border border-white/30"
+                    ? "border-black bg-black text-white hover:bg-white hover:text-black"
+                    : "border-white/40 bg-white/10 text-white backdrop-blur-sm hover:bg-white hover:text-black"
                 }`}
               >
-                Commencer
+                <span className="relative z-10 flex items-center gap-3">
+                  Commencer
+                  <ArrowUpRight
+                    size={15}
+                    className="transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1"
+                  />
+                </span>
               </Button>
             </Link>
           </div>
 
-          {/* HAMBURGER */}
+          {/* =========================
+              MOBILE MENU BUTTON
+          ========================== */}
           <button
             onClick={() => setOpen(true)}
-            className={`lg:hidden z-[120] ${
+            aria-label="Ouvrir le menu"
+            className={`relative z-[120] transition-transform duration-300 hover:scale-105 lg:hidden ${
               isScrolled ? "text-black" : "text-white"
             }`}
           >
-            <Menu size={28} />
+            <Menu size={28} strokeWidth={1.5} />
           </button>
         </div>
       </header>
 
-      {/* OVERLAY (séparé du menu) */}
+      {/* =========================
+          OVERLAY
+      ========================== */}
       <div
         onClick={() => setOpen(false)}
-        className={`fixed inset-0 z-[140] bg-black/40 transition-opacity duration-300 ${
-          open ? "opacity-100" : "opacity-0 pointer-events-none"
+        className={`fixed inset-0 z-[140] bg-black/40 backdrop-blur-[2px] transition-opacity duration-500 ${
+          open
+            ? "pointer-events-auto opacity-100"
+            : "pointer-events-none opacity-0"
         }`}
       />
 
-      {/* MENU FULL SCREEN */}
+      {/* =========================
+          MOBILE FULLSCREEN MENU
+      ========================== */}
       <div
-        className={`fixed inset-0 z-[150] bg-white flex flex-col items-center justify-center transition-all duration-300 ${
+        className={`fixed inset-0 z-[150] flex flex-col items-center justify-center bg-white transition-all duration-500 ${
           open
-            ? "opacity-100 translate-y-0"
-            : "opacity-0 translate-y-4 pointer-events-none"
+            ? "translate-y-0 opacity-100"
+            : "pointer-events-none translate-y-4 opacity-0"
         }`}
       >
-
-        {/* CROIX (FORCÉE AU-DESSUS DE TOUT) */}
+        {/* CLOSE */}
         <button
           onClick={() => setOpen(false)}
-          className="absolute top-6 right-6 z-[200]"
+          aria-label="Fermer le menu"
+          className="absolute right-6 top-6 z-[200] transition-transform duration-300 hover:rotate-90"
         >
-          <X size={34} />
+          <X size={34} strokeWidth={1.5} />
         </button>
 
-        {/* LINKS */}
-        <nav className="flex flex-col items-center gap-10 text-2xl font-light">
-          {navLinks.map((link) => (
+        {/* MOBILE LINKS */}
+        <nav className="flex flex-col items-center gap-8">
+          {navLinks.map((link, index) => (
             <Link
               key={link.href}
               href={link.href}
               onClick={() => setOpen(false)}
-              className="uppercase tracking-[0.2em] text-neutral-700 hover:text-black transition"
+              className="group flex items-center gap-3 text-2xl font-light uppercase tracking-[0.16em] text-neutral-700 transition-colors duration-300 hover:text-black"
             >
-              {link.label}
+              {/* numéro */}
+              <span className="text-[10px] tracking-normal text-neutral-400 transition-colors duration-300 group-hover:text-black">
+                0{index + 1}
+              </span>
+
+              <span className="transition-transform duration-300 group-hover:translate-x-1">
+                {link.label}
+              </span>
+
+              <ArrowUpRight
+                size={17}
+                strokeWidth={1.5}
+                className="opacity-0 transition-all duration-300 group-hover:translate-x-1 group-hover:-translate-y-1 group-hover:opacity-100"
+              />
             </Link>
           ))}
         </nav>
 
-        {/* CTA */}
-        <div className="mt-12">
+        {/* MOBILE CTA */}
+        <div className="mt-14">
           <Link href="/contact" onClick={() => setOpen(false)}>
-            <Button className="rounded-none bg-black px-10 uppercase tracking-[0.2em] text-white">
-              Commencer
+            <Button className="group h-12 rounded-none bg-black px-10 uppercase tracking-[0.2em] text-white transition-all duration-300 hover:bg-neutral-800">
+              <span className="flex items-center gap-3">
+                Commencer
+                <ArrowUpRight
+                  size={15}
+                  className="transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1"
+                />
+              </span>
             </Button>
           </Link>
+        </div>
+
+        {/* SMALL FOOTER */}
+        <div className="absolute bottom-8 flex items-center gap-3 text-[10px] uppercase tracking-[0.25em] text-neutral-400">
+          <span>Lomé</span>
+          <span className="h-px w-8 bg-neutral-300" />
+          <span>Togo</span>
         </div>
       </div>
     </>
