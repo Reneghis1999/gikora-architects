@@ -3,8 +3,12 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import Image from "next/image";
-import { ArrowUpRight, Menu, X } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import {
+  Phone,
+  Menu,
+  X,
+  ArrowUpRight,
+} from "lucide-react";
 
 const navLinks = [
   { label: "Accueil", href: "/" },
@@ -18,15 +22,27 @@ export default function Navbar() {
   const [open, setOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
 
+  /* =========================================================
+     SCROLL
+  ========================================================= */
+
   useEffect(() => {
-    const handleScroll = () => setIsScrolled(window.scrollY > 40);
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 80);
+    };
 
     handleScroll();
 
     window.addEventListener("scroll", handleScroll);
 
-    return () => window.removeEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
   }, []);
+
+  /* =========================================================
+     BLOQUER LE SCROLL QUAND LE MENU MOBILE EST OUVERT
+  ========================================================= */
 
   useEffect(() => {
     document.body.style.overflow = open ? "hidden" : "";
@@ -36,192 +52,388 @@ export default function Navbar() {
     };
   }, [open]);
 
+  /* =========================================================
+     STYLE DES ICONES
+  ========================================================= */
+
+  const iconClass = `
+    flex
+    h-12
+    w-12
+    items-center
+    justify-center
+    rounded-full
+    border
+    transition-all
+    duration-300
+    hover:scale-105
+  `;
+
   return (
     <>
-      {/* =========================
+      {/* =====================================================
           NAVBAR
-      ========================== */}
+      ====================================================== */}
+
       <header
-        className={`fixed inset-x-0 top-0 z-[100] transition-all duration-500 ${
-          isScrolled
-            ? "border-b border-neutral-200 bg-white/90 shadow-sm backdrop-blur-xl"
-            : "bg-transparent"
-        }`}
+        className={`
+          fixed
+          inset-x-0
+          top-0
+          z-[100]
+          transition-all
+          duration-500
+          ${
+            isScrolled
+              ? "bg-white/95 shadow-sm backdrop-blur-xl"
+              : "bg-transparent"
+          }
+        `}
       >
-        <div className="mx-auto flex h-24 max-w-7xl items-center justify-between px-6 lg:px-8">
-          {/* LOGO */}
+        <div
+          className="
+            mx-auto
+            flex
+            h-24
+            items-center
+            justify-between
+            px-6
+            sm:px-8
+            lg:px-12
+          "
+        >
+          {/* =================================================
+              LOGO
+          ================================================== */}
+
           <Link
             href="/"
-            className="relative z-[120] transition-opacity duration-300 hover:opacity-75"
+            className="
+              relative
+              z-[160]
+              transition-opacity
+              duration-300
+              hover:opacity-75
+            "
           >
             <Image
               src="/images/image (2).webp"
-              alt="GIKORA"
+              alt="GIKORA Architects"
               width={180}
               height={60}
-              className="w-[150px] lg:w-[180px]"
               priority
+              className="w-[125px] sm:w-[145px] lg:w-[165px]"
             />
           </Link>
 
-          {/* =========================
-              DESKTOP NAV
-          ========================== */}
-          <nav className="hidden items-center gap-10 lg:flex">
-            {navLinks.map((link) => (
-              <Link
-                key={link.href}
-                href={link.href}
-                className={`group relative flex items-center gap-2 py-3 text-sm uppercase tracking-[0.18em] transition-colors duration-300 ${
+          {/* =================================================
+              DESKTOP ACTIONS
+              TELEPHONE + MENU
+          ================================================== */}
+
+          <div className="hidden items-center gap-3 lg:flex">
+
+            {/* =================================================
+                WHATSAPP / TELEPHONE
+            ================================================== */}
+
+            <a
+              href="https://wa.me/22893631578"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Contacter GIKORA sur WhatsApp"
+              className={`
+                ${iconClass}
+                ${
                   isScrolled
-                    ? "text-neutral-800"
-                    : "text-white"
-                }`}
-              >
-                {/* Ligne animée */}
-                <span
-                  className={`absolute bottom-0 left-0 h-px w-0 transition-all duration-500 ease-out group-hover:w-full ${
-                    isScrolled ? "bg-black" : "bg-white"
-                  }`}
-                />
+                    ? "border-neutral-300 bg-white text-neutral-900 hover:bg-neutral-100"
+                    : "border-white/60 bg-black/10 text-white backdrop-blur-md hover:bg-white hover:text-black"
+                }
+              `}
+            >
+              <Phone
+                size={18}
+                strokeWidth={1.5}
+              />
+            </a>
 
-                {/* Petit numéro / marqueur */}
-                <span
-                  className={`absolute -left-4 top-1/2 h-1 w-1 -translate-y-1/2 rounded-full opacity-0 transition-all duration-300 group-hover:opacity-100 ${
-                    isScrolled ? "bg-black" : "bg-white"
-                  }`}
-                />
+            {/* =================================================
+                MENU
+            ================================================== */}
 
-                <span className="transition-transform duration-300 group-hover:-translate-y-0.5">
-                  {link.label}
-                </span>
-
-                {/* Flèche */}
-                <ArrowUpRight
-                  size={13}
-                  strokeWidth={1.5}
-                  className="translate-y-1 opacity-0 transition-all duration-300 group-hover:translate-y-0 group-hover:opacity-100"
-                />
-              </Link>
-            ))}
-          </nav>
-
-          {/* =========================
-              CTA
-          ========================== */}
-          <div className="hidden lg:flex">
-            <Link href="/contact">
-              <Button
-                className={`cursor-pointer group relative h-12 overflow-hidden rounded-none border px-8 uppercase tracking-[0.18em] transition-all duration-500 ${
+            <button
+              type="button"
+              onClick={() => setOpen(true)}
+              aria-label="Ouvrir le menu"
+              className={`
+                ${iconClass}
+                ${
                   isScrolled
-                    ? "border-black bg-black text-white hover:bg-white hover:text-black"
-                    : "border-white/40 bg-white/10 text-white backdrop-blur-sm hover:bg-white hover:text-black"
-                }`}
-              >
-                <span className="relative z-10 flex items-center gap-3">
-                  Commencer
-                  <ArrowUpRight
-                    size={15}
-                    className="transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1"
-                  />
-                </span>
-              </Button>
-            </Link>
+                    ? "border-neutral-900 bg-neutral-900 text-white hover:bg-white hover:text-black"
+                    : "border-white/60 bg-black/10 text-white backdrop-blur-md hover:bg-white hover:text-black"
+                }
+              `}
+            >
+              <Menu
+                size={21}
+                strokeWidth={1.5}
+              />
+            </button>
+
           </div>
 
-          {/* =========================
+          {/* =================================================
               MOBILE MENU BUTTON
-          ========================== */}
+          ================================================== */}
+
           <button
+            type="button"
             onClick={() => setOpen(true)}
             aria-label="Ouvrir le menu"
-            className={`relative z-[120] transition-transform duration-300 hover:scale-105 lg:hidden ${
-              isScrolled ? "text-black" : "text-white"
-            }`}
+            className={`
+              relative
+              z-[160]
+              flex
+              h-11
+              w-11
+              items-center
+              justify-center
+              rounded-full
+              border
+              lg:hidden
+              ${
+                isScrolled
+                  ? "border-neutral-900 text-neutral-900"
+                  : "border-white/70 text-white"
+              }
+            `}
           >
-            <Menu size={28} strokeWidth={1.5} />
+            <Menu
+              size={21}
+              strokeWidth={1.5}
+            />
           </button>
+
         </div>
       </header>
 
-      {/* =========================
+      {/* =====================================================
           OVERLAY
-      ========================== */}
+      ====================================================== */}
+
       <div
         onClick={() => setOpen(false)}
-        className={`fixed inset-0 z-[140] bg-black/40 backdrop-blur-[2px] transition-opacity duration-500 ${
-          open
-            ? "pointer-events-auto opacity-100"
-            : "pointer-events-none opacity-0"
-        }`}
+        className={`
+          fixed
+          inset-0
+          z-[140]
+          bg-black/50
+          backdrop-blur-sm
+          transition-opacity
+          duration-500
+          ${
+            open
+              ? "pointer-events-auto opacity-100"
+              : "pointer-events-none opacity-0"
+          }
+        `}
       />
 
-      {/* =========================
-          MOBILE FULLSCREEN MENU
-      ========================== */}
+      {/* =====================================================
+          MENU FULLSCREEN
+      ====================================================== */}
+
       <div
-        className={`fixed inset-0 z-[150] flex flex-col items-center justify-center bg-white transition-all duration-500 ${
-          open
-            ? "translate-y-0 opacity-100"
-            : "pointer-events-none translate-y-4 opacity-0"
-        }`}
+        className={`
+          fixed
+          inset-0
+          z-[150]
+          flex
+          flex-col
+          bg-[#f7f6f3]
+          transition-all
+          duration-500
+          ${
+            open
+              ? "translate-x-0 opacity-100"
+              : "pointer-events-none translate-x-full opacity-0"
+          }
+        `}
       >
-        {/* CLOSE */}
+
+        {/* =================================================
+            CLOSE
+        ================================================== */}
+
         <button
+          type="button"
           onClick={() => setOpen(false)}
           aria-label="Fermer le menu"
-          className="absolute right-6 top-6 z-[200] transition-transform duration-300 hover:rotate-90"
+          className="
+            absolute
+            right-6
+            top-6
+            z-[200]
+            flex
+            h-12
+            w-12
+            items-center
+            justify-center
+            rounded-full
+            border
+            border-neutral-300
+            transition-all
+            duration-300
+            hover:rotate-90
+            hover:bg-black
+            hover:text-white
+          "
         >
-          <X size={34} strokeWidth={1.5} />
+          <X
+            size={22}
+            strokeWidth={1.5}
+          />
         </button>
 
-        {/* MOBILE LINKS */}
-        <nav className="flex flex-col items-center gap-8">
-          {navLinks.map((link, index) => (
-            <Link
-              key={link.href}
-              href={link.href}
-              onClick={() => setOpen(false)}
-              className="group flex items-center gap-3 text-2xl font-light uppercase tracking-[0.16em] text-neutral-700 transition-colors duration-300 hover:text-black"
+        {/* =================================================
+            MENU CONTENT
+        ================================================== */}
+
+        <div
+          className="
+            mx-auto
+            flex
+            h-full
+            w-full
+            max-w-7xl
+            flex-col
+            justify-center
+            px-8
+            lg:px-16
+          "
+        >
+
+          {/* LABEL */}
+
+          <div className="mb-10">
+            <span
+              className="
+                text-[10px]
+                uppercase
+                tracking-[0.35em]
+                text-[#5A3E2B]
+              "
             >
-              {/* numéro */}
-              <span className="text-[10px] tracking-normal text-neutral-400 transition-colors duration-300 group-hover:text-black">
-                0{index + 1}
-              </span>
+              GIKORA ARCHITECTS
+            </span>
+          </div>
 
-              <span className="transition-transform duration-300 group-hover:translate-x-1">
-                {link.label}
-              </span>
+          {/* =================================================
+              LINKS
+          ================================================== */}
 
-              <ArrowUpRight
-                size={17}
-                strokeWidth={1.5}
-                className="opacity-0 transition-all duration-300 group-hover:translate-x-1 group-hover:-translate-y-1 group-hover:opacity-100"
-              />
-            </Link>
-          ))}
-        </nav>
+          <nav className="flex flex-col">
 
-        {/* MOBILE CTA */}
-        <div className="mt-14">
-          <Link href="/contact" onClick={() => setOpen(false)}>
-            <Button className="group h-12 rounded-none bg-black px-10 uppercase tracking-[0.2em] text-white transition-all duration-300 hover:bg-neutral-800">
-              <span className="flex items-center gap-3">
-                Commencer
+            {navLinks.map((link, index) => (
+              <Link
+                key={link.href}
+                href={link.href}
+                onClick={() => setOpen(false)}
+                className="
+                  group
+                  flex
+                  items-center
+                  gap-5
+                  border-b
+                  border-neutral-300
+                  py-5
+                  transition-all
+                  duration-300
+                  hover:pl-4
+                "
+              >
+
+                {/* NUMERO */}
+
+                <span
+                  className="
+                    w-8
+                    text-[10px]
+                    tracking-[0.2em]
+                    text-neutral-400
+                  "
+                >
+                  0{index + 1}
+                </span>
+
+                {/* NOM */}
+
+                <span
+                  className="
+                    text-3xl
+                    font-light
+                    tracking-[-0.04em]
+                    text-neutral-900
+                    sm:text-5xl
+                    lg:text-6xl
+                  "
+                >
+                  {link.label}
+                </span>
+
+                {/* FLECHE */}
+
                 <ArrowUpRight
-                  size={15}
-                  className="transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1"
+                  size={22}
+                  strokeWidth={1.3}
+                  className="
+                    ml-auto
+                    opacity-0
+                    transition-all
+                    duration-300
+                    group-hover:-translate-y-1
+                    group-hover:translate-x-1
+                    group-hover:opacity-100
+                  "
                 />
-              </span>
-            </Button>
-          </Link>
-        </div>
 
-        {/* SMALL FOOTER */}
-        <div className="absolute bottom-8 flex items-center gap-3 text-[10px] uppercase tracking-[0.25em] text-neutral-400">
-          <span>Lomé</span>
-          <span className="h-px w-8 bg-neutral-300" />
-          <span>Togo</span>
+              </Link>
+            ))}
+
+          </nav>
+
+          {/* =================================================
+              INFORMATIONS
+          ================================================== */}
+
+          <div
+            className="
+              mt-12
+              flex
+              flex-col
+              gap-3
+              text-[10px]
+              uppercase
+              tracking-[0.25em]
+              text-neutral-400
+              sm:flex-row
+              sm:items-center
+              sm:gap-5
+            "
+          >
+
+            <span>Lomé</span>
+
+            <span className="hidden h-px w-8 bg-neutral-300 sm:block" />
+
+            <span>Togo</span>
+
+            <span className="hidden h-px w-8 bg-neutral-300 sm:block" />
+
+            <span>Architecture & Design</span>
+
+          </div>
+
         </div>
       </div>
     </>
