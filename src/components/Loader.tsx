@@ -25,7 +25,7 @@ export default function Loader() {
         {/* LOGO */}
         <div className="relative w-40 sm:w-48 animate-fadeInScale">
           <Image
-            src="/images/gikoralogo.png"
+            src="/images/gikoralogo17.png"
             alt="GIKORA Architects"
             width={200}
             height={80}
