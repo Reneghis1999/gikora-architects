@@ -115,11 +115,11 @@ export default function Navbar() {
               duration-300
               hover:opacity-75
 
-              
+
             "
           >
             <Image
-              src="/images/gik-removebg-preview.png"
+              src="/images/gikorawhite1.png"
               alt="GIKORA Architects"
               width={180}
               height={60}
