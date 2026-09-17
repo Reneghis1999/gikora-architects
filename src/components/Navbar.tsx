@@ -108,17 +108,11 @@ export default function Navbar() {
 
           <Link
             href="/"
-            className="
-              relative
-              z-[160]
-              transition-opacity
-              duration-300
-              hover:opacity-75
-            "
+            className="relative z-[120] transition-opacity duration-300 hover:opacity-75"
           >
             <Image
-              src="/images/image (2).webp"
-              alt="GIKORA Architects"
+              src="/images/gikorawhite1.png"
+              alt="GIKORA"
               width={180}
               height={60}
               priority
