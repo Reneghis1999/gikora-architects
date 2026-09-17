@@ -114,6 +114,8 @@ export default function Navbar() {
               transition-opacity
               duration-300
               hover:opacity-75
+
+              
             "
           >
             <Image
