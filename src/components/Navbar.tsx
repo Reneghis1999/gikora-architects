@@ -24,7 +24,7 @@ export default function Navbar() {
 
   /* =========================================================
      SCROLL
-  ========================================================= */
+  ========================================================== */
 
   useEffect(() => {
     const handleScroll = () => {
@@ -41,8 +41,8 @@ export default function Navbar() {
   }, []);
 
   /* =========================================================
-     BLOQUER LE SCROLL QUAND LE MENU MOBILE EST OUVERT
-  ========================================================= */
+     BLOQUER LE SCROLL QUAND LE MENU EST OUVERT
+  ========================================================== */
 
   useEffect(() => {
     document.body.style.overflow = open ? "hidden" : "";
@@ -54,7 +54,7 @@ export default function Navbar() {
 
   /* =========================================================
      STYLE DES ICONES
-  ========================================================= */
+  ========================================================== */
 
   const iconClass = `
     flex
@@ -80,7 +80,8 @@ export default function Navbar() {
           fixed
           inset-x-0
           top-0
-          z-[100]
+          z-[9999]
+          w-full
           transition-all
           duration-500
           ${
@@ -108,15 +109,64 @@ export default function Navbar() {
 
           <Link
             href="/"
-            className="relative z-[120] transition-opacity duration-300 hover:opacity-75"
+            onClick={() => setOpen(false)}
+            aria-label="GIKORA Architects - Accueil"
+            className="
+              relative
+              z-[10001]
+              flex
+              items-center
+              transition-opacity
+              duration-300
+              hover:opacity-80
+            "
           >
+            {/* Logo blanc — Hero */}
             <Image
               src="/images/gikorawhite1.png"
-              alt="GIKORA"
+              alt="GIKORA Architects"
               width={180}
               height={60}
               priority
-              className="w-[125px] sm:w-[145px] lg:w-[165px]"
+              className={`
+                absolute
+                left-0
+                top-1/2
+                h-auto
+                w-[125px]
+                -translate-y-1/2
+                transition-all
+                duration-500
+                sm:w-[145px]
+                lg:w-[165px]
+                ${
+                  isScrolled
+                    ? "scale-95 opacity-0"
+                    : "scale-100 opacity-100"
+                }
+              `}
+            />
+
+            {/* Logo noir — Scroll */}
+            <Image
+              src="/images/gikoralogo17.png"
+              alt="GIKORA Architects"
+              width={180}
+              height={60}
+              priority
+              className={`
+                h-auto
+                w-[125px]
+                transition-all
+                duration-500
+                sm:w-[145px]
+                lg:w-[165px]
+                ${
+                  isScrolled
+                    ? "scale-100 opacity-100"
+                    : "scale-95 opacity-0"
+                }
+              `}
             />
           </Link>
 
@@ -140,8 +190,20 @@ export default function Navbar() {
                 ${iconClass}
                 ${
                   isScrolled
-                    ? "border-neutral-300 bg-white text-neutral-900 hover:bg-neutral-100"
-                    : "border-white/60 bg-black/10 text-white backdrop-blur-md hover:bg-white hover:text-black"
+                    ? `
+                      border-neutral-300
+                      bg-white
+                      text-neutral-900
+                      hover:bg-neutral-100
+                    `
+                    : `
+                      border-white/60
+                      bg-black/10
+                      text-white
+                      backdrop-blur-md
+                      hover:bg-white
+                      hover:text-black
+                    `
                 }
               `}
             >
@@ -163,8 +225,21 @@ export default function Navbar() {
                 ${iconClass}
                 ${
                   isScrolled
-                    ? "border-neutral-900 bg-neutral-900 text-white hover:bg-white hover:text-black"
-                    : "border-white/60 bg-black/10 text-white backdrop-blur-md hover:bg-white hover:text-black"
+                    ? `
+                      border-neutral-900
+                      bg-neutral-900
+                      text-white
+                      hover:bg-white
+                      hover:text-black
+                    `
+                    : `
+                      border-white/60
+                      bg-black/10
+                      text-white
+                      backdrop-blur-md
+                      hover:bg-white
+                      hover:text-black
+                    `
                 }
               `}
             >
@@ -173,7 +248,6 @@ export default function Navbar() {
                 strokeWidth={1.5}
               />
             </button>
-
           </div>
 
           {/* =================================================
@@ -186,7 +260,7 @@ export default function Navbar() {
             aria-label="Ouvrir le menu"
             className={`
               relative
-              z-[160]
+              z-[10001]
               flex
               h-11
               w-11
@@ -194,11 +268,22 @@ export default function Navbar() {
               justify-center
               rounded-full
               border
+              transition-all
+              duration-300
               lg:hidden
               ${
                 isScrolled
-                  ? "border-neutral-900 text-neutral-900"
-                  : "border-white/70 text-white"
+                  ? `
+                    border-neutral-900
+                    bg-white
+                    text-neutral-900
+                  `
+                  : `
+                    border-white/70
+                    bg-black/10
+                    text-white
+                    backdrop-blur-md
+                  `
               }
             `}
           >
@@ -207,7 +292,6 @@ export default function Navbar() {
               strokeWidth={1.5}
             />
           </button>
-
         </div>
       </header>
 
@@ -220,7 +304,7 @@ export default function Navbar() {
         className={`
           fixed
           inset-0
-          z-[140]
+          z-[10000]
           bg-black/50
           backdrop-blur-sm
           transition-opacity
@@ -241,7 +325,7 @@ export default function Navbar() {
         className={`
           fixed
           inset-0
-          z-[150]
+          z-[10002]
           flex
           flex-col
           bg-[#f7f6f3]
@@ -267,7 +351,7 @@ export default function Navbar() {
             absolute
             right-6
             top-6
-            z-[200]
+            z-[10005]
             flex
             h-12
             w-12
