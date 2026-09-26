@@ -244,7 +244,6 @@ const projects: Project[] = [
     intention:
       "Créer un espace identifiable et rassembleur, où architecture, lumière et expérience collective participent à l'identité du lieu.",
     images: [
-      "/images/projectss/Eglise/4.png",
       "/images/projectss/Eglise/1.png",
       "/images/projectss/Eglise/2.png",
       "/images/projectss/Eglise/3.png",
