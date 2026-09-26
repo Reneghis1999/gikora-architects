@@ -7,6 +7,7 @@ import { ArrowDown, ArrowRight } from "lucide-react";
 
 const images = [
   "/images/1.jpg",
+  "/images/projectss/Complexe Scolaire/2.jpeg",
   "/images/rt_5 - Photo.png",
   "/images/1.jpg",
   "/images/1.png",

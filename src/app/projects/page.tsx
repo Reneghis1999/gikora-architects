@@ -1,9 +1,14 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowLeft, ArrowUpRight, X } from "lucide-react";
+import {
+  ArrowLeft,
+  ArrowUpRight,
+  ArrowRight,
+  X,
+} from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import Lightbox from "yet-another-react-lightbox";
 import "yet-another-react-lightbox/styles.css";
@@ -19,24 +24,29 @@ type Project = {
 
 const projects: Project[] = [
   {
-    title: "DUPLEX AKP",
+    title: "MAISON AKP",
     location: "Lomé, Togo",
-    category: "Architecture résidentielle",
+    category: "Résidence Familiale",
     description:
       "Un projet résidentiel pensé autour d'une architecture contemporaine, de la qualité des espaces et d'une relation équilibrée entre intérieur et extérieur.",
     intention:
       "Le projet cherche à créer un cadre de vie cohérent, fonctionnel et élégant, dans lequel chaque espace trouve naturellement sa place.",
     images: [
       "/images/projectss/Duplex AKP/1.jpg",
-      "/images/projectss/Duplex AKP/2.jpg",
       "/images/projectss/Duplex AKP/3.jpg",
+      "/images/projectss/Duplex AKP/4.jpg",
+      "/images/projectss/Duplex AKP/P1.png",
+      "/images/projectss/Duplex AKP/P2.png",
+      "/images/projectss/Duplex AKP/P3.png",
+      "/images/projectss/Duplex AKP/test1.png",
+      "/images/projectss/Duplex AKP/test2.png",
     ],
   },
 
   {
     title: "F-E APPARTEMENT",
     location: "Lomé, Togo",
-    category: "Architecture résidentielle",
+    category: "Résidence AirBNB",
     description:
       "Un projet d'appartement conçu avec une attention particulière portée aux volumes, aux circulations et à la qualité des espaces de vie.",
     intention:
@@ -44,13 +54,32 @@ const projects: Project[] = [
     images: [
       "/images/projectss/F-E appartement/1.jpg",
       "/images/projectss/F-E appartement/2.jpg",
+      "/images/projectss/F-E appartement/3.jpg",
+      "/images/projectss/F-E appartement/4.jpg",
+      "/images/projectss/F-E appartement/5.jpg",
+      "/images/projectss/F-E appartement/6.jpg",
+      "/images/projectss/F-E appartement/7.jpg",
+    ],
+  },
+  {
+    title: "COMPLEXE SCOLAIRE",
+    location: "Lomé, Togo",
+    category: "Etablissement Scolaire",
+    description:
+      "Un projet pensé autour de l'expérience des espaces, de leur rapport à la lumière et de la relation entre architecture et environnement.",
+    intention:
+      "Développer une architecture accueillante et contemporaine capable de créer une expérience cohérente pour ses utilisateurs.",
+    images: [
+      "/images/projectss/Complexe Scolaire/1.jpeg",
+      "/images/projectss/Complexe Scolaire/2.jpeg",
+      "/images/projectss/Complexe Scolaire/3.jpeg",
     ],
   },
 
   {
     title: "HM RESORT",
     location: "Lomé, Togo",
-    category: "Hospitalité",
+    category: "Equipement touristique",
     description:
       "Un projet pensé autour de l'expérience des espaces, de leur rapport à la lumière et de la relation entre architecture et environnement.",
     intention:
@@ -58,12 +87,16 @@ const projects: Project[] = [
     images: [
       "/images/projectss/HM Resort/b3.png",
       "/images/projectss/HM Resort/e4.png",
+      "/images/projectss/HM Resort/be2.png",
+      "/images/projectss/HM Resort/r1.png",
+      "/images/projectss/HM Resort/restau.png",
+      "/images/projectss/HM Resort/e1.png",
     ],
   },
 
   {
     title: "MECPIP",
-    category: "Architecture",
+    category: "Immeuble de Bureau",
     description:
       "Un projet architectural développé autour d'une écriture contemporaine et d'une organisation claire des espaces.",
     intention:
@@ -77,21 +110,22 @@ const projects: Project[] = [
 
   {
     title: "VILLA KPL",
-    category: "Architecture résidentielle",
+    category: "Résidence Familiale",
     description:
       "Une villa contemporaine conçue autour de volumes affirmés et d'une recherche de simplicité dans les lignes architecturales.",
     intention:
       "Créer une résidence à la fois expressive et fonctionnelle, pensée pour accompagner les usages quotidiens.",
     images: [
-      "/images/projectss/Villa KPL/t2_3 - Photo.png",
+     
       "/images/projectss/Villa KPL/test 1_7 - Photo.png",
+      "/images/projectss/Villa KPL/t2_3 - Photo.png",
     ],
   },
 
   {
     title: "VILLA OASIS",
     location: "Lomé, Togo",
-    category: "Architecture résidentielle",
+    category: "Résidence Familiale",
     description:
       "Une résidence conçue autour d'une architecture contemporaine et d'une attention particulière portée aux espaces de vie.",
     intention:
@@ -99,17 +133,6 @@ const projects: Project[] = [
     images: [
       "/images/projectss/Villa OASIS/1.png",
       "/images/projectss/Villa OASIS/22.png",
-    ],
-  },
-
-  {
-    title: "Villa OASIS",
-    category: "Aménagement intérieur",
-    description:
-      "Une réflexion complète sur les espaces intérieurs de la Villa Oasis, depuis les pièces de vie jusqu'aux espaces privés.",
-    intention:
-      "Créer une continuité esthétique entre les différents espaces tout en donnant à chaque pièce sa propre identité.",
-    images: [
       "/images/projectss/Villa OASIS ( A I)/bureau.jpg",
       "/images/projectss/Villa OASIS ( A I)/CHBR1.jpg",
       "/images/projectss/Villa OASIS ( A I)/CHBR2.jpg",
@@ -124,9 +147,10 @@ const projects: Project[] = [
     ],
   },
 
+
   {
     title: "Immeuble ETN",
-    category: "Architecture",
+    category: "Résidence Multifamiliale",
     description:
       "Un projet immobilier développé autour d'une composition architecturale contemporaine et d'une organisation fonctionnelle des volumes.",
     intention:
@@ -141,7 +165,7 @@ const projects: Project[] = [
 
   {
     title: "Immeuble ATG",
-    category: "Architecture",
+    category: "Immeuble mixte Commerce Appartement",
     description:
       "Un projet architectural marqué par une composition contemporaine et une attention portée aux proportions du bâtiment.",
     intention:
@@ -155,7 +179,7 @@ const projects: Project[] = [
 
   {
     title: "Projet SEDO",
-    category: "Architecture",
+    category: "Résidence Familiale",
     description:
       "Un projet développé autour d'une recherche sur les volumes, les façades et les relations entre les différents espaces.",
     intention:
@@ -185,7 +209,7 @@ const projects: Project[] = [
 
   {
     title: "Immeuble SRJ",
-    category: "Architecture",
+    category: "Immeuble Mixte Commerce Appartement",
     description:
       "Un projet immobilier pensé autour d'une composition sobre et contemporaine.",
     intention:
@@ -199,7 +223,7 @@ const projects: Project[] = [
 
   {
     title: "Projet ABT",
-    category: "Architecture",
+    category: "Résidence Familiale",
     description:
       "Un projet développé autour d'une recherche volumétrique et d'une écriture architecturale contemporaine.",
     intention:
@@ -213,13 +237,17 @@ const projects: Project[] = [
   },
 
   {
-    title: "Projet EGLISE",
-    category: "Architecture religieuse",
+    title: "EGLISE LA COLONNE",
+    category: "Bàtiment Cultuel",
     description:
       "Un projet architectural consacré à la conception d'un espace destiné à accueillir une communauté et différents usages collectifs.",
     intention:
       "Créer un espace identifiable et rassembleur, où architecture, lumière et expérience collective participent à l'identité du lieu.",
     images: [
+      "/images/projectss/Eglise/4.png",
+      "/images/projectss/Eglise/1.png",
+      "/images/projectss/Eglise/2.png",
+      "/images/projectss/Eglise/3.png",
       "/images/projectss/Eglise/audi1.jpg",
       "/images/projectss/Eglise/4.jpg",
       "/images/projectss/Eglise/audi2.jpg",
@@ -229,12 +257,13 @@ const projects: Project[] = [
       "/images/projectss/Eglise/gs2.jpg",
       "/images/projectss/Eglise/gs3.jpg",
       "/images/projectss/Eglise/gs4.jpg",
+     
     ],
   },
 
   {
     title: "Projet FA",
-    category: "Architecture",
+    category: "Résidence Triplex Familiale",
     description:
       "Un projet architectural explorant une composition contemporaine et une organisation claire des espaces.",
     intention:
@@ -248,17 +277,28 @@ const projects: Project[] = [
 ];
 
 export default function ProjectsPage() {
-  const [selectedProject, setSelectedProject] = useState<Project | null>(null);
+  const [selectedProject, setSelectedProject] =
+    useState<Project | null>(null);
+
   const [lightboxOpen, setLightboxOpen] = useState(false);
+
   const [selectedImages, setSelectedImages] = useState<string[]>([]);
+
+  /* Index du Lightbox */
   const [index, setIndex] = useState(0);
+
+  /* Index du slider principal */
+  const [projectImageIndex, setProjectImageIndex] = useState(0);
 
   const openProject = (project: Project) => {
     setSelectedProject(project);
-    setIndex(0);
+    setProjectImageIndex(0);
   };
 
-  const openLightbox = (images: string[], startIndex = 0) => {
+  const openLightbox = (
+    images: string[],
+    startIndex = 0
+  ) => {
     setSelectedImages(images);
     setIndex(startIndex);
     setLightboxOpen(true);
@@ -266,10 +306,60 @@ export default function ProjectsPage() {
 
   const closeProject = () => {
     setSelectedProject(null);
+    setProjectImageIndex(0);
   };
+
+  /* =========================================================
+     SLIDER — IMAGE SUIVANTE
+  ========================================================== */
+
+  const nextProjectImage = () => {
+    if (!selectedProject) return;
+
+    setProjectImageIndex((current) =>
+      current === selectedProject.images.length - 1
+        ? 0
+        : current + 1
+    );
+  };
+
+  /* =========================================================
+     SLIDER — IMAGE PRECEDENTE
+  ========================================================== */
+
+  const previousProjectImage = () => {
+    if (!selectedProject) return;
+
+    setProjectImageIndex((current) =>
+      current === 0
+        ? selectedProject.images.length - 1
+        : current - 1
+    );
+  };
+
+  /* =========================================================
+     AUTO SLIDE
+  ========================================================== */
+
+  useEffect(() => {
+    if (!selectedProject) return;
+
+    if (selectedProject.images.length <= 1) return;
+
+    const interval = setInterval(() => {
+      setProjectImageIndex((current) =>
+        current === selectedProject.images.length - 1
+          ? 0
+          : current + 1
+      );
+    }, 5000);
+
+    return () => clearInterval(interval);
+  }, [selectedProject]);
 
   return (
     <main className="min-h-screen bg-[#faf9f7] text-neutral-900">
+
       {/* =========================================================
           BACK
       ========================================================= */}
@@ -297,6 +387,7 @@ export default function ProjectsPage() {
 
       <section className="mx-auto max-w-7xl px-6 pb-24 pt-36 lg:px-20 lg:pb-32 lg:pt-44">
         <div className="grid gap-12 lg:grid-cols-[1.2fr_0.8fr] lg:items-end">
+
           <div>
             <div className="mb-8 flex items-center gap-4">
               <span className="h-px w-12 bg-[#5A3E2B]" />
@@ -309,6 +400,7 @@ export default function ProjectsPage() {
             <h1 className="max-w-4xl text-5xl font-light leading-[1.03] tracking-[-0.04em] text-black md:text-6xl lg:text-8xl">
               Des espaces
               <br />
+
               <span className="text-neutral-400">
                 pensés pour durer.
               </span>
@@ -355,12 +447,22 @@ export default function ProjectsPage() {
 
       <section className="mx-auto max-w-7xl px-6 pb-32 lg:px-20">
         <div className="grid grid-cols-1 gap-x-8 gap-y-16 md:grid-cols-2 lg:grid-cols-3">
+
           {projects.map((project, i) => (
             <motion.article
               key={project.title}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-80px" }}
+              initial={{
+                opacity: 0,
+                y: 30,
+              }}
+              whileInView={{
+                opacity: 1,
+                y: 0,
+              }}
+              viewport={{
+                once: true,
+                margin: "-80px",
+              }}
               transition={{
                 duration: 0.7,
                 delay: (i % 3) * 0.08,
@@ -403,6 +505,7 @@ export default function ProjectsPage() {
 
               <div className="border-b border-neutral-200 pb-5 pt-5">
                 <div className="flex items-start justify-between gap-5">
+
                   <div>
                     {project.location && (
                       <p className="mb-2 text-[9px] uppercase tracking-[0.25em] text-[#5A3E2B]">
@@ -424,6 +527,7 @@ export default function ProjectsPage() {
                   <span className="pt-1 text-[9px] tracking-[0.15em] text-neutral-300">
                     {String(i + 1).padStart(2, "0")}
                   </span>
+
                 </div>
 
                 <div className="mt-4 flex items-center gap-2 text-[9px] uppercase tracking-[0.2em] text-neutral-400 transition-colors duration-300 group-hover:text-black">
@@ -438,6 +542,7 @@ export default function ProjectsPage() {
               </div>
             </motion.article>
           ))}
+
         </div>
       </section>
 
@@ -447,7 +552,9 @@ export default function ProjectsPage() {
 
       <section className="border-t border-neutral-200 bg-white">
         <div className="mx-auto max-w-7xl px-6 py-20 lg:px-20 lg:py-28">
+
           <div className="grid gap-10 lg:grid-cols-[0.7fr_1.3fr] lg:items-end">
+
             <div>
               <p className="text-[10px] uppercase tracking-[0.3em] text-[#5A3E2B]">
                 GIKORA Architects
@@ -459,6 +566,7 @@ export default function ProjectsPage() {
             <div>
               <h2 className="max-w-4xl text-3xl font-light leading-tight tracking-[-0.03em] text-black md:text-4xl lg:text-5xl">
                 Chaque projet commence par une idée,
+
                 <span className="text-neutral-400">
                   {" "}
                   puis prend forme.
@@ -478,6 +586,7 @@ export default function ProjectsPage() {
                 />
               </Link>
             </div>
+
           </div>
         </div>
       </section>
@@ -489,34 +598,63 @@ export default function ProjectsPage() {
       <AnimatePresence>
         {selectedProject && (
           <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.4 }}
+            initial={{
+              opacity: 0,
+            }}
+            animate={{
+              opacity: 1,
+            }}
+            exit={{
+              opacity: 0,
+            }}
+            transition={{
+              duration: 0.4,
+            }}
             className="fixed inset-0 z-[200] overflow-y-auto bg-[#faf9f7]"
           >
-            {/* CLOSE */}
+
+            {/* =================================================
+                CLOSE
+            ================================================== */}
 
             <button
               onClick={closeProject}
               aria-label="Fermer le projet"
               className="fixed right-5 top-5 z-[220] flex h-11 w-11 items-center justify-center border border-neutral-300 bg-[#faf9f7] transition-all duration-300 hover:border-black hover:bg-black hover:text-white sm:right-8 sm:top-8"
             >
-              <X size={20} strokeWidth={1.2} />
+              <X
+                size={20}
+                strokeWidth={1.2}
+              />
             </button>
 
-            {/* CASE STUDY */}
+            {/* =================================================
+                CASE STUDY CONTENT
+            ================================================== */}
 
             <div className="mx-auto max-w-7xl px-6 pb-24 pt-28 sm:px-10 md:pt-36 lg:px-20">
-              {/* HEADER */}
+
+              {/* =================================================
+                  HEADER
+              ================================================== */}
 
               <motion.div
-                initial={{ opacity: 0, y: 25 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6 }}
+                initial={{
+                  opacity: 0,
+                  y: 25,
+                }}
+                animate={{
+                  opacity: 1,
+                  y: 0,
+                }}
+                transition={{
+                  duration: 0.6,
+                }}
                 className="grid gap-12 lg:grid-cols-[1.3fr_0.7fr]"
               >
+
                 <div>
+
                   <div className="mb-7 flex items-center gap-4">
                     <span className="h-px w-10 bg-[#5A3E2B]" />
 
@@ -530,6 +668,7 @@ export default function ProjectsPage() {
                   </h1>
 
                   <div className="mt-8 flex flex-wrap items-center gap-4">
+
                     {selectedProject.location && (
                       <>
                         <span className="text-[10px] uppercase tracking-[0.25em] text-neutral-500">
@@ -543,7 +682,9 @@ export default function ProjectsPage() {
                     <span className="text-[10px] uppercase tracking-[0.25em] text-neutral-400">
                       {selectedProject.category || "Architecture"}
                     </span>
+
                   </div>
+
                 </div>
 
                 <div className="lg:pt-16">
@@ -551,55 +692,271 @@ export default function ProjectsPage() {
                     {selectedProject.description}
                   </p>
                 </div>
+
               </motion.div>
 
-              {/* MAIN IMAGE */}
+              {/* =================================================
+                  MAIN IMAGE SLIDER
+              ================================================== */}
 
               <motion.div
-                initial={{ opacity: 0, y: 35 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: 0.15 }}
-                className="relative mt-16 aspect-[16/9] w-full overflow-hidden bg-neutral-200 md:mt-24"
+                initial={{
+                  opacity: 0,
+                  y: 35,
+                }}
+                animate={{
+                  opacity: 1,
+                  y: 0,
+                }}
+                transition={{
+                  duration: 0.8,
+                  delay: 0.15,
+                }}
+                className="relative mt-16 w-full overflow-hidden bg-neutral-200 md:mt-24"
               >
-                <button
-                  onClick={() =>
-                    openLightbox(selectedProject.images, 0)
-                  }
-                  className="group absolute inset-0 z-10"
-                  aria-label={`Voir ${selectedProject.title} en plein écran`}
-                >
-                  <Image
-                    src={selectedProject.images[0]}
-                    alt={selectedProject.title}
-                    fill
-                    priority
-                    sizes="100vw"
-                    className="object-cover transition-transform duration-1000 group-hover:scale-[1.025]"
-                  />
 
-                  <div className="absolute inset-0 bg-black/0 transition-colors duration-500 group-hover:bg-black/20" />
+                {/* IMAGE */}
 
-                  <div className="absolute bottom-6 right-6 flex items-center gap-3 bg-white px-5 py-3 opacity-0 transition-all duration-500 group-hover:opacity-100">
-                    <span className="text-[9px] uppercase tracking-[0.2em]">
-                      Agrandir
+                <div className="relative aspect-[16/9] w-full overflow-hidden">
+
+                  <AnimatePresence mode="wait">
+                    <motion.div
+                      key={projectImageIndex}
+                      initial={{
+                        opacity: 0,
+                        x: 40,
+                      }}
+                      animate={{
+                        opacity: 1,
+                        x: 0,
+                      }}
+                      exit={{
+                        opacity: 0,
+                        x: -40,
+                      }}
+                      transition={{
+                        duration: 0.55,
+                        ease: [0.22, 1, 0.36, 1],
+                      }}
+                      className="absolute inset-0"
+                    >
+                      <button
+                        onClick={() =>
+                          openLightbox(
+                            selectedProject.images,
+                            projectImageIndex
+                          )
+                        }
+                        className="group absolute inset-0 h-full w-full"
+                        aria-label={`Voir ${
+                          selectedProject.title
+                        } en plein écran`}
+                      >
+
+                        <Image
+                          src={
+                            selectedProject.images[
+                              projectImageIndex
+                            ]
+                          }
+                          alt={`${selectedProject.title} — vue ${
+                            projectImageIndex + 1
+                          }`}
+                          fill
+                          priority
+                          sizes="100vw"
+                          className="object-cover transition-transform duration-1000 group-hover:scale-[1.025]"
+                        />
+
+                        <div className="absolute inset-0 bg-black/0 transition-colors duration-500 group-hover:bg-black/20" />
+
+                        {/* AGRANDIR */}
+
+                        <div className="absolute bottom-6 right-6 hidden items-center gap-3 bg-white px-5 py-3 opacity-0 transition-all duration-500 group-hover:opacity-100 sm:flex">
+                          <span className="text-[9px] uppercase tracking-[0.2em]">
+                            Agrandir
+                          </span>
+
+                          <ArrowUpRight
+                            size={14}
+                            strokeWidth={1.3}
+                          />
+                        </div>
+
+                      </button>
+                    </motion.div>
+                  </AnimatePresence>
+
+                  {/* =================================================
+                      LEFT ARROW
+                  ================================================== */}
+
+                  {selectedProject.images.length > 1 && (
+                    <button
+                      type="button"
+                      onClick={(event) => {
+                        event.stopPropagation();
+                        previousProjectImage();
+                      }}
+                      aria-label="Image précédente"
+                      className="
+                        absolute
+                        left-4
+                        top-1/2
+                        z-20
+                        flex
+                        h-11
+                        w-11
+                        -translate-y-1/2
+                        items-center
+                        justify-center
+                        rounded-full
+                        border
+                        border-white/30
+                        bg-black/20
+                        text-white
+                        backdrop-blur-md
+                        transition-all
+                        duration-300
+                        hover:bg-white
+                        hover:text-black
+                        sm:left-6
+                        sm:h-12
+                        sm:w-12
+                      "
+                    >
+                      <ArrowLeft
+                        size={18}
+                        strokeWidth={1.2}
+                      />
+                    </button>
+                  )}
+
+                  {/* =================================================
+                      RIGHT ARROW
+                  ================================================== */}
+
+                  {selectedProject.images.length > 1 && (
+                    <button
+                      type="button"
+                      onClick={(event) => {
+                        event.stopPropagation();
+                        nextProjectImage();
+                      }}
+                      aria-label="Image suivante"
+                      className="
+                        absolute
+                        right-4
+                        top-1/2
+                        z-20
+                        flex
+                        h-11
+                        w-11
+                        -translate-y-1/2
+                        items-center
+                        justify-center
+                        rounded-full
+                        border
+                        border-white/30
+                        bg-black/20
+                        text-white
+                        backdrop-blur-md
+                        transition-all
+                        duration-300
+                        hover:bg-white
+                        hover:text-black
+                        sm:right-6
+                        sm:h-12
+                        sm:w-12
+                      "
+                    >
+                      <ArrowRight
+                        size={18}
+                        strokeWidth={1.2}
+                      />
+                    </button>
+                  )}
+
+                  {/* =================================================
+                      COUNTER
+                  ================================================== */}
+
+                  <div className="absolute bottom-5 left-5 z-20 flex items-center gap-3 bg-black/30 px-4 py-2.5 text-white backdrop-blur-md">
+                    <span className="text-[10px] tracking-[0.2em]">
+                      {String(projectImageIndex + 1).padStart(
+                        2,
+                        "0"
+                      )}
                     </span>
 
-                    <ArrowUpRight
-                      size={14}
-                      strokeWidth={1.3}
-                    />
+                    <span className="h-px w-5 bg-white/50" />
+
+                    <span className="text-[10px] tracking-[0.2em] text-white/60">
+                      {String(
+                        selectedProject.images.length
+                      ).padStart(2, "0")}
+                    </span>
                   </div>
-                </button>
+
+                </div>
+
+                {/* =================================================
+                    SLIDER INDICATORS
+                ================================================== */}
+
+                {selectedProject.images.length > 1 && (
+                  <div className="absolute bottom-5 right-5 z-20 flex items-center gap-1.5 sm:right-6">
+
+                    {selectedProject.images.map(
+                      (_, imageIndex) => (
+                        <button
+                          key={imageIndex}
+                          type="button"
+                          onClick={(event) => {
+                            event.stopPropagation();
+                            setProjectImageIndex(
+                              imageIndex
+                            );
+                          }}
+                          aria-label={`Afficher la vue ${
+                            imageIndex + 1
+                          }`}
+                          className="flex h-5 items-center justify-center"
+                        >
+                          <span
+                            className={`
+                              block
+                              h-[2px]
+                              transition-all
+                              duration-500
+                              ${
+                                projectImageIndex ===
+                                imageIndex
+                                  ? "w-8 bg-white"
+                                  : "w-4 bg-white/40 hover:bg-white/70"
+                              }
+                            `}
+                          />
+                        </button>
+                      )
+                    )}
+
+                  </div>
+                )}
+
               </motion.div>
 
-              {/* PROJECT INFORMATION */}
+              {/* =================================================
+                  PROJECT INFORMATION
+              ================================================== */}
 
               <section className="border-t border-neutral-200 py-20 md:py-28">
+
                 <div className="grid gap-14 lg:grid-cols-[0.6fr_1.4fr]">
-                  {/* LABEL */}
 
                   <div>
                     <div className="flex items-center gap-4">
+
                       <span className="text-[10px] uppercase tracking-[0.3em] text-neutral-400">
                         01
                       </span>
@@ -609,12 +966,12 @@ export default function ProjectsPage() {
                       <span className="text-[10px] uppercase tracking-[0.3em] text-neutral-400">
                         Le projet
                       </span>
+
                     </div>
                   </div>
 
-                  {/* CONTENT */}
-
                   <div className="max-w-3xl">
+
                     <h2 className="text-3xl font-light leading-tight md:text-4xl">
                       Une architecture pensée dans son contexte.
                     </h2>
@@ -622,16 +979,24 @@ export default function ProjectsPage() {
                     <p className="mt-7 text-sm leading-8 text-neutral-500 md:text-base">
                       {selectedProject.description}
                     </p>
+
                   </div>
+
                 </div>
+
               </section>
 
-              {/* INTENTION */}
+              {/* =================================================
+                  INTENTION
+              ================================================== */}
 
               <section className="border-t border-neutral-200 py-20 md:py-28">
+
                 <div className="grid gap-14 lg:grid-cols-[0.6fr_1.4fr]">
+
                   <div>
                     <div className="flex items-center gap-4">
+
                       <span className="text-[10px] uppercase tracking-[0.3em] text-neutral-400">
                         02
                       </span>
@@ -641,23 +1006,33 @@ export default function ProjectsPage() {
                       <span className="text-[10px] uppercase tracking-[0.3em] text-neutral-400">
                         Intention
                       </span>
+
                     </div>
                   </div>
 
                   <div className="max-w-3xl">
+
                     <p className="text-2xl font-light leading-relaxed md:text-4xl">
                       {selectedProject.intention}
                     </p>
+
                   </div>
+
                 </div>
+
               </section>
 
-              {/* KEY INFORMATION */}
+              {/* =================================================
+                  KEY INFORMATION
+              ================================================== */}
 
               <section className="border-t border-neutral-200 py-20 md:py-28">
+
                 <div className="grid gap-14 lg:grid-cols-[0.6fr_1.4fr]">
+
                   <div>
                     <div className="flex items-center gap-4">
+
                       <span className="text-[10px] uppercase tracking-[0.3em] text-neutral-400">
                         03
                       </span>
@@ -667,17 +1042,20 @@ export default function ProjectsPage() {
                       <span className="text-[10px] uppercase tracking-[0.3em] text-neutral-400">
                         Informations
                       </span>
+
                     </div>
                   </div>
 
                   <div className="grid grid-cols-2 border-t border-neutral-200 sm:grid-cols-3">
+
                     <div className="border-b border-r border-neutral-200 py-6 pr-5">
                       <p className="text-[9px] uppercase tracking-[0.2em] text-neutral-400">
                         Typologie
                       </p>
 
                       <p className="mt-3 text-sm">
-                        {selectedProject.category || "Architecture"}
+                        {selectedProject.category ||
+                          "Architecture"}
                       </p>
                     </div>
 
@@ -700,16 +1078,24 @@ export default function ProjectsPage() {
                         {selectedProject.images.length} vues
                       </p>
                     </div>
+
                   </div>
                 </div>
+
               </section>
 
-              {/* GALLERY */}
+              {/* =================================================
+                  GALLERY
+              ================================================== */}
 
               <section className="border-t border-neutral-200 py-20 md:py-28">
+
                 <div className="mb-12 flex items-end justify-between">
+
                   <div>
+
                     <div className="mb-5 flex items-center gap-4">
+
                       <span className="text-[10px] uppercase tracking-[0.3em] text-neutral-400">
                         04
                       </span>
@@ -719,77 +1105,104 @@ export default function ProjectsPage() {
                       <span className="text-[10px] uppercase tracking-[0.3em] text-neutral-400">
                         Galerie
                       </span>
+
                     </div>
 
                     <h2 className="text-3xl font-light md:text-5xl">
                       Explorer le projet.
                     </h2>
+
                   </div>
 
                   <span className="hidden text-[9px] uppercase tracking-[0.2em] text-neutral-400 sm:block">
                     Cliquez sur une image
                   </span>
+
                 </div>
 
                 <div className="grid gap-5 md:grid-cols-2">
-                  {selectedProject.images.map((image, imageIndex) => (
-                    <motion.button
-                      key={image}
-                      initial={{ opacity: 0, y: 20 }}
-                      whileInView={{ opacity: 1, y: 0 }}
-                      viewport={{ once: true }}
-                      transition={{
-                        duration: 0.6,
-                        delay: imageIndex * 0.05,
-                      }}
-                      onClick={() =>
-                        openLightbox(
-                          selectedProject.images,
-                          imageIndex
-                        )
-                      }
-                      className={`group relative overflow-hidden bg-neutral-200 text-left ${
-                        imageIndex === 0
-                          ? "md:col-span-2 aspect-[16/9]"
-                          : "aspect-[4/3]"
-                      }`}
-                    >
-                      <Image
-                        src={image}
-                        alt={`${selectedProject.title} — vue ${
-                          imageIndex + 1
-                        }`}
-                        fill
-                        sizes={
-                          imageIndex === 0
-                            ? "100vw"
-                            : "(max-width: 768px) 100vw, 50vw"
+
+                  {selectedProject.images.map(
+                    (image, imageIndex) => (
+                      <motion.button
+                        key={image}
+                        initial={{
+                          opacity: 0,
+                          y: 20,
+                        }}
+                        whileInView={{
+                          opacity: 1,
+                          y: 0,
+                        }}
+                        viewport={{
+                          once: true,
+                        }}
+                        transition={{
+                          duration: 0.6,
+                          delay: imageIndex * 0.05,
+                        }}
+                        onClick={() =>
+                          openLightbox(
+                            selectedProject.images,
+                            imageIndex
+                          )
                         }
-                        className="object-cover transition-transform duration-1000 group-hover:scale-[1.035]"
-                      />
+                        className={`group relative overflow-hidden bg-neutral-200 text-left ${
+                          imageIndex === 0
+                            ? "md:col-span-2 aspect-[16/9]"
+                            : "aspect-[4/3]"
+                        }`}
+                      >
 
-                      <div className="absolute inset-0 bg-black/0 transition-colors duration-500 group-hover:bg-black/20" />
-
-                      <div className="absolute bottom-5 left-5 flex items-center gap-3 bg-white px-4 py-3 opacity-0 transition-all duration-500 group-hover:opacity-100">
-                        <span className="text-[9px] uppercase tracking-[0.2em]">
-                          0{imageIndex + 1}
-                        </span>
-
-                        <ArrowUpRight
-                          size={13}
-                          strokeWidth={1.3}
+                        <Image
+                          src={image}
+                          alt={`${selectedProject.title} — vue ${
+                            imageIndex + 1
+                          }`}
+                          fill
+                          sizes={
+                            imageIndex === 0
+                              ? "100vw"
+                              : "(max-width: 768px) 100vw, 50vw"
+                          }
+                          className="object-cover transition-transform duration-1000 group-hover:scale-[1.035]"
                         />
-                      </div>
-                    </motion.button>
-                  ))}
+
+                        <div className="absolute inset-0 bg-black/0 transition-colors duration-500 group-hover:bg-black/20" />
+
+                        <div className="absolute bottom-5 left-5 flex items-center gap-3 bg-white px-4 py-3 opacity-0 transition-all duration-500 group-hover:opacity-100">
+
+                          <span className="text-[9px] uppercase tracking-[0.2em]">
+                            {String(
+                              imageIndex + 1
+                            ).padStart(2, "0")}
+                          </span>
+
+                          <ArrowUpRight
+                            size={13}
+                            strokeWidth={1.3}
+                          />
+
+                        </div>
+
+                      </motion.button>
+                    )
+                  )}
+
                 </div>
+
               </section>
 
-              {/* PROJECT FOOTER */}
+              {/* =================================================
+                  PROJECT FOOTER
+              ================================================== */}
 
               <section className="border-t border-neutral-200 py-20 md:py-28">
+
                 <div className="flex flex-col gap-10 sm:flex-row sm:items-end sm:justify-between">
+
                   <div>
+
                     <p className="text-[9px] uppercase tracking-[0.3em] text-neutral-400">
                       Projet suivant
                     </p>
@@ -797,9 +1210,11 @@ export default function ProjectsPage() {
                     <h2 className="mt-4 text-3xl font-light md:text-5xl">
                       Continuer à explorer.
                     </h2>
+
                   </div>
 
                   <div className="flex flex-wrap gap-4">
+
                     <button
                       onClick={closeProject}
                       className="group flex items-center gap-3 border border-neutral-300 px-6 py-4 text-[9px] uppercase tracking-[0.22em] transition-all duration-300 hover:border-black hover:bg-black hover:text-white"
@@ -826,9 +1241,13 @@ export default function ProjectsPage() {
                         className="transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1"
                       />
                     </Link>
+
                   </div>
+
                 </div>
+
               </section>
+
             </div>
           </motion.div>
         )}
@@ -851,6 +1270,7 @@ export default function ProjectsPage() {
           },
         }}
       />
+
     </main>
   );
 }
