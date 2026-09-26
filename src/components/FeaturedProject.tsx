@@ -8,12 +8,13 @@ import { Button } from "@/components/ui/button";
 
 const projects = [
   {
-    title: "Villa Contemporaine",
-    category: "Résidentiel",
+    title: "Complexe Scolaire",
+    category: "Etablissement Scolaire",
     location: "Lomé",
-    image: "/projects/projet1.jpg",
+    image:  "/images/projectss/Complexe Scolaire/2.jpeg",
     featured: true,
   },
+
   {
     title: "Résidence Moderne",
     category: "Architecture",
