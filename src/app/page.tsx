@@ -1,5 +1,4 @@
 import Hero from "@/components/Hero";
-import StatsSection from "@/components/Statsection";
 import Aboutsection from "@/components/Aboutsection";
 import FeaturedProjects from "@/components/FeaturedProject";
 import Services from "@/components/Services";
@@ -29,7 +28,6 @@ export default function Home() {
       />
 
       <Hero />
-      <StatsSection />
       <Aboutsection />
       <FeaturedProjects />
       <Services />

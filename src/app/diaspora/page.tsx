@@ -99,10 +99,11 @@ export default function DiasporaPage() {
           HERO
       ====================================================== */}
 
-      <section className="pt-[92px] sm:pt-[100px]">
+      <section className="pt-3 sm:pt-5">
         <Container>
-          <div className="grid gap-3 lg:grid-cols-[1.2fr_0.8fr]">
-            <div className="rounded-[2rem] bg-deep px-6 py-12 text-white sm:px-10 sm:py-16 lg:px-14 lg:py-20">
+          {/* Le menu (fixe) vient se poser en haut de ce bloc */}
+          <div className="grid gap-10 rounded-[2rem] bg-deep px-6 pb-8 pt-28 text-white sm:px-10 sm:pb-10 sm:pt-40 lg:grid-cols-[1.25fr_0.75fr] lg:items-end lg:px-14 lg:pb-14 lg:pt-44">
+            <div>
               <Badge tone="outline-light">Espace Diaspora</Badge>
 
               <h1 className="mt-7 max-w-3xl text-[2.6rem] leading-[1] tracking-[-0.04em] sm:text-6xl lg:text-[4.6rem]">
@@ -126,18 +127,18 @@ export default function DiasporaPage() {
               </div>
             </div>
 
-            <div className="grid gap-3">
+            <ul className="grid gap-2">
               {[
                 { value: "À distance", label: "Échanges en visioconférence ou sur WhatsApp, sans vous déplacer" },
                 { value: "Photos & vidéos", label: "Rapports réguliers sur l’avancement de votre chantier" },
                 { value: "Transparence", label: "Dépenses et justificatifs communiqués à chaque étape" },
               ].map((item) => (
-                <div key={item.value} className="flex flex-col justify-center rounded-[2rem] bg-white px-7 py-7">
-                  <p className="text-3xl tracking-[-0.03em] text-ink">{item.value}</p>
-                  <p className="mt-2 text-[15px] leading-6 text-taupe">{item.label}</p>
-                </div>
+                <li key={item.value} className="rounded-[1.5rem] bg-white/[0.06] px-6 py-5 ring-1 ring-inset ring-white/10">
+                  <p className="text-2xl tracking-[-0.03em]">{item.value}</p>
+                  <p className="mt-1.5 text-[14px] leading-6 text-white/60">{item.label}</p>
+                </li>
               ))}
-            </div>
+            </ul>
           </div>
         </Container>
       </section>

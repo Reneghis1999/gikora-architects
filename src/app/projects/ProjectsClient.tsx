@@ -25,9 +25,9 @@ type Project = {
 
 const projects: Project[] = [
   {
-    title: "MAISON AKP",
+    title: "Maison AKP",
     location: "Lomé, Togo",
-    category: "Résidence Familiale",
+    category: "Résidence familiale",
     description:
       "Un projet résidentiel pensé autour d'une architecture contemporaine, de la qualité des espaces et d'une relation équilibrée entre intérieur et extérieur.",
     intention:
@@ -45,9 +45,9 @@ const projects: Project[] = [
   },
 
   {
-    title: "F-E APPARTEMENT",
+    title: "F-E Appartement",
     location: "Lomé, Togo",
-    category: "Résidence AirBNB",
+    category: "Résidence Airbnb",
     description:
       "Un projet d'appartement conçu avec une attention particulière portée aux volumes, aux circulations et à la qualité des espaces de vie.",
     intention:
@@ -63,7 +63,7 @@ const projects: Project[] = [
     ],
   },
   {
-    title: "COMPLEXE SCOLAIRE",
+    title: "Complexe scolaire",
     location: "Lomé, Togo",
     category: "Établissement scolaire",
     description:
@@ -78,7 +78,7 @@ const projects: Project[] = [
   },
 
   {
-    title: "HM RESORT",
+    title: "HM Resort",
     location: "Lomé, Togo",
     category: "Équipement touristique",
     description:
@@ -97,7 +97,7 @@ const projects: Project[] = [
 
   {
     title: "MECPIP",
-    category: "Immeuble de Bureau",
+    category: "Immeuble de bureaux",
     description:
       "Un projet architectural développé autour d'une écriture contemporaine et d'une organisation claire des espaces.",
     intention:
@@ -110,8 +110,8 @@ const projects: Project[] = [
   },
 
   {
-    title: "VILLA KPL",
-    category: "Résidence Familiale",
+    title: "Villa KPL",
+    category: "Résidence familiale",
     description:
       "Une villa contemporaine conçue autour de volumes affirmés et d'une recherche de simplicité dans les lignes architecturales.",
     intention:
@@ -124,9 +124,9 @@ const projects: Project[] = [
   },
 
   {
-    title: "VILLA OASIS",
+    title: "Villa Oasis",
     location: "Lomé, Togo",
-    category: "Résidence Familiale",
+    category: "Résidence familiale",
     description:
       "Une résidence conçue autour d'une architecture contemporaine et d'une attention particulière portée aux espaces de vie.",
     intention:
@@ -151,7 +151,7 @@ const projects: Project[] = [
 
   {
     title: "Immeuble ETN",
-    category: "Résidence Multifamiliale",
+    category: "Résidence multifamiliale",
     description:
       "Un projet immobilier développé autour d'une composition architecturale contemporaine et d'une organisation fonctionnelle des volumes.",
     intention:
@@ -166,7 +166,7 @@ const projects: Project[] = [
 
   {
     title: "Immeuble ATG",
-    category: "Immeuble mixte Commerce Appartement",
+    category: "Immeuble mixte commerces et appartements",
     description:
       "Un projet architectural marqué par une composition contemporaine et une attention portée aux proportions du bâtiment.",
     intention:
@@ -180,7 +180,7 @@ const projects: Project[] = [
 
   {
     title: "Projet SEDO",
-    category: "Résidence Familiale",
+    category: "Résidence familiale",
     description:
       "Un projet développé autour d'une recherche sur les volumes, les façades et les relations entre les différents espaces.",
     intention:
@@ -194,7 +194,7 @@ const projects: Project[] = [
   },
 
   {
-    title: "ELIKE INDUSTRY",
+    title: "Elike Industry",
     category: "Aménagement intérieur",
     description:
       "Un projet d'aménagement intérieur destiné à structurer et valoriser les espaces professionnels.",
@@ -210,7 +210,7 @@ const projects: Project[] = [
 
   {
     title: "Immeuble SRJ",
-    category: "Immeuble Mixte Commerce Appartement",
+    category: "Immeuble mixte commerces et appartements",
     description:
       "Un projet immobilier pensé autour d'une composition sobre et contemporaine.",
     intention:
@@ -223,8 +223,8 @@ const projects: Project[] = [
   },
 
   {
-    title: "IMMEUBLE MJ",
-    category: "Immeuble de Bureau",
+    title: "Immeuble MJ",
+    category: "Immeuble de bureaux",
     description:
       "Un projet immobilier développé autour d'une architecture contemporaine, avec une attention particulière portée à la composition des volumes et à l'organisation des espaces.",
     intention:
@@ -237,7 +237,7 @@ const projects: Project[] = [
 
   {
     title: "Projet ABT",
-    category: "Résidence Familiale",
+    category: "Résidence familiale",
     description:
       "Un projet développé autour d'une recherche volumétrique et d'une écriture architecturale contemporaine.",
     intention:
@@ -251,7 +251,7 @@ const projects: Project[] = [
   },
 
   {
-    title: "EGLISE LA COLONNE",
+    title: "Église La Colonne",
     category: "Bâtiment cultuel",
     description:
       "Un projet architectural consacré à la conception d'un espace destiné à accueillir une communauté et différents usages collectifs.",
@@ -273,7 +273,7 @@ const projects: Project[] = [
 
   {
     title: "Projet FA",
-    category: "Résidence Triplex Familiale",
+    category: "Résidence familiale en triplex",
     description:
       "Un projet architectural explorant une composition contemporaine et une organisation claire des espaces.",
     intention:
@@ -458,13 +458,22 @@ export default function ProjectsClient() {
           GRILLE DES PROJETS
       ========================================================= */}
 
-      <section className="pb-3 pt-3">
+      <section className="pb-24 pt-16 sm:pb-32 sm:pt-20">
         <Container>
-          <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="flex items-end justify-between gap-6 border-b border-line pb-6">
+            <p className="text-[15px] text-ink">
+              {activeFilter === "Tous" ? "Toutes nos réalisations" : activeFilter}
+            </p>
+            <p className="text-[14px] tabular-nums text-taupe">
+              {filteredProjects.length} projet{filteredProjects.length > 1 ? "s" : ""}
+            </p>
+          </div>
+
+          <div className="mt-12 grid gap-x-8 gap-y-14 sm:grid-cols-2 lg:mt-14 lg:grid-cols-3 lg:gap-x-10 lg:gap-y-20">
             {filteredProjects.map((project) => (
               <article
                 key={project.title}
-                className="group cursor-pointer rounded-[2rem] bg-white p-2 transition-shadow duration-300 hover:shadow-[0_20px_50px_-25px_rgba(38,29,22,0.35)]"
+                className="group cursor-pointer rounded-[1.75rem] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-brand"
                 role="button"
                 tabIndex={0}
                 aria-label={`Découvrir le projet ${project.title}`}
@@ -476,7 +485,7 @@ export default function ProjectsClient() {
                   }
                 }}
               >
-                <div className="relative aspect-[4/3] overflow-hidden rounded-[1.6rem] bg-sand-soft">
+                <div className="relative aspect-[5/4] overflow-hidden rounded-[1.75rem] bg-sand-soft">
                   <Image
                     src={project.images[0]}
                     alt={`${project.title} — ${project.category ?? "Projet"}, ${
@@ -487,23 +496,24 @@ export default function ProjectsClient() {
                     className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03]"
                   />
 
-                  <span className="absolute left-3 top-3 rounded-full bg-white/95 px-3 py-1.5 text-[12px] text-ink backdrop-blur">
+                  <span className="absolute left-4 top-4 rounded-full bg-white/95 px-3 py-1.5 text-[12px] text-ink backdrop-blur">
                     {project.images.length} vues
                   </span>
                 </div>
 
-                <div className="flex items-center justify-between gap-4 px-4 pb-3 pt-5">
+                <div className="mt-6 flex items-start justify-between gap-4">
                   <div className="min-w-0">
-                    <h2 className="truncate text-xl tracking-[-0.02em] text-ink">
+                    <p className="text-[13px] text-taupe">{projectGroup(project)}</p>
+                    <h2 className="mt-2 text-2xl tracking-[-0.025em] text-ink">
                       {project.title}
                     </h2>
-                    <p className="mt-1 truncate text-[13px] text-taupe">
+                    <p className="mt-1.5 text-[14px] text-taupe">
                       {project.category}
                       {project.location ? ` · ${project.location}` : ""}
                     </p>
                   </div>
 
-                  <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-canvas text-ink transition-all duration-300 group-hover:rotate-45 group-hover:bg-deep group-hover:text-white">
+                  <span className="mt-6 flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-white text-ink ring-1 ring-black/5 transition-all duration-300 group-hover:rotate-45 group-hover:bg-deep group-hover:text-white">
                     <ArrowUpRight size={17} strokeWidth={1.5} />
                   </span>
                 </div>

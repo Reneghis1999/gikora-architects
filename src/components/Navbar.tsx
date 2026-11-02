@@ -52,15 +52,33 @@ export default function Navbar() {
   const isActive = (href: string) =>
     href === "/" ? pathname === "/" : !href.includes("#") && pathname.startsWith(href);
 
+  // En haut de page, le menu est intégré au bloc d'en-tête de la page :
+  // pastilles blanches sur la photo de l'accueil, beiges sur les cartes
+  // blanches des autres pages. Une fois la page défilée, il flotte.
+  const tinted = !scrolled && pathname !== "/";
+  const accent = tinted ? "bg-white" : "bg-canvas";
+
   const pill = cn(
-    "rounded-2xl bg-white ring-1 ring-black/5 transition-shadow duration-300",
+    "rounded-2xl ring-1 ring-black/5 transition-[background-color,box-shadow] duration-300",
+    tinted ? "bg-canvas" : "bg-white",
     scrolled && "shadow-[0_8px_30px_-12px_rgba(38,29,22,0.25)]"
   );
 
   return (
     <>
-      <header className="fixed inset-x-0 top-0 z-[9999] px-3 pt-3 sm:px-5 sm:pt-4">
-        <div className="mx-auto flex max-w-[1440px] items-center justify-between gap-2">
+      <header
+        className={cn(
+          "fixed inset-x-0 top-0 z-[9999] transition-[padding] duration-300",
+          scrolled ? "pt-3 sm:pt-4" : "pt-6 sm:pt-10"
+        )}
+      >
+        <div className="mx-auto max-w-[1440px] px-3 sm:px-5">
+        <div
+          className={cn(
+            "flex items-center justify-between gap-2 transition-[padding] duration-300",
+            scrolled ? "px-0" : "px-3 sm:px-5"
+          )}
+        >
           {/* LOGO + NAVIGATION */}
 
           <div className="flex items-center gap-2">
@@ -82,8 +100,9 @@ export default function Navbar() {
                   href={link.href}
                   aria-current={isActive(link.href) ? "page" : undefined}
                   className={cn(
-                    "rounded-xl px-4 py-2.5 text-[15px] text-ink transition-colors duration-200 hover:bg-canvas",
-                    isActive(link.href) && "bg-canvas"
+                    "rounded-xl px-4 py-2.5 text-[15px] text-ink transition-colors duration-200",
+                    tinted ? "hover:bg-white" : "hover:bg-canvas",
+                    isActive(link.href) && accent
                   )}
                 >
                   {link.label}
@@ -102,7 +121,7 @@ export default function Navbar() {
                 "hidden h-[60px] items-center gap-3 pl-2 pr-5 text-[15px] text-ink xl:flex"
               )}
             >
-              <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-canvas">
+              <span className={cn("flex h-11 w-11 items-center justify-center rounded-xl transition-colors duration-300", accent)}>
                 <Phone size={17} strokeWidth={1.6} />
               </span>
               <span className="leading-tight">
@@ -129,6 +148,7 @@ export default function Navbar() {
               <Menu size={22} strokeWidth={1.6} />
             </button>
           </div>
+        </div>
         </div>
       </header>
 

@@ -32,7 +32,7 @@ export default function ContactPage() {
         }
         intro="Une idée, un projet de construction ou simplement une première réflexion ? Échangeons ensemble et donnons forme à votre vision."
         aside={
-          <div className="flex flex-col justify-between gap-10 rounded-[2rem] bg-brand px-6 py-10 text-white sm:px-10 lg:px-12">
+          <div className="flex flex-col justify-between gap-10 rounded-[2rem] bg-brand px-6 py-10 text-white sm:px-10 lg:px-12 lg:pt-36">
             <div>
               <Badge tone="outline-light">Nos coordonnées</Badge>
               <p className="mt-6 max-w-sm text-lg leading-8 text-white/80">

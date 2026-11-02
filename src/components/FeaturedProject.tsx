@@ -4,25 +4,27 @@ import { ArrowUpRight } from "lucide-react";
 
 import Reveal from "@/components/site/Reveal";
 import { ButtonLink, Container, SectionHeading } from "@/components/site/ui";
-import { cn } from "@/lib/utils";
+
+const featured = {
+  title: "Complexe scolaire",
+  category: "Établissement scolaire",
+  location: "Lomé, Togo",
+  image: "/images/projets/complexe-scolaire/2.webp",
+  description:
+    "Un projet pensé autour de l’expérience des espaces, de leur rapport à la lumière et de la relation entre architecture et environnement.",
+};
 
 const projects = [
   {
-    title: "Complexe scolaire",
-    category: "Établissement scolaire",
-    location: "Lomé",
-    image: "/images/projets/complexe-scolaire/2.webp",
-  },
-  {
     title: "Villa Oasis",
     category: "Résidence familiale",
-    location: "Lomé",
+    location: "Lomé, Togo",
     image: "/images/projets/villa-oasis/1.webp",
   },
   {
     title: "HM Resort",
     category: "Équipement touristique",
-    location: "Lomé",
+    location: "Lomé, Togo",
     image: "/images/projets/hm-resort/b3.webp",
   },
   {
@@ -33,9 +35,11 @@ const projects = [
   },
 ];
 
+const total = projects.length + 1;
+
 export default function FeaturedProjects() {
   return (
-    <section className="pb-20 sm:pb-28">
+    <section className="pb-24 sm:pb-32">
       <Container>
         <Reveal>
           <SectionHeading
@@ -55,40 +59,73 @@ export default function FeaturedProjects() {
           />
         </Reveal>
 
-        <div className="mt-12 grid gap-3 md:grid-cols-2 lg:grid-cols-4 lg:grid-rows-2">
-          {projects.map((project, index) => (
-            <Reveal
-              key={project.title}
-              delay={index * 0.06}
-              className={cn(
-                index === 0 && "md:col-span-2 lg:row-span-2",
-                index === 3 && "md:col-span-2"
-              )}
-            >
-              <Link
-                href="/projects"
-                className={cn(
-                  "group relative block h-full overflow-hidden rounded-[2rem] bg-sand-soft",
-                  index === 0 ? "min-h-[420px] lg:min-h-[640px]" : "min-h-[300px]"
-                )}
-              >
-                <Image
-                  src={project.image}
-                  alt={`${project.title} — ${project.category}, ${project.location} — Gikora Architects`}
-                  fill
-                  sizes={index === 0 ? "(max-width: 1024px) 100vw, 50vw" : "(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 25vw"}
-                  className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03]"
-                />
+        {/* =================================================
+            PROJET MIS EN AVANT
+        ================================================== */}
 
-                <div className="absolute inset-x-3 bottom-3 flex items-center justify-between gap-3 rounded-[1.25rem] bg-white/95 p-3 pl-5 backdrop-blur">
+        <Reveal className="mt-14 grid gap-8 lg:mt-16 lg:grid-cols-12 lg:items-end lg:gap-14">
+          <Link
+            href="/projects"
+            className="group relative block aspect-[4/3] overflow-hidden rounded-[2rem] bg-sand-soft sm:aspect-[16/10] lg:col-span-8"
+          >
+            <Image
+              src={featured.image}
+              alt={`${featured.title} — ${featured.category}, ${featured.location} — Gikora Architects`}
+              fill
+              sizes="(max-width: 1024px) 100vw, 64vw"
+              className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.02]"
+            />
+          </Link>
+
+          <div className="lg:col-span-4 lg:pb-2">
+            <p className="text-[13px] tabular-nums text-taupe">01 / {String(total).padStart(2, "0")}</p>
+            <h3 className="mt-4 text-4xl tracking-[-0.035em] text-ink lg:text-5xl">
+              {featured.title}
+            </h3>
+            <p className="mt-3 text-[15px] text-taupe">
+              {featured.category} · {featured.location}
+            </p>
+            <p className="mt-6 max-w-md border-t border-line pt-6 text-base leading-7 text-taupe">
+              {featured.description}
+            </p>
+            <div className="mt-8">
+              <ButtonLink href="/projects" variant="secondary">
+                Découvrir le projet
+              </ButtonLink>
+            </div>
+          </div>
+        </Reveal>
+
+        {/* =================================================
+            AUTRES PROJETS
+        ================================================== */}
+
+        <div className="mt-16 grid gap-x-8 gap-y-14 md:grid-cols-3 lg:mt-24 lg:gap-x-10">
+          {projects.map((project, index) => (
+            <Reveal key={project.title} delay={index * 0.08}>
+              <Link href="/projects" className="group block">
+                <div className="relative aspect-[4/5] overflow-hidden rounded-[1.75rem] bg-sand-soft">
+                  <Image
+                    src={project.image}
+                    alt={`${project.title} — ${project.category}, ${project.location} — Gikora Architects`}
+                    fill
+                    sizes="(max-width: 768px) 100vw, 33vw"
+                    className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03]"
+                  />
+                </div>
+
+                <div className="mt-6 flex items-start justify-between gap-4">
                   <div className="min-w-0">
-                    <p className="truncate text-[17px] tracking-[-0.01em] text-ink">{project.title}</p>
-                    <p className="truncate text-[13px] text-taupe">
+                    <p className="text-[13px] tabular-nums text-taupe">
+                      {String(index + 2).padStart(2, "0")}
+                    </p>
+                    <h3 className="mt-2 text-2xl tracking-[-0.025em] text-ink">{project.title}</h3>
+                    <p className="mt-1.5 text-[14px] text-taupe">
                       {project.category} · {project.location}
                     </p>
                   </div>
-                  <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-deep text-white transition-transform duration-300 group-hover:rotate-45">
-                    <ArrowUpRight size={16} strokeWidth={1.6} />
+                  <span className="mt-6 flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-white text-ink ring-1 ring-black/5 transition-all duration-300 group-hover:rotate-45 group-hover:bg-deep group-hover:text-white">
+                    <ArrowUpRight size={17} strokeWidth={1.5} />
                   </span>
                 </div>
               </Link>

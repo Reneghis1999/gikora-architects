@@ -245,15 +245,16 @@ export function PageHero({
   aside?: React.ReactNode;
 }) {
   return (
-    <section className="pt-[92px] sm:pt-[100px]">
+    <section className="pt-3 sm:pt-5">
       <Container>
+        {/* Le menu (fixe) vient se poser en haut de ce bloc */}
         <div
           className={cn(
             "grid gap-3",
             aside ? "lg:grid-cols-[1.15fr_0.85fr]" : ""
           )}
         >
-          <div className="rounded-[2rem] bg-white px-6 py-12 sm:px-10 sm:py-16 lg:px-14 lg:py-20">
+          <div className="rounded-[2rem] bg-white px-6 pb-12 pt-28 sm:px-10 sm:pb-16 sm:pt-40 lg:px-14 lg:pb-20 lg:pt-44">
             <Badge>{badge}</Badge>
             <h1 className="mt-7 max-w-4xl text-[2.8rem] leading-[0.98] tracking-[-0.04em] text-ink sm:text-6xl lg:text-[5rem]">
               {title}
