@@ -12,7 +12,7 @@ import {
   MapPin,
   MessageCircle,
 } from "lucide-react";
-import { siteConfig } from "@/lib/site";
+import { siteConfig, whatsappUrl } from "@/lib/site";
 
 const emptyForm = {
   name: "",
@@ -227,7 +227,7 @@ export default function ContactClient() {
                 </div>
 
                 <a
-                  href="https://wa.me/22899003911"
+                  href={whatsappUrl()}
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label="Contacter Gikora sur WhatsApp"
