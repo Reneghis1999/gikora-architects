@@ -7,8 +7,12 @@ export default function ScrollToTop() {
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
+    // Sur l'accueil, le bouton n'apparaît qu'après le hero animé
+    const hero = document.querySelector<HTMLElement>("[data-scroll-top-after]");
+
     const handleScroll = () => {
-      setVisible(window.scrollY > 500);
+      const threshold = hero ? Math.max(500, hero.offsetHeight) : 500;
+      setVisible(window.scrollY > threshold);
     };
 
     handleScroll();

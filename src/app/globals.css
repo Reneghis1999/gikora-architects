@@ -4,6 +4,10 @@
 
 @custom-variant dark (&:is(.dark *));
 
+/* Hero épinglé (animation au défilement) : grands écrans uniquement,
+   et seulement si l'utilisateur n'a pas demandé à réduire les animations */
+@custom-variant pin (@media (min-width: 1024px) and (min-height: 740px) and (prefers-reduced-motion: no-preference));
+
 /* =========================================================
    CHARTE GIKORA — palette chaude, inspirée des matériaux
    (enduit, sable, bois) et de la couleur de marque.
