@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
-import Link from "next/link";
-import { ArrowLeft, ArrowUpRight } from "lucide-react";
+import { ArrowUpRight } from "lucide-react";
 import DiasporaForm from "./DiasporaForm";
+import { FaqList } from "@/components/Faq";
+import { Badge, ButtonLink, Container, SectionHeading } from "@/components/site/ui";
 import { jsonLd, siteConfig, whatsappUrl } from "@/lib/site";
 import { pageMetadata } from "@/lib/seo";
 
@@ -88,7 +89,7 @@ export default function DiasporaPage() {
   ];
 
   return (
-    <main className="bg-[#f7f6f3] text-neutral-900">
+    <main>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: jsonLd(structuredData) }}
@@ -98,213 +99,173 @@ export default function DiasporaPage() {
           HERO
       ====================================================== */}
 
-      <section className="bg-[#1c1712] px-6 pb-16 pt-28 text-white sm:px-8 lg:px-12 lg:pb-20">
-        <div className="mx-auto max-w-6xl">
+      <section className="pt-[92px] sm:pt-[100px]">
+        <Container>
+          <div className="grid gap-3 lg:grid-cols-[1.2fr_0.8fr]">
+            <div className="rounded-[2rem] bg-deep px-6 py-12 text-white sm:px-10 sm:py-16 lg:px-14 lg:py-20">
+              <Badge tone="outline-light">Espace Diaspora</Badge>
 
-          {/* RETOUR ACCUEIL */}
+              <h1 className="mt-7 max-w-3xl text-[2.6rem] leading-[1] tracking-[-0.04em] sm:text-6xl lg:text-[4.6rem]">
+                Construisez et gérez au Togo,
+                <span className="text-white/45"> où que vous viviez.</span>
+              </h1>
 
-          <Link
-            href="/"
-            className="group inline-flex items-center gap-2 text-[11px] uppercase tracking-[0.25em] text-white/60 transition-colors duration-300 hover:text-white"
-          >
-            <ArrowLeft
-              size={14}
-              strokeWidth={1.5}
-              className="transition-transform duration-300 group-hover:-translate-x-1"
-            />
-            Accueil
-          </Link>
+              <p className="mt-7 max-w-xl text-base leading-7 text-white/65 sm:text-lg sm:leading-8">
+                GIKORA Architects vous accompagne dans vos projets immobiliers au
+                Togo : démarches administratives, sécurisation foncière, suivi de
+                chantier et gestion de vos biens, en toute transparence.
+              </p>
 
-          {/* TITRE */}
+              <div className="mt-10 flex flex-col gap-3 sm:flex-row">
+                <ButtonLink href="#contact-diaspora" variant="light">
+                  Parler de mon projet
+                </ButtonLink>
+                <ButtonLink href={whatsappUrl()} variant="outline-light" external>
+                  WhatsApp
+                </ButtonLink>
+              </div>
+            </div>
 
-          <span className="mt-10 block text-[10px] uppercase tracking-[0.35em] text-white/40">
-            Espace Diaspora
-          </span>
-
-          <h1 className="mt-4 max-w-3xl text-4xl font-light leading-[1.08] tracking-[-0.04em] sm:text-6xl">
-            Construisez et gérez au Togo, où que vous viviez.
-          </h1>
-
-          <p className="mt-6 max-w-xl font-light leading-relaxed text-white/60">
-            GIKORA Architects vous accompagne dans vos projets immobiliers au
-            Togo : démarches administratives, sécurisation foncière, suivi de
-            chantier et gestion de vos biens, en toute transparence.
-          </p>
-
-          <div className="mt-10 flex flex-col gap-3 sm:flex-row">
-            <Link
-              href="#contact-diaspora"
-              className="flex h-12 items-center justify-center rounded-full bg-white px-7 text-[11px] uppercase tracking-[0.2em] text-neutral-900 transition-colors duration-300 hover:bg-[#e9e4dc]"
-            >
-              Parler de mon projet
-            </Link>
-
-            <a
-              href={whatsappUrl()}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex h-12 items-center justify-center rounded-full border border-white/30 px-7 text-[11px] uppercase tracking-[0.2em] text-white transition-colors duration-300 hover:bg-white hover:text-black"
-            >
-              WhatsApp
-            </a>
+            <div className="grid gap-3">
+              {[
+                { value: "À distance", label: "Échanges en visioconférence ou sur WhatsApp, sans vous déplacer" },
+                { value: "Photos & vidéos", label: "Rapports réguliers sur l’avancement de votre chantier" },
+                { value: "Transparence", label: "Dépenses et justificatifs communiqués à chaque étape" },
+              ].map((item) => (
+                <div key={item.value} className="flex flex-col justify-center rounded-[2rem] bg-white px-7 py-7">
+                  <p className="text-3xl tracking-[-0.03em] text-ink">{item.value}</p>
+                  <p className="mt-2 text-[15px] leading-6 text-taupe">{item.label}</p>
+                </div>
+              ))}
+            </div>
           </div>
-        </div>
+        </Container>
       </section>
 
       {/* =====================================================
           SERVICES
       ====================================================== */}
 
-      <section className="px-6 py-20 sm:px-8 lg:px-12 lg:py-28">
-        <div className="mx-auto max-w-6xl">
+      <section className="py-20 sm:py-28">
+        <Container>
+          <SectionHeading
+            badge="Notre accompagnement"
+            title={
+              <>
+                Nos services
+                <span className="text-taupe"> pour la diaspora.</span>
+              </>
+            }
+            intro="De la sécurisation de votre terrain à la gestion de votre patrimoine immobilier, nous mettons notre expertise à votre service, même à distance."
+          />
 
-          <span className="text-[10px] uppercase tracking-[0.3em] text-neutral-400">
-            Notre accompagnement
-          </span>
-
-          <h2 className="mt-3 text-3xl font-light tracking-[-0.04em] sm:text-4xl">
-            Nos services
-          </h2>
-
-          <p className="mt-4 max-w-xl font-light leading-relaxed text-neutral-600">
-            De la sécurisation de votre terrain à la gestion de votre patrimoine
-            immobilier, nous mettons notre expertise à votre service, même à
-            distance.
-          </p>
-
-          <div className="mt-10 grid gap-x-16 gap-y-10 border-t border-neutral-300 pt-10 sm:grid-cols-2">
+          <div className="mt-12 grid gap-3 sm:grid-cols-2">
             {services.map((service, index) => (
-              <div key={service.title}>
-                <span className="text-[10px] tracking-[0.2em] text-neutral-400">
-                  0{index + 1}
-                </span>
-
-                <h3 className="mt-3 text-xl font-light tracking-[-0.02em]">
+              <article key={service.title} className="rounded-[2rem] bg-white p-8 sm:p-10">
+                <Badge>0{index + 1}</Badge>
+                <h3 className="mt-6 text-2xl tracking-[-0.02em] text-ink sm:text-3xl">
                   {service.title}
                 </h3>
-
-                <p className="mt-2 font-light leading-relaxed text-neutral-600">
-                  {service.text}
-                </p>
-              </div>
+                <p className="mt-4 text-[15px] leading-7 text-taupe">{service.text}</p>
+              </article>
             ))}
           </div>
-        </div>
+        </Container>
       </section>
 
       {/* =====================================================
           ÉTAPES
       ====================================================== */}
 
-      <section className="bg-white px-6 py-20 sm:px-8 lg:px-12 lg:py-28">
-        <div className="mx-auto max-w-6xl">
+      <section className="pb-20 sm:pb-28">
+        <Container>
+          <div className="rounded-[2rem] bg-sand px-6 py-14 sm:px-10 lg:px-16 lg:py-20">
+            <SectionHeading
+              badge="Notre méthode"
+              title="Comment ça marche"
+              className="[&_span]:bg-white"
+            />
 
-          <span className="text-[10px] uppercase tracking-[0.3em] text-neutral-400">
-            Notre méthode
-          </span>
-
-          <h2 className="mt-3 text-3xl font-light tracking-[-0.04em] sm:text-4xl">
-            Comment ça marche
-          </h2>
-
-          <ol className="mt-10 grid gap-8 border-t border-neutral-300 pt-10 sm:grid-cols-2 lg:grid-cols-4">
-            {steps.map((step, index) => (
-              <li key={step}>
-                <span className="text-3xl font-light text-neutral-300">
-                  0{index + 1}
-                </span>
-
-                <p className="mt-3 font-light leading-relaxed text-neutral-600">
-                  {step}
-                </p>
-              </li>
-            ))}
-          </ol>
-        </div>
+            <ol className="mt-12 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+              {steps.map((step, index) => (
+                <li key={step} className="rounded-[1.5rem] bg-white/70 p-7">
+                  <span className="flex h-11 w-11 items-center justify-center rounded-full bg-deep text-[15px] text-white">
+                    {index + 1}
+                  </span>
+                  <p className="mt-6 text-[15px] leading-7 text-ink">{step}</p>
+                </li>
+              ))}
+            </ol>
+          </div>
+        </Container>
       </section>
 
       {/* =====================================================
           FAQ
       ====================================================== */}
 
-      <section className="px-6 py-20 sm:px-8 lg:px-12 lg:py-28">
-        <div className="mx-auto max-w-6xl">
-
-          <span className="text-[10px] uppercase tracking-[0.3em] text-neutral-400">
-            Besoin d&apos;informations ?
-          </span>
-
-          <h2 className="mt-3 text-3xl font-light tracking-[-0.04em] sm:text-4xl">
-            Questions fréquentes
-          </h2>
-
-          <div className="mt-10 border-t border-neutral-300">
-            {faqs.map((faq) => (
-              <details
-                key={faq.q}
-                className="group border-b border-neutral-300 py-6"
-              >
-                <summary className="flex cursor-pointer list-none items-center justify-between gap-6 text-lg font-light [&::-webkit-details-marker]:hidden">
-                  {faq.q}
-
-                  <span className="text-xl font-light text-neutral-400 transition-transform duration-300 group-open:rotate-45">
-                    +
-                  </span>
-                </summary>
-
-                <p className="mt-4 max-w-2xl font-light leading-relaxed text-neutral-600">
-                  {faq.a}
-                </p>
-              </details>
-            ))}
+      <section className="pb-20 sm:pb-28">
+        <Container>
+          <div className="grid gap-10 lg:grid-cols-[0.8fr_1.2fr] lg:gap-16">
+            <SectionHeading
+              badge="Besoin d’informations ?"
+              title={
+                <>
+                  Questions
+                  <span className="text-taupe"> fréquentes.</span>
+                </>
+              }
+            />
+            <FaqList items={faqs.map((faq) => ({ q: faq.q, a: faq.a }))} />
           </div>
-        </div>
+        </Container>
       </section>
 
       {/* =====================================================
           CONTACT
       ====================================================== */}
 
-      <section
-        id="contact-diaspora"
-        className="scroll-mt-24 bg-white px-6 py-20 sm:px-8 lg:px-12 lg:py-28"
-      >
-        <div className="mx-auto grid max-w-6xl gap-12 lg:grid-cols-2 lg:gap-20">
+      <section id="contact-diaspora" className="scroll-mt-28">
+        <Container>
+          <div className="grid gap-3 lg:grid-cols-[0.9fr_1.1fr]">
+            <div className="flex flex-col justify-between gap-10 rounded-[2rem] bg-brand px-6 py-12 text-white sm:px-10 lg:px-12">
+              <div>
+                <Badge tone="outline-light">Parlons ensemble</Badge>
+                <h2 className="mt-7 text-4xl leading-[1.02] tracking-[-0.035em] sm:text-5xl">
+                  Parlons de votre projet
+                </h2>
+                <p className="mt-6 max-w-md text-base leading-7 text-white/70">
+                  Présentez-nous votre projet immobilier au Togo. Votre demande
+                  nous est transmise par email et WhatsApp s&apos;ouvre avec votre
+                  message déjà rédigé. Nous vous répondrons en tenant compte de
+                  votre fuseau horaire.
+                </p>
+              </div>
 
-          <div>
-            <span className="text-[10px] uppercase tracking-[0.3em] text-neutral-400">
-              Parlons ensemble
-            </span>
+              <a
+                href={whatsappUrl()}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group inline-flex items-center gap-3 self-start rounded-full bg-white/10 py-2 pl-5 pr-2 text-[15px] transition-colors hover:bg-white/15"
+              >
+                {siteConfig.phoneDisplay}
+                <span className="flex h-10 w-10 items-center justify-center rounded-full bg-white text-ink transition-transform duration-300 group-hover:rotate-45">
+                  <ArrowUpRight size={16} strokeWidth={1.6} />
+                </span>
+              </a>
+            </div>
 
-            <h2 className="mt-3 text-3xl font-light tracking-[-0.04em] sm:text-4xl">
-              Parlons de votre projet
-            </h2>
-
-            <p className="mt-4 max-w-sm font-light leading-relaxed text-neutral-600">
-              Présentez-nous votre projet immobilier au Togo. Votre demande
-              nous est transmise par email et WhatsApp s&apos;ouvre avec votre
-              message déjà rédigé. Nous vous répondrons en tenant compte de
-              votre fuseau horaire.
-            </p>
-
-            <a
-              href={whatsappUrl()}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="group mt-8 inline-flex items-center gap-2 text-[11px] uppercase tracking-[0.2em]"
-            >
-              {siteConfig.phoneDisplay}
-
-              <ArrowUpRight
-                size={14}
-                strokeWidth={1.5}
-                className="transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
-              />
-            </a>
+            <div className="rounded-[2rem] bg-white px-6 py-10 sm:px-10 sm:py-12 lg:px-12">
+              <p className="text-[13px] text-taupe">Formulaire Diaspora</p>
+              <h3 className="mt-2 text-2xl tracking-[-0.02em] text-ink sm:text-3xl">
+                Présentez votre projet
+              </h3>
+              <div className="mt-8">
+                <DiasporaForm />
+              </div>
+            </div>
           </div>
-
-          <DiasporaForm />
-        </div>
+        </Container>
       </section>
     </main>
   );

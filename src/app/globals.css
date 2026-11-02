@@ -4,6 +4,22 @@
 
 @custom-variant dark (&:is(.dark *));
 
+/* =========================================================
+   CHARTE GIKORA — palette chaude, inspirée des matériaux
+   (enduit, sable, bois) et de la couleur de marque.
+========================================================== */
+
+@theme {
+  --color-canvas: #f4f0ea;
+  --color-ink: #1d1915;
+  --color-taupe: #6d645b;
+  --color-brand: #5a3e2b;
+  --color-deep: #261d16;
+  --color-sand: #e6d9c6;
+  --color-sand-soft: #efe7db;
+  --color-line: #e3dbcf;
+}
+
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
@@ -132,11 +148,30 @@ html {
 
   html,
   body {
-    @apply bg-background text-foreground;
+    @apply bg-canvas text-ink antialiased;
     font-family: var(--font-questrial), Questrial, sans-serif;
+  }
+
+  ::selection {
+    @apply bg-sand text-ink;
+  }
+
+  :focus-visible {
+    @apply outline-2 outline-offset-2 outline-brand;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
   }
 }
 /* Loader déjà vu pendant la session : masqué avant l'hydratation */
 .loader-seen [data-loader] {
   display: none !important;
+}
+
+/* Galerie plein écran au-dessus de la fiche projet et du menu */
+.yarl__portal {
+  z-index: 10050 !important;
 }

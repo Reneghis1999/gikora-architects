@@ -3,6 +3,9 @@ import "./globals.css";
 
 import { Questrial } from "next/font/google";
 import AppClient from "@/components/AppClient";
+import Footer from "@/components/Footer";
+import Navbar from "@/components/Navbar";
+import ScrollToTop from "@/components/ScrollToTop";
 import { pageMetadata } from "@/lib/seo";
 import { jsonLd, siteConfig } from "@/lib/site";
 
@@ -45,7 +48,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#faf9f7",
+  themeColor: "#f4f0ea",
   width: "device-width",
   initialScale: 1,
 };
@@ -125,7 +128,12 @@ export default function RootLayout({
         />
       </head>
       <body className={questrial.className}>
-        <AppClient>{children}</AppClient>
+        <AppClient>
+          <Navbar />
+          {children}
+          <Footer />
+          <ScrollToTop />
+        </AppClient>
       </body>
     </html>
   );

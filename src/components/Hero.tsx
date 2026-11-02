@@ -2,582 +2,196 @@
 
 import { useEffect, useState } from "react";
 import Image from "next/image";
-import Link from "next/link";
-import { ArrowDown, ArrowRight } from "lucide-react";
+import { ArrowLeft, ArrowRight } from "lucide-react";
+
+import { Badge, ButtonLink, Container } from "@/components/site/ui";
+import { cn } from "@/lib/utils";
 
 const slides = [
   {
-    src: "/images/accueil/interieur-cuisine-escalier.webp",
-    alt: "Cuisine contemporaine avec escalier hélicoïdal — design d'intérieur Gikora Architects",
+    src: "/images/accueil/residence-abt.webp",
+    alt: "Rendu 3D d'une résidence familiale contemporaine — Projet ABT, Gikora Architects",
+    title: "Projet ABT",
+    category: "Résidence familiale",
   },
   {
     src: "/images/projets/complexe-scolaire/2.webp",
     alt: "Complexe scolaire conçu par Gikora Architects à Lomé",
+    title: "Complexe scolaire",
+    category: "Établissement scolaire",
   },
   {
-    src: "/images/accueil/residence-abt.webp",
-    alt: "Rendu 3D d'une résidence familiale contemporaine — Projet ABT",
-  },
-  {
-    src: "/images/accueil/architecture-contemporaine.webp",
-    alt: "Projet d'architecture contemporaine au Togo par Gikora Architects",
+    src: "/images/accueil/interieur-cuisine-escalier.webp",
+    alt: "Cuisine contemporaine avec escalier hélicoïdal — design d'intérieur Gikora Architects",
+    title: "Intérieur contemporain",
+    category: "Design d’intérieur",
   },
   {
     src: "/images/accueil/villa-kpl.webp",
     alt: "Villa KPL, résidence familiale contemporaine — rendu 3D",
+    title: "Villa KPL",
+    category: "Résidence familiale",
+  },
+  {
+    src: "/images/accueil/architecture-contemporaine.webp",
+    alt: "Projet d'architecture contemporaine au Togo par Gikora Architects",
+    title: "Architecture contemporaine",
+    category: "Lomé, Togo",
   },
 ];
 
-const images = slides.map((slide) => slide.src);
-
 export default function Hero() {
-  const [currentImage, setCurrentImage] = useState(0);
-
-  // Les images sont chargées au fur et à mesure du diaporama
-  // (et non toutes au chargement de la page) pour accélérer le site.
+  const [current, setCurrent] = useState(0);
+  // Images chargées au fil du diaporama (et non toutes d'un coup)
   const [loadedUpTo, setLoadedUpTo] = useState(1);
+  const [paused, setPaused] = useState(false);
 
-  const showImage = (index: number) => {
-    setCurrentImage(index);
-    setLoadedUpTo((prev) => Math.max(prev, index + 1));
+  const goTo = (index: number) => {
+    const next = (index + slides.length) % slides.length;
+    setCurrent(next);
+    setLoadedUpTo((prev) => Math.max(prev, next + 1));
   };
 
-  /* =========================================================
-     SLIDER AUTOMATIQUE
-  ========================================================= */
-
   useEffect(() => {
+    if (paused) return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
     const interval = setInterval(() => {
-      setCurrentImage((prev) => (prev + 1) % images.length);
-      // précharge l'image suivante
-      setLoadedUpTo((loaded) => Math.min(images.length, loaded + 1));
-    }, 5000);
+      setCurrent((prev) => (prev + 1) % slides.length);
+      setLoadedUpTo((loaded) => Math.min(slides.length, loaded + 1));
+    }, 6000);
 
     return () => clearInterval(interval);
-  }, []);
+  }, [paused]);
+
+  const slide = slides[current];
 
   return (
-    <section className="relative h-[100dvh] min-h-[620px] w-full overflow-hidden bg-black">
+    <section className="pt-[92px] sm:pt-[100px]">
+      <Container>
+        <div className="grid gap-3 lg:grid-cols-[1fr_1.05fr]">
+          {/* =================================================
+              CARTE TEXTE
+          ================================================== */}
 
-      {/* =====================================================
-          IMAGES DE FOND
-      ====================================================== */}
+          <div className="flex flex-col justify-between rounded-[2rem] bg-white px-6 py-10 sm:px-10 sm:py-14 lg:min-h-[calc(100svh-124px)] lg:px-14 lg:py-16">
+            <div>
+              <Badge>
+                <span className="h-1.5 w-1.5 rounded-full bg-brand" />
+                Cabinet d’architecture · Lomé, Togo
+              </Badge>
 
-      {slides.map((slide, index) => (
-        <div
-          key={slide.src}
-          className={`
-            absolute inset-0
-            transition-opacity duration-[1400ms] ease-in-out
-            ${
-              currentImage === index
-                ? "opacity-100"
-                : "opacity-0"
-            }
-          `}
-        >
-          {index <= loadedUpTo && (
-          <Image
-            src={slide.src}
-            alt={slide.alt}
-            fill
-            preload={index === 0}
-            sizes="100vw"
-            className={`
-              object-cover
-              transition-transform
-              duration-[8000ms]
-              ease-out
-              ${
-                currentImage === index
-                  ? "scale-105"
-                  : "scale-100"
-              }
-            `}
-          />
-          )}
-        </div>
-      ))}
+              <h1 className="mt-8 text-[3.1rem] leading-[0.95] tracking-[-0.045em] text-ink sm:text-7xl xl:text-[6.2rem]">
+                Au-delà
+                <br />
+                de bâtir,
+                <br />
+                <span className="text-brand">nous créons.</span>
+              </h1>
 
-      {/* =====================================================
-          OVERLAYS
-      ====================================================== */}
+              <p className="mt-8 max-w-xl text-base leading-7 text-taupe sm:text-lg sm:leading-8">
+                Conception architecturale, design d’intérieur, rendus 3D et suivi
+                de chantier : nous accompagnons vos projets au Togo, de la
+                première esquisse jusqu’à la remise des clés.
+              </p>
+            </div>
 
-      <div className="absolute inset-0 bg-black/30" />
+            <div className="mt-10 flex flex-col gap-3 sm:flex-row lg:mt-14">
+              <ButtonLink href="/contact">Démarrer un projet</ButtonLink>
+              <ButtonLink href="/projects" variant="secondary">
+                Voir nos réalisations
+              </ButtonLink>
+            </div>
+          </div>
 
-      <div className="absolute inset-0 bg-gradient-to-r from-black/65 via-black/30 to-black/15" />
-
-      <div className="absolute inset-0 bg-gradient-to-t from-black/65 via-transparent to-black/25" />
-
-      {/* =====================================================
-          LIGNE SOUS LA NAVBAR
-      ====================================================== */}
-
-      <div
-        className="
-          absolute
-          left-6
-          right-6
-          top-24
-          z-20
-          h-px
-          bg-white/20
-          sm:left-8
-          sm:right-8
-          lg:left-12
-          lg:right-12
-        "
-      />
-
-      {/* =====================================================
-          TEXTE VERTICAL À GAUCHE
-      ====================================================== */}
-
-      <div
-        className="
-          absolute
-          left-5
-          top-1/2
-          z-20
-          hidden
-          -translate-y-1/2
-          md:block
-          lg:left-8
-        "
-      >
-        <div className="flex flex-col items-center gap-5">
-
-          <span
-            className="
-              [writing-mode:vertical-rl]
-              rotate-180
-              text-[9px]
-              font-medium
-              uppercase
-              tracking-[0.35em]
-              text-white/80
-              lg:text-[10px]
-            "
-          >
-            GIKORA ARCHITECTS
-          </span>
-
-          <span className="h-14 w-px bg-white/40 lg:h-16" />
-
-        </div>
-      </div>
-
-      {/* =====================================================
-          CONTENU PRINCIPAL
-      ====================================================== */}
-
-      <div className="relative z-10 flex h-full items-center">
-
-        <div
-          className="
-            mx-auto
-            w-full
-            max-w-[1500px]
-            px-7
-            sm:px-12
-            lg:px-20
-            xl:px-24
-          "
-        >
+          {/* =================================================
+              CARTE VISUEL — DIAPORAMA
+          ================================================== */}
 
           <div
-            className="
-              max-w-[1000px]
-              pt-8
-            "
+            className="relative min-h-[460px] overflow-hidden rounded-[2rem] bg-deep sm:min-h-[560px] lg:min-h-0"
+            onMouseEnter={() => setPaused(true)}
+            onMouseLeave={() => setPaused(false)}
           >
-
-            {/* =================================================
-                LABEL
-            ================================================== */}
-
-            <div
-              className="
-                mb-6
-                flex
-                items-center
-                gap-3
-                sm:mb-7
-                sm:gap-4
-              "
-            >
-
-              <span
-                className="
-                  h-px
-                  w-8
-                  bg-[#5A3E2B]
-                  sm:w-12
-                "
-              />
-
-              <span
-                className="
-                  text-[8px]
-                  font-medium
-                  uppercase
-                  tracking-[0.3em]
-                  text-white/75
-                  sm:text-[9px]
-                  sm:tracking-[0.35em]
-                  lg:text-[10px]
-                "
+            {slides.map((item, index) => (
+              <div
+                key={item.src}
+                aria-hidden={index !== current}
+                className={cn(
+                  "absolute inset-0 transition-opacity duration-1000 ease-in-out",
+                  index === current ? "opacity-100" : "opacity-0"
+                )}
               >
-                Architecture & Design
-              </span>
+                {index <= loadedUpTo && (
+                  <Image
+                    src={item.src}
+                    alt={item.alt}
+                    fill
+                    preload={index === 0}
+                    sizes="(max-width: 1024px) 100vw, 52vw"
+                    className="object-cover"
+                  />
+                )}
+              </div>
+            ))}
 
-            </div>
+            <div className="absolute inset-0 bg-gradient-to-t from-black/45 via-transparent to-transparent" />
 
-            {/* =================================================
-                GROS TITRE
-            ================================================== */}
+            {/* Carte flottante */}
 
-            <h1
-              className="
-                max-w-[950px]
-                text-[3.2rem]
-                font-light
-                leading-[0.9]
-                tracking-[-0.055em]
-                text-white
-
-                sm:text-[4.8rem]
-
-                md:text-[5.7rem]
-
-                lg:text-[6.7rem]
-
-                xl:text-[7.4rem]
-              "
-            >
-              <span className="block">
-                Au-delà
-              </span>
-
-              <span className="ml-[7%] block">
-                de bâtir
-              </span>
-
-              <span className="ml-[14%] block text-white/55">
-                nous créons.
-              </span>
-            </h1>
-
-            {/* =================================================
-                LIENS / ACTIONS
-            ================================================== */}
-
-            <div
-              className="
-                mt-9
-                flex
-                flex-col
-                items-start
-                gap-5
-
-                sm:mt-10
-                sm:flex-row
-                sm:items-center
-                sm:gap-8
-
-                lg:mt-12
-              "
-            >
-
-              {/* =================================================
-                  VOIR LES PROJETS
-              ================================================== */}
-
-              <Link
-                href="/projects"
-                className="
-                  group
-                  inline-flex
-                  items-center
-                  gap-3
-                  border-b
-                  border-white
-                  pb-2.5
-                  text-[9px]
-                  font-medium
-                  uppercase
-                  tracking-[0.22em]
-                  text-white
-                  transition-colors
-                  duration-300
-                  hover:border-[#5A3E2B]
-                  hover:text-[#5A3E2B]
-
-                  sm:text-[10px]
-                "
-              >
-                <span>
-                  Voir nos projets
+            <div className="absolute inset-x-3 bottom-3 rounded-[1.5rem] bg-white/95 p-4 backdrop-blur sm:inset-x-auto sm:bottom-5 sm:right-5 sm:w-[340px] sm:p-5">
+              <div className="flex items-center justify-between text-[12px] text-taupe">
+                <span>Projet à la une</span>
+                <span className="flex items-center gap-2 tabular-nums">
+                  <span className="h-1.5 w-1.5 rounded-full bg-brand" />
+                  {String(current + 1).padStart(2, "0")} / {String(slides.length).padStart(2, "0")}
                 </span>
+              </div>
 
-                <ArrowRight
-                  className="
-                    h-3.5
-                    w-3.5
-                    transition-transform
-                    duration-300
-                    group-hover:translate-x-2
-                  "
-                />
-              </Link>
+              <div className="mt-3 flex items-end justify-between gap-4">
+                <div aria-live="polite">
+                  <p className="text-xl tracking-[-0.02em] text-ink">{slide.title}</p>
+                  <p className="mt-1 text-[13px] text-taupe">{slide.category}</p>
+                </div>
 
-              {/* =================================================
-                  CONTACT
-              ================================================== */}
+                <div className="flex gap-1.5">
+                  <button
+                    type="button"
+                    onClick={() => goTo(current - 1)}
+                    aria-label="Projet précédent"
+                    className="flex h-10 w-10 items-center justify-center rounded-full bg-canvas text-ink transition-colors hover:bg-sand"
+                  >
+                    <ArrowLeft size={16} strokeWidth={1.6} />
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => goTo(current + 1)}
+                    aria-label="Projet suivant"
+                    className="flex h-10 w-10 items-center justify-center rounded-full bg-deep text-white transition-colors hover:bg-brand"
+                  >
+                    <ArrowRight size={16} strokeWidth={1.6} />
+                  </button>
+                </div>
+              </div>
 
-              <Link
-                href="/contact"
-                className="
-                  group
-                  inline-flex
-                  items-center
-                  gap-3
-                  border-b
-                  border-white/35
-                  pb-2.5
-                  text-[9px]
-                  font-medium
-                  uppercase
-                  tracking-[0.22em]
-                  text-white/70
-                  transition-all
-                  duration-300
-                  hover:border-white
-                  hover:text-white
-
-                  sm:text-[10px]
-                "
-              >
-                <span>
-                  Nous contacter
-                </span>
-
-                <span
-                  className="
-                    h-px
-                    w-5
-                    bg-white/40
-                    transition-all
-                    duration-300
-                    group-hover:w-8
-                  "
-                />
-              </Link>
-
+              <div className="mt-4 flex gap-1.5">
+                {slides.map((item, index) => (
+                  <button
+                    key={item.src}
+                    type="button"
+                    onClick={() => goTo(index)}
+                    aria-label={`Afficher ${item.title}`}
+                    className={cn(
+                      "h-1 flex-1 rounded-full transition-colors duration-300",
+                      index === current ? "bg-deep" : "bg-line hover:bg-sand"
+                    )}
+                  />
+                ))}
+              </div>
             </div>
-
           </div>
         </div>
-      </div>
-
-      {/* =====================================================
-          INDICATEURS À DROITE
-      ====================================================== */}
-
-      <div
-        className="
-          absolute
-          right-5
-          top-1/2
-          z-20
-          hidden
-          -translate-y-1/2
-          flex-col
-          items-center
-          gap-5
-          sm:flex
-          lg:right-8
-          lg:gap-6
-        "
-      >
-
-        {images.map((_, index) => (
-          <button
-            key={index}
-            type="button"
-            onClick={() => showImage(index)}
-            aria-label={`Afficher l'image ${index + 1}`}
-            className="
-              flex
-              h-5
-              w-5
-              items-center
-              justify-center
-            "
-          >
-
-            <span
-              className={`
-                rounded-full
-                transition-all
-                duration-500
-                ${
-                  currentImage === index
-                    ? "h-3 w-3 bg-[#5A3E2B]"
-                    : "h-2.5 w-2.5 bg-white/85"
-                }
-              `}
-            />
-
-          </button>
-        ))}
-
-      </div>
-
-      {/* =====================================================
-          NUMÉRO DU SLIDE
-      ====================================================== */}
-
-      <div
-        className="
-          absolute
-          bottom-8
-          right-6
-          z-20
-          flex
-          items-center
-          gap-3
-          sm:right-10
-        "
-      >
-
-        <span
-          className="
-            text-[9px]
-            tracking-[0.2em]
-            text-white/55
-          "
-        >
-          0{currentImage + 1}
-        </span>
-
-        <span className="h-px w-7 bg-white/35" />
-
-        <span
-          className="
-            text-[9px]
-            uppercase
-            tracking-[0.25em]
-            text-white/75
-          "
-        >
-          GIKORA
-        </span>
-
-      </div>
-
-      {/* =====================================================
-          LIGNE BAS GAUCHE
-      ====================================================== */}
-
-      <div
-        className="
-          absolute
-          bottom-10
-          left-7
-          z-20
-          sm:left-12
-          lg:left-20
-          xl:left-24
-        "
-      >
-        <div
-          className="
-            h-[2px]
-            w-16
-            bg-[#5A3E2B]
-            sm:w-20
-          "
-        />
-      </div>
-
-      {/* =====================================================
-          SCROLL INDICATOR
-      ====================================================== */}
-
-      <div
-        className="
-          absolute
-          bottom-7
-          left-1/2
-          z-20
-          hidden
-          -translate-x-1/2
-          flex-col
-          items-center
-          gap-2
-          sm:flex
-        "
-      >
-
-        <span
-          className="
-            text-[8px]
-            uppercase
-            tracking-[0.35em]
-            text-white/55
-          "
-        >
-          Découvrir
-        </span>
-
-        <ArrowDown
-          size={15}
-          strokeWidth={1}
-          className="animate-bounce text-white/65"
-        />
-
-      </div>
-
-      {/* =====================================================
-          INDICATEURS MOBILE
-      ====================================================== */}
-
-      <div
-        className="
-          absolute
-          bottom-8
-          left-1/2
-          z-20
-          flex
-          -translate-x-1/2
-          items-center
-          gap-1.5
-          sm:hidden
-        "
-      >
-
-        {images.map((_, index) => (
-          <button
-            key={index}
-            type="button"
-            onClick={() => showImage(index)}
-            aria-label={`Aller à l'image ${index + 1}`}
-            className={`
-              h-[2px]
-              transition-all
-              duration-500
-              ${
-                currentImage === index
-                  ? "w-8 bg-white"
-                  : "w-4 bg-white/40"
-              }
-            `}
-          />
-        ))}
-
-      </div>
-
+      </Container>
     </section>
   );
 }

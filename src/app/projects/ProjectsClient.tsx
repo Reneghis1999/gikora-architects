@@ -11,6 +11,7 @@ import {
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import Lightbox from "yet-another-react-lightbox";
+import { ButtonLink, Container, PageHero } from "@/components/site/ui";
 import "yet-another-react-lightbox/styles.css";
 
 type Project = {
@@ -64,7 +65,7 @@ const projects: Project[] = [
   {
     title: "COMPLEXE SCOLAIRE",
     location: "Lomé, Togo",
-    category: "Etablissement Scolaire",
+    category: "Établissement scolaire",
     description:
       "Un projet pensé autour de l'expérience des espaces, de leur rapport à la lumière et de la relation entre architecture et environnement.",
     intention:
@@ -79,7 +80,7 @@ const projects: Project[] = [
   {
     title: "HM RESORT",
     location: "Lomé, Togo",
-    category: "Equipement touristique",
+    category: "Équipement touristique",
     description:
       "Un projet pensé autour de l'expérience des espaces, de leur rapport à la lumière et de la relation entre architecture et environnement.",
     intention:
@@ -251,7 +252,7 @@ const projects: Project[] = [
 
   {
     title: "EGLISE LA COLONNE",
-    category: "Bàtiment Cultuel",
+    category: "Bâtiment cultuel",
     description:
       "Un projet architectural consacré à la conception d'un espace destiné à accueillir une communauté et différents usages collectifs.",
     intention:
@@ -285,11 +286,29 @@ const projects: Project[] = [
   },
 ];
 
+const filters = ["Tous", "Résidentiel", "Immeubles", "Équipements", "Intérieur"] as const;
+type Filter = (typeof filters)[number];
+
+function projectGroup(project: Project): Filter {
+  const category = (project.category ?? "").toLowerCase();
+  if (category.includes("intérieur")) return "Intérieur";
+  if (category.includes("immeuble")) return "Immeubles";
+  if (category.includes("résidence")) return "Résidentiel";
+  return "Équipements";
+}
+
 export default function ProjectsClient() {
   const [selectedProject, setSelectedProject] =
     useState<Project | null>(null);
 
   const [lightboxOpen, setLightboxOpen] = useState(false);
+
+  const [activeFilter, setActiveFilter] = useState<Filter>("Tous");
+
+  const filteredProjects =
+    activeFilter === "Tous"
+      ? projects
+      : projects.filter((project) => projectGroup(project) === activeFilter);
 
   const [selectedImages, setSelectedImages] = useState<string[]>([]);
 
@@ -391,248 +410,123 @@ export default function ProjectsClient() {
   }, [selectedProject]);
 
   return (
-    <main className="min-h-screen bg-[#faf9f7] text-neutral-900">
-
-      {/* =========================================================
-          BACK
-      ========================================================= */}
-
-      <div className="fixed left-6 top-6 z-50 lg:left-10 lg:top-8">
-        <Link
-          href="/"
-          className="group flex items-center gap-3 text-[11px] uppercase tracking-[0.22em] text-[#5A3E2B] transition-colors duration-300 hover:text-black"
+    <main>
+      <PageHero
+        badge="Portfolio"
+        title={
+          <>
+            Des espaces
+            <span className="text-taupe"> pensés pour durer.</span>
+          </>
+        }
+        intro="Découvrez une sélection de projets conçus par Gikora Architects, de l’architecture résidentielle aux espaces professionnels et aux aménagements intérieurs."
+      >
+        <div
+          className="mt-10 flex flex-wrap gap-2"
+          aria-label="Filtrer les projets par type"
         >
-          <span className="flex h-8 w-8 items-center justify-center border border-[#5A3E2B]/30 transition-all duration-300 group-hover:border-black group-hover:bg-black group-hover:text-white">
-            <ArrowLeft
-              size={14}
-              strokeWidth={1.5}
-              className="transition-transform duration-300 group-hover:-translate-x-1"
-            />
-          </span>
+          {filters.map((filter) => {
+            const count =
+              filter === "Tous"
+                ? projects.length
+                : projects.filter((p) => projectGroup(p) === filter).length;
+            const active = activeFilter === filter;
 
-          <span>Retour</span>
-        </Link>
-      </div>
-
-      {/* =========================================================
-          HEADER
-      ========================================================= */}
-
-      <section className="mx-auto max-w-7xl px-6 pb-24 pt-36 lg:px-20 lg:pb-32 lg:pt-44">
-        <div className="grid gap-12 lg:grid-cols-[1.2fr_0.8fr] lg:items-end">
-
-          <div>
-            <div className="mb-8 flex items-center gap-4">
-              <span className="h-px w-12 bg-[#5A3E2B]" />
-
-              <p className="text-[11px] uppercase tracking-[0.35em] text-[#5A3E2B]">
-                Portfolio
-              </p>
-            </div>
-
-            <h1 className="max-w-4xl text-5xl font-light leading-[1.03] tracking-[-0.04em] text-black md:text-6xl lg:text-8xl">
-              Des espaces
-              <br />
-
-              <span className="text-neutral-400">
-                pensés pour durer.
-              </span>
-            </h1>
-          </div>
-
-          <div className="max-w-md lg:pb-2">
-            <p className="text-base leading-7 text-neutral-600 md:text-lg">
-              Découvrez une sélection de projets conçus par GIKORA Architects,
-              de l&apos;architecture résidentielle aux espaces professionnels
-              et aux aménagements intérieurs.
-            </p>
-
-            <div className="mt-8 flex flex-wrap items-center gap-3 text-[10px] uppercase tracking-[0.25em] text-neutral-400">
-              <span>Architecture</span>
-
-              <span className="h-px w-8 bg-neutral-300" />
-
-              <span>Design</span>
-
-              <span className="h-px w-8 bg-neutral-300" />
-
-              <span>Construction</span>
-            </div>
-          </div>
-        </div>
-
-        <div className="mt-20 h-px w-full bg-neutral-200 lg:mt-28" />
-
-        <div className="mt-6 flex items-center justify-between">
-          <span className="text-[10px] uppercase tracking-[0.25em] text-neutral-400">
-            01 — Projets
-          </span>
-
-          <span className="text-[10px] uppercase tracking-[0.25em] text-neutral-400">
-            {projects.length} réalisations
-          </span>
-        </div>
-      </section>
-
-      {/* =========================================================
-          PROJECT GRID
-      ========================================================= */}
-
-      <section className="mx-auto max-w-7xl px-6 pb-32 lg:px-20">
-        <div className="grid grid-cols-1 gap-x-8 gap-y-16 md:grid-cols-2 lg:grid-cols-3">
-
-          {projects.map((project, i) => (
-            <motion.article
-              key={project.title}
-              initial={{
-                opacity: 0,
-                y: 30,
-              }}
-              whileInView={{
-                opacity: 1,
-                y: 0,
-              }}
-              viewport={{
-                once: true,
-                margin: "-80px",
-              }}
-              transition={{
-                duration: 0.7,
-                delay: (i % 3) * 0.08,
-                ease: [0.22, 1, 0.36, 1],
-              }}
-              className="group cursor-pointer focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#5A3E2B]"
-              role="button"
-              tabIndex={0}
-              aria-label={`Découvrir le projet ${project.title}`}
-              onClick={() => openProject(project)}
-              onKeyDown={(event) => {
-                if (event.key === "Enter" || event.key === " ") {
-                  event.preventDefault();
-                  openProject(project);
-                }
-              }}
-            >
-              <div
-                className={`relative w-full overflow-hidden bg-neutral-200 ${
-                  i % 5 === 1 || i % 5 === 3
-                    ? "aspect-[4/5]"
-                    : "aspect-[3/4]"
+            return (
+              <button
+                key={filter}
+                type="button"
+                onClick={() => setActiveFilter(filter)}
+                aria-pressed={active}
+                className={`inline-flex h-11 cursor-pointer items-center gap-2 rounded-full px-5 text-[14px] transition-colors duration-200 ${
+                  active
+                    ? "bg-deep text-white"
+                    : "bg-canvas text-ink hover:bg-sand"
                 }`}
               >
-                <Image
-                  src={project.images[0]}
-                  alt={`${project.title} — ${project.category ?? "Projet"}, ${
-                    project.location ?? "Togo"
-                  } — Gikora Architects`}
-                  fill
-                  sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                  className="object-cover transition-transform duration-1000 ease-out group-hover:scale-[1.045]"
-                />
+                {filter}
+                <span className={active ? "text-white/60" : "text-taupe"}>
+                  {count}
+                </span>
+              </button>
+            );
+          })}
+        </div>
+      </PageHero>
 
-                <div className="absolute inset-0 bg-black/0 transition-all duration-700 group-hover:bg-black/20" />
+      {/* =========================================================
+          GRILLE DES PROJETS
+      ========================================================= */}
 
-                <div className="absolute left-5 top-5">
-                  <span className="text-[10px] tracking-[0.2em] text-white opacity-0 drop-shadow-md transition-opacity duration-500 group-hover:opacity-100">
-                    {String(i + 1).padStart(2, "0")}
+      <section className="pb-3 pt-3">
+        <Container>
+          <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+            {filteredProjects.map((project) => (
+              <article
+                key={project.title}
+                className="group cursor-pointer rounded-[2rem] bg-white p-2 transition-shadow duration-300 hover:shadow-[0_20px_50px_-25px_rgba(38,29,22,0.35)]"
+                role="button"
+                tabIndex={0}
+                aria-label={`Découvrir le projet ${project.title}`}
+                onClick={() => openProject(project)}
+                onKeyDown={(event) => {
+                  if (event.key === "Enter" || event.key === " ") {
+                    event.preventDefault();
+                    openProject(project);
+                  }
+                }}
+              >
+                <div className="relative aspect-[4/3] overflow-hidden rounded-[1.6rem] bg-sand-soft">
+                  <Image
+                    src={project.images[0]}
+                    alt={`${project.title} — ${project.category ?? "Projet"}, ${
+                      project.location ?? "Togo"
+                    } — Gikora Architects`}
+                    fill
+                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                    className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03]"
+                  />
+
+                  <span className="absolute left-3 top-3 rounded-full bg-white/95 px-3 py-1.5 text-[12px] text-ink backdrop-blur">
+                    {project.images.length} vues
                   </span>
                 </div>
 
-                <div className="absolute bottom-5 right-5 flex h-11 w-11 translate-y-3 items-center justify-center bg-white opacity-0 transition-all duration-500 group-hover:translate-y-0 group-hover:opacity-100">
-                  <ArrowUpRight
-                    size={18}
-                    strokeWidth={1.3}
-                    className="transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
-                  />
-                </div>
-              </div>
-
-              <div className="border-b border-neutral-200 pb-5 pt-5">
-                <div className="flex items-start justify-between gap-5">
-
-                  <div>
-                    {project.location && (
-                      <p className="mb-2 text-[9px] uppercase tracking-[0.25em] text-[#5A3E2B]">
-                        {project.location}
-                      </p>
-                    )}
-
-                    <h2 className="max-w-[280px] text-lg font-light leading-snug tracking-[-0.01em] text-black transition-transform duration-300 group-hover:translate-x-1 md:text-xl">
+                <div className="flex items-center justify-between gap-4 px-4 pb-3 pt-5">
+                  <div className="min-w-0">
+                    <h2 className="truncate text-xl tracking-[-0.02em] text-ink">
                       {project.title}
                     </h2>
-
-                    {project.category && (
-                      <p className="mt-2 text-[9px] uppercase tracking-[0.2em] text-neutral-400">
-                        {project.category}
-                      </p>
-                    )}
+                    <p className="mt-1 truncate text-[13px] text-taupe">
+                      {project.category}
+                      {project.location ? ` · ${project.location}` : ""}
+                    </p>
                   </div>
 
-                  <span className="pt-1 text-[9px] tracking-[0.15em] text-neutral-300">
-                    {String(i + 1).padStart(2, "0")}
+                  <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-canvas text-ink transition-all duration-300 group-hover:rotate-45 group-hover:bg-deep group-hover:text-white">
+                    <ArrowUpRight size={17} strokeWidth={1.5} />
                   </span>
-
                 </div>
-
-                <div className="mt-4 flex items-center gap-2 text-[9px] uppercase tracking-[0.2em] text-neutral-400 transition-colors duration-300 group-hover:text-black">
-                  <span>Voir le projet</span>
-
-                  <ArrowUpRight
-                    size={12}
-                    strokeWidth={1.3}
-                    className="transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1"
-                  />
-                </div>
-              </div>
-            </motion.article>
-          ))}
-
-        </div>
+              </article>
+            ))}
+          </div>
+        </Container>
       </section>
 
       {/* =========================================================
-          BOTTOM STATEMENT
+          APPEL À L'ACTION
       ========================================================= */}
 
-      <section className="border-t border-neutral-200 bg-white">
-        <div className="mx-auto max-w-7xl px-6 py-20 lg:px-20 lg:py-28">
-
-          <div className="grid gap-10 lg:grid-cols-[0.7fr_1.3fr] lg:items-end">
-
-            <div>
-              <p className="text-[10px] uppercase tracking-[0.3em] text-[#5A3E2B]">
-                GIKORA Architects
-              </p>
-
-              <div className="mt-5 h-px w-16 bg-[#5A3E2B]" />
-            </div>
-
-            <div>
-              <h2 className="max-w-4xl text-3xl font-light leading-tight tracking-[-0.03em] text-black md:text-4xl lg:text-5xl">
-                Chaque projet commence par une idée,
-
-                <span className="text-neutral-400">
-                  {" "}
-                  puis prend forme.
-                </span>
-              </h2>
-
-              <Link
-                href="/contact"
-                className="group mt-8 inline-flex items-center gap-3 text-[10px] uppercase tracking-[0.25em] text-black"
-              >
-                <span>Parler de votre projet</span>
-
-                <ArrowUpRight
-                  size={15}
-                  strokeWidth={1.4}
-                  className="transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1"
-                />
-              </Link>
-            </div>
-
+      <section className="pb-0 pt-0">
+        <Container>
+          <div className="flex flex-col gap-8 rounded-[2rem] bg-sand px-6 py-14 sm:px-10 lg:flex-row lg:items-end lg:justify-between lg:px-16 lg:py-20">
+            <h2 className="max-w-3xl text-4xl leading-[1.02] tracking-[-0.035em] text-ink sm:text-5xl">
+              Chaque projet commence par une idée,
+              <span className="text-ink/50"> puis prend forme.</span>
+            </h2>
+            <ButtonLink href="/contact">Parler de votre projet</ButtonLink>
           </div>
-        </div>
+        </Container>
       </section>
 
       {/* =========================================================
@@ -654,7 +548,7 @@ export default function ProjectsClient() {
             transition={{
               duration: 0.4,
             }}
-            className="fixed inset-0 z-[200] overflow-y-auto bg-[#faf9f7]"
+            className="fixed inset-0 z-[10010] overflow-y-auto bg-canvas"
             role="dialog"
             aria-modal="true"
             aria-label={`Projet ${selectedProject.title}`}
@@ -667,7 +561,8 @@ export default function ProjectsClient() {
             <button
               onClick={closeProject}
               aria-label="Fermer le projet"
-              className="fixed right-5 top-5 z-[220] flex h-11 w-11 items-center justify-center border border-neutral-300 bg-[#faf9f7] transition-all duration-300 hover:border-black hover:bg-black hover:text-white sm:right-8 sm:top-8"
+              type="button"
+              className="fixed right-4 top-4 z-[10020] flex h-14 w-14 items-center justify-center rounded-2xl bg-white text-ink ring-1 ring-black/5 transition-colors duration-300 hover:bg-deep hover:text-white sm:right-6 sm:top-6"
             >
               <X
                 size={20}
@@ -702,15 +597,11 @@ export default function ProjectsClient() {
 
                 <div>
 
-                  <div className="mb-7 flex items-center gap-4">
-                    <span className="h-px w-10 bg-[#5A3E2B]" />
+                  <span className="mb-7 inline-flex items-center rounded-full bg-sand px-3.5 py-1.5 text-[13px] leading-none text-ink">
+                    Étude de projet
+                  </span>
 
-                    <span className="text-[10px] uppercase tracking-[0.3em] text-[#5A3E2B]">
-                      Étude de projet
-                    </span>
-                  </div>
-
-                  <h2 className="max-w-5xl text-5xl font-light leading-[0.95] tracking-[-0.04em] sm:text-6xl md:text-7xl lg:text-[6.5rem]">
+                  <h2 className="max-w-5xl text-5xl leading-[0.95] tracking-[-0.04em] text-ink sm:text-6xl md:text-7xl lg:text-[6rem]">
                     {selectedProject.title}
                   </h2>
 
@@ -759,7 +650,7 @@ export default function ProjectsClient() {
                   duration: 0.8,
                   delay: 0.15,
                 }}
-                className="relative mt-16 w-full overflow-hidden bg-neutral-200 md:mt-24"
+                className="relative mt-12 w-full overflow-hidden rounded-[2rem] bg-sand-soft md:mt-16"
               >
 
                 {/* IMAGE */}
@@ -819,7 +710,7 @@ export default function ProjectsClient() {
 
                         {/* AGRANDIR */}
 
-                        <div className="absolute bottom-6 right-6 hidden items-center gap-3 bg-white px-5 py-3 opacity-0 transition-all duration-500 group-hover:opacity-100 sm:flex">
+                        <div className="absolute bottom-6 right-6 hidden items-center gap-3 rounded-full bg-white px-5 py-3 opacity-0 transition-all duration-500 group-hover:opacity-100 sm:flex">
                           <span className="text-[9px] uppercase tracking-[0.2em]">
                             Agrandir
                           </span>
@@ -928,7 +819,7 @@ export default function ProjectsClient() {
                       COUNTER
                   ================================================== */}
 
-                  <div className="absolute bottom-5 left-5 z-20 flex items-center gap-3 bg-black/30 px-4 py-2.5 text-white backdrop-blur-md">
+                  <div className="absolute bottom-5 left-5 z-20 flex items-center gap-3 rounded-full bg-black/35 px-4 py-2.5 text-white backdrop-blur-md">
                     <span className="text-[10px] tracking-[0.2em]">
                       {String(projectImageIndex + 1).padStart(
                         2,
@@ -997,7 +888,7 @@ export default function ProjectsClient() {
                   PROJECT INFORMATION
               ================================================== */}
 
-              <section className="border-t border-neutral-200 py-20 md:py-28">
+              <section className="border-t border-line py-20 md:py-28">
 
                 <div className="grid gap-14 lg:grid-cols-[0.6fr_1.4fr]">
 
@@ -1037,7 +928,7 @@ export default function ProjectsClient() {
                   INTENTION
               ================================================== */}
 
-              <section className="border-t border-neutral-200 py-20 md:py-28">
+              <section className="border-t border-line py-20 md:py-28">
 
                 <div className="grid gap-14 lg:grid-cols-[0.6fr_1.4fr]">
 
@@ -1073,7 +964,7 @@ export default function ProjectsClient() {
                   KEY INFORMATION
               ================================================== */}
 
-              <section className="border-t border-neutral-200 py-20 md:py-28">
+              <section className="border-t border-line py-20 md:py-28">
 
                 <div className="grid gap-14 lg:grid-cols-[0.6fr_1.4fr]">
 
@@ -1093,9 +984,9 @@ export default function ProjectsClient() {
                     </div>
                   </div>
 
-                  <div className="grid grid-cols-2 border-t border-neutral-200 sm:grid-cols-3">
+                  <div className="grid grid-cols-2 border-t border-line sm:grid-cols-3">
 
-                    <div className="border-b border-r border-neutral-200 py-6 pr-5">
+                    <div className="border-b border-r border-line py-6 pr-5">
                       <p className="text-[9px] uppercase tracking-[0.2em] text-neutral-400">
                         Typologie
                       </p>
@@ -1106,7 +997,7 @@ export default function ProjectsClient() {
                       </p>
                     </div>
 
-                    <div className="border-b border-neutral-200 py-6 sm:px-5">
+                    <div className="border-b border-line py-6 sm:px-5">
                       <p className="text-[9px] uppercase tracking-[0.2em] text-neutral-400">
                         Localisation
                       </p>
@@ -1116,7 +1007,7 @@ export default function ProjectsClient() {
                       </p>
                     </div>
 
-                    <div className="border-b border-r border-neutral-200 py-6 pr-5 sm:border-r-0 sm:pl-5">
+                    <div className="border-b border-r border-line py-6 pr-5 sm:border-r-0 sm:pl-5">
                       <p className="text-[9px] uppercase tracking-[0.2em] text-neutral-400">
                         Images
                       </p>
@@ -1135,7 +1026,7 @@ export default function ProjectsClient() {
                   GALLERY
               ================================================== */}
 
-              <section className="border-t border-neutral-200 py-20 md:py-28">
+              <section className="border-t border-line py-20 md:py-28">
 
                 <div className="mb-12 flex items-end justify-between">
 
@@ -1194,7 +1085,7 @@ export default function ProjectsClient() {
                             imageIndex
                           )
                         }
-                        className={`group relative overflow-hidden bg-neutral-200 text-left ${
+                        className={`group relative overflow-hidden rounded-[1.5rem] bg-sand-soft text-left ${
                           imageIndex === 0
                             ? "md:col-span-2 aspect-[16/9]"
                             : "aspect-[4/3]"
@@ -1217,7 +1108,7 @@ export default function ProjectsClient() {
 
                         <div className="absolute inset-0 bg-black/0 transition-colors duration-500 group-hover:bg-black/20" />
 
-                        <div className="absolute bottom-5 left-5 flex items-center gap-3 bg-white px-4 py-3 opacity-0 transition-all duration-500 group-hover:opacity-100">
+                        <div className="absolute bottom-5 left-5 flex items-center gap-3 rounded-full bg-white px-4 py-3 opacity-0 transition-all duration-500 group-hover:opacity-100">
 
                           <span className="text-[9px] uppercase tracking-[0.2em]">
                             {String(
@@ -1244,7 +1135,7 @@ export default function ProjectsClient() {
                   PROJECT FOOTER
               ================================================== */}
 
-              <section className="border-t border-neutral-200 py-20 md:py-28">
+              <section className="border-t border-line py-20 md:py-28">
 
                 <div className="flex flex-col gap-10 sm:flex-row sm:items-end sm:justify-between">
 
@@ -1264,7 +1155,7 @@ export default function ProjectsClient() {
 
                     <button
                       onClick={closeProject}
-                      className="group flex items-center gap-3 border border-neutral-300 px-6 py-4 text-[9px] uppercase tracking-[0.22em] transition-all duration-300 hover:border-black hover:bg-black hover:text-white"
+                      className="group flex h-14 cursor-pointer items-center gap-3 rounded-full px-6 text-[15px] text-ink ring-1 ring-inset ring-ink/15 transition-colors duration-300 hover:bg-white"
                     >
                       <ArrowLeft
                         size={14}
@@ -1278,7 +1169,7 @@ export default function ProjectsClient() {
                     <Link
                       href="/contact"
                       onClick={closeProject}
-                      className="group flex items-center gap-3 border border-black bg-black px-6 py-4 text-[9px] uppercase tracking-[0.22em] text-white transition-all duration-300 hover:bg-transparent hover:text-black"
+                      className="group flex h-14 items-center gap-3 rounded-full bg-deep px-6 text-[15px] text-white transition-colors duration-300 hover:bg-brand"
                     >
                       Votre projet
 

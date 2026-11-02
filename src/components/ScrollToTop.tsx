@@ -42,18 +42,16 @@ export default function ScrollToTop() {
         w-12
         items-center
         justify-center
-        rounded-full
-        border
-        border-neutral-300
-        bg-white/90
-        text-[#211c19]
-        shadow-sm
-        backdrop-blur-md
+        rounded-2xl
+        bg-white
+        text-ink
+        ring-1
+        ring-black/5
+        shadow-[0_8px_30px_-12px_rgba(38,29,22,0.35)]
         transition-all
         duration-500
         hover:-translate-y-1
-        hover:border-[#5A3E2B]
-        hover:bg-[#5A3E2B]
+        hover:bg-deep
         hover:text-white
         sm:bottom-8
         sm:right-8

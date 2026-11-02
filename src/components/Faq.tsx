@@ -1,3 +1,8 @@
+import { Plus } from "lucide-react";
+
+import Reveal from "@/components/site/Reveal";
+import { ButtonLink, Container, SectionHeading } from "@/components/site/ui";
+
 export const faqs = [
   {
     q: "Quels types de projets réalisez-vous ?",
@@ -21,35 +26,58 @@ export const faqs = [
   },
 ];
 
+export function FaqList({ items }: { items: { q: string; a: string }[] }) {
+  return (
+    <div className="space-y-3">
+      {items.map((item, index) => (
+        <details
+          key={item.q}
+          className="group rounded-[1.5rem] bg-white px-6 py-5 sm:px-8 sm:py-6"
+          open={index === 0}
+        >
+          <summary className="flex cursor-pointer list-none items-center justify-between gap-6 text-lg tracking-[-0.01em] text-ink [&::-webkit-details-marker]:hidden">
+            {item.q}
+            <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-canvas text-ink transition-transform duration-300 group-open:rotate-45">
+              <Plus size={16} strokeWidth={1.6} />
+            </span>
+          </summary>
+          <p className="mt-4 max-w-2xl pr-10 text-[15px] leading-7 text-taupe">
+            {item.a}
+          </p>
+        </details>
+      ))}
+    </div>
+  );
+}
+
 export default function FAQ() {
   return (
-    <section className="bg-white py-24 lg:py-32">
-      <div className="mx-auto max-w-4xl px-6 lg:px-8">
-
-        <div className="mb-16">
-          <p className="text-sm uppercase tracking-[0.35em] text-[#5A3E2B]">
-            FAQ
-          </p>
-
-          <h2 className="mt-4 text-4xl md:text-5xl font-light text-black">
-            Gikora répond à vos questions
-          </h2>
-        </div>
-
-        <div className="space-y-10">
-          {faqs.map((item, i) => (
-            <div key={i} className="border-b border-neutral-200 pb-6">
-              <h3 className="text-lg font-medium text-black">
-                {item.q}
-              </h3>
-              <p className="mt-3 text-neutral-600 leading-7">
-                {item.a}
-              </p>
+    <section className="pb-20 sm:pb-28">
+      <Container>
+        <div className="grid gap-10 lg:grid-cols-[0.8fr_1.2fr] lg:gap-16">
+          <Reveal>
+            <SectionHeading
+              badge="FAQ"
+              title={
+                <>
+                  Gikora répond
+                  <span className="text-taupe"> à vos questions.</span>
+                </>
+              }
+              intro="Vous ne trouvez pas votre réponse ? Écrivez-nous, nous vous répondons rapidement."
+            />
+            <div className="mt-8">
+              <ButtonLink href="/contact" variant="outline">
+                Poser une question
+              </ButtonLink>
             </div>
-          ))}
-        </div>
+          </Reveal>
 
-      </div>
+          <Reveal delay={0.08}>
+            <FaqList items={faqs} />
+          </Reveal>
+        </div>
+      </Container>
     </section>
   );
 }

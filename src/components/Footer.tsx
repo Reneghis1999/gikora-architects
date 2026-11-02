@@ -1,132 +1,137 @@
 import Link from "next/link";
-import Image from "next/image";
-import { ArrowUpRight } from "lucide-react";
-import { siteConfig } from "@/lib/site";
+import { FaInstagram, FaTiktok, FaWhatsapp } from "react-icons/fa";
+
+import { ButtonLink, Container, LogoLockup } from "@/components/site/ui";
+import { siteConfig, whatsappUrl } from "@/lib/site";
+
+const navigation = [
+  { label: "Accueil", href: "/" },
+  { label: "Projets", href: "/projects" },
+  { label: "À propos", href: "/#about" },
+  { label: "Équipe", href: "/team" },
+  { label: "Espace Diaspora", href: "/diaspora" },
+  { label: "Contact", href: "/contact" },
+];
+
+const expertises = [
+  "Études architecturales",
+  "Design d’intérieur",
+  "Modélisation 3D",
+  "Suivi de chantier",
+  "Aménagement urbain",
+];
+
+const socials = [
+  { label: "WhatsApp", href: whatsappUrl(), icon: FaWhatsapp },
+  { label: "Instagram", href: siteConfig.socials.instagram, icon: FaInstagram },
+  { label: "TikTok", href: siteConfig.socials.tiktok, icon: FaTiktok },
+];
 
 export default function Footer() {
   return (
-    <footer className="bg-[#F4F1EC] text-black pt-24 pb-10 border-t border-neutral-200">
+    <footer className="pb-3 pt-3 sm:pb-5">
+      <Container>
+        <div className="rounded-[2rem] bg-deep px-6 py-14 text-white sm:px-10 lg:px-16 lg:py-20">
+          {/* CTA */}
 
-      <div className="mx-auto max-w-7xl px-6 lg:px-8">
-
-        {/* TOP GRID */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-16">
-
-          {/* BRAND */}
-          <div>
-            <Image
-              src="/images/logo/gikora-logo.webp"
-              alt="Logo Gikora Architects"
-              width={160}
-              height={60}
-              className="mb-6"
-            />
-
-            <p className="text-sm leading-6 text-neutral-700 max-w-sm">
-              Gikora Architects est un studio d’architecture contemporain
-              basé au Togo, spécialisé dans la conception d’espaces
-              modernes, fonctionnels et intemporels.
-            </p>
-          </div>
-
-          {/* NAVIGATION */}
-          <div>
-            <p className="text-xs uppercase tracking-[0.3em] text-[#5A3E2B] mb-6">
-              Navigation
+          <div className="flex flex-col gap-10 border-b border-white/10 pb-14 lg:flex-row lg:items-end lg:justify-between">
+            <p className="max-w-3xl text-4xl leading-[1.02] tracking-[-0.035em] sm:text-5xl lg:text-6xl">
+              Construisons ensemble
+              <span className="text-white/45"> les espaces de demain.</span>
             </p>
 
-            <ul className="space-y-4 text-sm text-neutral-700">
-              <li>
-                <Link className="hover:text-[#5A3E2B] transition" href="/">
-                  Accueil
-                </Link>
-              </li>
-              <li>
-                <Link className="hover:text-[#5A3E2B] transition" href="/projects">
-                  Projets
-                </Link>
-              </li>
-              <li>
-                <Link className="hover:text-[#5A3E2B] transition" href="/#about">
-                  À propos
-                </Link>
-              </li>
-              <li>
-                <Link className="hover:text-[#5A3E2B] transition" href="/team">
-                  Équipe
-                </Link>
-              </li>
-              <li>
-                <Link className="hover:text-[#5A3E2B] transition" href="/diaspora">
-                  Espace Diaspora
-                </Link>
-              </li>
-              <li>
-                <Link className="hover:text-[#5A3E2B] transition" href="/contact">
-                  Contact
-                </Link>
-              </li>
-            </ul>
-          </div>
-
-          {/* CONTACT */}
-          <div>
-            <p className="text-xs uppercase tracking-[0.3em] text-[#5A3E2B] mb-6">
-              Contact
-            </p>
-
-            <address className="not-italic">
-              <ul className="space-y-4 text-sm text-neutral-700">
-                <li>
-                  {siteConfig.address.street}, {siteConfig.address.city},{" "}
-                  {siteConfig.address.countryName}
-                </li>
-                <li>
-                  <a
-                    className="transition hover:text-[#5A3E2B]"
-                    href={`tel:${siteConfig.phoneE164}`}
-                  >
-                    {siteConfig.phoneDisplay}
-                  </a>
-                </li>
-                <li>
-                  <a
-                    className="transition hover:text-[#5A3E2B]"
-                    href={`mailto:${siteConfig.email}`}
-                  >
-                    {siteConfig.email}
-                  </a>
-                </li>
-              </ul>
-            </address>
-
-            <div className="mt-6">
-              <Link
-                href="/contact"
-                className="inline-flex items-center gap-2 text-sm text-black hover:text-[#5A3E2B] transition"
-              >
-                Nous contacter
-                <ArrowUpRight className="h-4 w-4" />
-              </Link>
+            <div className="flex flex-col gap-3 sm:flex-row">
+              <ButtonLink href="/contact" variant="light">
+                Démarrer un projet
+              </ButtonLink>
+              <ButtonLink href={whatsappUrl()} variant="outline-light" external>
+                Écrire sur WhatsApp
+              </ButtonLink>
             </div>
           </div>
 
+          {/* COLONNES */}
+
+          <div className="grid gap-12 pt-14 sm:grid-cols-2 lg:grid-cols-[1.4fr_1fr_1fr_1.2fr]">
+            <div>
+              <LogoLockup tone="light" />
+              <p className="mt-6 max-w-sm text-sm leading-7 text-white/60">
+                Cabinet d’architecture contemporain basé à Lomé, spécialisé dans
+                la conception d’espaces modernes, fonctionnels et intemporels.
+              </p>
+            </div>
+
+            <div>
+              <p className="text-[13px] text-white/45">Navigation</p>
+              <ul className="mt-5 space-y-3 text-[15px]">
+                {navigation.map((item) => (
+                  <li key={item.href}>
+                    <Link href={item.href} className="text-white/80 transition-colors hover:text-white">
+                      {item.label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            <div>
+              <p className="text-[13px] text-white/45">Expertises</p>
+              <ul className="mt-5 space-y-3 text-[15px] text-white/80">
+                {expertises.map((item) => (
+                  <li key={item}>
+                    <Link href="/#services" className="transition-colors hover:text-white">
+                      {item}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            <div>
+              <p className="text-[13px] text-white/45">Contact</p>
+              <address className="mt-5 space-y-3 text-[15px] not-italic text-white/80">
+                <p>
+                  {siteConfig.address.street}
+                  <br />
+                  {siteConfig.address.city}, {siteConfig.address.countryName}
+                </p>
+                <p>
+                  <a href={`tel:${siteConfig.phoneE164}`} className="transition-colors hover:text-white">
+                    {siteConfig.phoneDisplay}
+                  </a>
+                </p>
+                <p>
+                  <a href={`mailto:${siteConfig.email}`} className="transition-colors hover:text-white">
+                    {siteConfig.email}
+                  </a>
+                </p>
+              </address>
+
+              <div className="mt-6 flex gap-2">
+                {socials.map(({ label, href, icon: Icon }) => (
+                  <a
+                    key={label}
+                    href={href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={label}
+                    className="flex h-11 w-11 items-center justify-center rounded-xl bg-white/10 text-white transition-colors hover:bg-white hover:text-ink"
+                  >
+                    <Icon size={16} />
+                  </a>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          {/* BAS DE PAGE */}
+
+          <div className="mt-14 flex flex-col gap-3 border-t border-white/10 pt-8 text-[13px] text-white/45 sm:flex-row sm:items-center sm:justify-between">
+            <p>© {new Date().getFullYear()} Gikora Architects. Tous droits réservés.</p>
+            <p>Architecture · Design · 3D · Urbanisme</p>
+          </div>
         </div>
-
-        {/* DIVIDER */}
-        <div className="border-t border-neutral-300 mt-16 pt-8 flex flex-col md:flex-row items-center justify-between gap-6">
-
-          <p className="text-xs text-neutral-500">
-            © {new Date().getFullYear()} Gikora Architects. Tous droits réservés.
-          </p>
-
-          <p className="text-xs uppercase tracking-[0.25em] text-neutral-400">
-            Architecture • Design • 3D • Urbanisme
-          </p>
-
-        </div>
-
-      </div>
+      </Container>
     </footer>
   );
 }

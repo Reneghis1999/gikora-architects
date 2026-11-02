@@ -1,561 +1,227 @@
 "use client";
 
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
-import Image from "next/image";
-import {
-  Phone,
-  Menu,
-  X,
-  ArrowUpRight,
-} from "lucide-react";
-import { whatsappUrl } from "@/lib/site";
+import { ArrowUpRight, Menu, Phone, X } from "lucide-react";
+import { FaInstagram, FaTiktok, FaWhatsapp } from "react-icons/fa";
+
+import { ButtonLink, LogoLockup } from "@/components/site/ui";
+import { cn } from "@/lib/utils";
+import { siteConfig, whatsappUrl } from "@/lib/site";
 
 const navLinks = [
   { label: "Accueil", href: "/" },
-  { label: "À propos", href: "/#about" },
-  { label: "Équipe", href: "/team" },
   { label: "Projets", href: "/projects" },
+  { label: "Services", href: "/#services" },
+  { label: "Équipe", href: "/team" },
   { label: "Diaspora", href: "/diaspora" },
   { label: "Contact", href: "/contact" },
 ];
 
 export default function Navbar() {
+  const pathname = usePathname();
   const [open, setOpen] = useState(false);
-  const [isScrolled, setIsScrolled] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
 
-  /* =========================================================
-     SCROLL
-  ========================================================== */
-
+  /* Ombre légère une fois la page défilée */
   useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 80);
-    };
-
-    handleScroll();
-
-    window.addEventListener("scroll", handleScroll);
-
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
+    const onScroll = () => setScrolled(window.scrollY > 24);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  /* =========================================================
-     BLOQUER LE SCROLL QUAND LE MENU EST OUVERT
-  ========================================================== */
-
+  /* Menu mobile : blocage du scroll + fermeture avec Échap */
   useEffect(() => {
-    document.body.style.overflow = open ? "hidden" : "";
+    if (!open) return;
+
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setOpen(false);
+    };
+
+    document.body.style.overflow = "hidden";
+    window.addEventListener("keydown", onKeyDown);
 
     return () => {
       document.body.style.overflow = "";
+      window.removeEventListener("keydown", onKeyDown);
     };
   }, [open]);
 
-  /* =========================================================
-     STYLE DES ICONES
-  ========================================================== */
+  const isActive = (href: string) =>
+    href === "/" ? pathname === "/" : !href.includes("#") && pathname.startsWith(href);
 
-  const iconClass = `
-    flex
-    h-12
-    w-12
-    items-center
-    justify-center
-    rounded-full
-    border
-    transition-all
-    duration-300
-    hover:scale-105
-  `;
+  const pill = cn(
+    "rounded-2xl bg-white ring-1 ring-black/5 transition-shadow duration-300",
+    scrolled && "shadow-[0_8px_30px_-12px_rgba(38,29,22,0.25)]"
+  );
 
   return (
     <>
-      {/* =====================================================
-          NAVBAR
-      ====================================================== */}
+      <header className="fixed inset-x-0 top-0 z-[9999] px-3 pt-3 sm:px-5 sm:pt-4">
+        <div className="mx-auto flex max-w-[1440px] items-center justify-between gap-2">
+          {/* LOGO + NAVIGATION */}
 
-      <header
-        className={`
-          fixed
-          inset-x-0
-          top-0
-          z-[9999]
-          w-full
-          transition-all
-          duration-500
-          ${
-            isScrolled
-              ? "bg-white/95 shadow-sm backdrop-blur-xl"
-              : "bg-transparent"
-          }
-        `}
-      >
-        <div
-          className="
-            mx-auto
-            flex
-            h-24
-            items-center
-            justify-between
-            px-6
-            sm:px-8
-            lg:px-12
-          "
-        >
-          {/* =================================================
-              LOGO
-          ================================================== */}
-
-          <Link
-            href="/"
-            onClick={() => setOpen(false)}
-            aria-label="GIKORA Architects - Accueil"
-            className="
-              relative
-              z-[10001]
-              flex
-              items-center
-              transition-opacity
-              duration-300
-              hover:opacity-80
-            "
-          >
-            {/* Logo blanc — Hero */}
-            <Image
-              src="/images/logo/gikora-logo-blanc.png"
-              alt="GIKORA Architects"
-              width={180}
-              height={60}
-              preload
-              className={`
-                absolute
-                left-0
-                top-1/2
-                h-auto
-                w-[125px]
-                -translate-y-1/2
-                transition-all
-                duration-500
-                sm:w-[145px]
-                lg:w-[165px]
-                ${
-                  isScrolled
-                    ? "scale-95 opacity-0"
-                    : "scale-100 opacity-100"
-                }
-              `}
-            />
-
-            {/* Logo noir — Scroll */}
-            <Image
-              src="/images/logo/gikora-logo-noir.png"
-              alt=""
-              aria-hidden="true"
-              width={180}
-              height={60}
-              className={`
-                h-auto
-                w-[125px]
-                transition-all
-                duration-500
-                sm:w-[145px]
-                lg:w-[165px]
-                ${
-                  isScrolled
-                    ? "scale-100 opacity-100"
-                    : "scale-95 opacity-0"
-                }
-              `}
-            />
-          </Link>
-
-          {/* =================================================
-              DESKTOP ACTIONS
-              DIASPORA + TELEPHONE + MENU
-          ================================================== */}
-
-          <div className="hidden items-center gap-3 lg:flex">
-
-            {/* =================================================
-                DIASPORA
-            ================================================== */}
-
+          <div className="flex items-center gap-2">
             <Link
-              href="/diaspora"
-              aria-label="Espace diaspora GIKORA"
-              className={`
-                flex
-                h-12
-                items-center
-                rounded-full
-                border
-                px-5
-                text-[11px]
-                uppercase
-                tracking-[0.2em]
-                transition-all
-                duration-300
-                hover:scale-105
-                ${
-                  isScrolled
-                    ? `
-                      border-neutral-300
-                      bg-white
-                      text-neutral-900
-                      hover:bg-neutral-100
-                    `
-                    : `
-                      border-white/60
-                      bg-black/10
-                      text-white
-                      backdrop-blur-md
-                      hover:bg-white
-                      hover:text-black
-                    `
-                }
-              `}
+              href="/"
+              aria-label="Gikora Architects — Accueil"
+              className={cn(pill, "flex h-14 items-center px-4 sm:h-[60px] sm:px-5")}
             >
-              Vous êtes de la diaspora ?
+              <LogoLockup />
             </Link>
 
-            {/* =================================================
-                WHATSAPP / TELEPHONE
-            ================================================== */}
-
-            <a
-              href={whatsappUrl()}
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="Contacter GIKORA sur WhatsApp"
-              className={`
-                ${iconClass}
-                ${
-                  isScrolled
-                    ? `
-                      border-neutral-300
-                      bg-white
-                      text-neutral-900
-                      hover:bg-neutral-100
-                    `
-                    : `
-                      border-white/60
-                      bg-black/10
-                      text-white
-                      backdrop-blur-md
-                      hover:bg-white
-                      hover:text-black
-                    `
-                }
-              `}
+            <nav
+              aria-label="Navigation principale"
+              className={cn(pill, "hidden h-[60px] items-center gap-1 px-2 lg:flex")}
             >
-              <Phone
-                size={18}
-                strokeWidth={1.5}
-              />
+              {navLinks.map((link) => (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  aria-current={isActive(link.href) ? "page" : undefined}
+                  className={cn(
+                    "rounded-xl px-4 py-2.5 text-[15px] text-ink transition-colors duration-200 hover:bg-canvas",
+                    isActive(link.href) && "bg-canvas"
+                  )}
+                >
+                  {link.label}
+                </Link>
+              ))}
+            </nav>
+          </div>
+
+          {/* ACTIONS */}
+
+          <div className="flex items-center gap-2">
+            <a
+              href={`tel:${siteConfig.phoneE164}`}
+              className={cn(
+                pill,
+                "hidden h-[60px] items-center gap-3 pl-2 pr-5 text-[15px] text-ink xl:flex"
+              )}
+            >
+              <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-canvas">
+                <Phone size={17} strokeWidth={1.6} />
+              </span>
+              <span className="leading-tight">
+                <span className="block text-[11px] text-taupe">Appelez-nous</span>
+                {siteConfig.phoneDisplay}
+              </span>
             </a>
 
-            {/* =================================================
-                MENU
-            ================================================== */}
+            <ButtonLink
+              href="/contact"
+              className="hidden h-[60px] shadow-[0_8px_30px_-12px_rgba(38,29,22,0.45)] sm:inline-flex"
+            >
+              Démarrer un projet
+            </ButtonLink>
 
             <button
               type="button"
               onClick={() => setOpen(true)}
               aria-label="Ouvrir le menu"
-              className={`
-                ${iconClass}
-                ${
-                  isScrolled
-                    ? `
-                      border-neutral-900
-                      bg-neutral-900
-                      text-white
-                      hover:bg-white
-                      hover:text-black
-                    `
-                    : `
-                      border-white/60
-                      bg-black/10
-                      text-white
-                      backdrop-blur-md
-                      hover:bg-white
-                      hover:text-black
-                    `
-                }
-              `}
+              aria-expanded={open}
+              aria-controls="menu-mobile"
+              className={cn(pill, "flex h-14 w-14 items-center justify-center text-ink sm:h-[60px] sm:w-[60px] lg:hidden")}
             >
-              <Menu
-                size={21}
-                strokeWidth={1.5}
-              />
+              <Menu size={22} strokeWidth={1.6} />
             </button>
           </div>
-
-          {/* =================================================
-              MOBILE MENU BUTTON
-          ================================================== */}
-
-          <button
-            type="button"
-            onClick={() => setOpen(true)}
-            aria-label="Ouvrir le menu"
-            className={`
-              relative
-              z-[10001]
-              flex
-              h-11
-              w-11
-              items-center
-              justify-center
-              rounded-full
-              border
-              transition-all
-              duration-300
-              lg:hidden
-              ${
-                isScrolled
-                  ? `
-                    border-neutral-900
-                    bg-white
-                    text-neutral-900
-                  `
-                  : `
-                    border-white/70
-                    bg-black/10
-                    text-white
-                    backdrop-blur-md
-                  `
-              }
-            `}
-          >
-            <Menu
-              size={21}
-              strokeWidth={1.5}
-            />
-          </button>
         </div>
       </header>
 
       {/* =====================================================
-          OVERLAY
+          MENU MOBILE
       ====================================================== */}
 
       <div
-        onClick={() => setOpen(false)}
-        className={`
-          fixed
-          inset-0
-          z-[10000]
-          bg-black/50
-          backdrop-blur-sm
-          transition-opacity
-          duration-500
-          ${
-            open
-              ? "pointer-events-auto opacity-100"
-              : "pointer-events-none opacity-0"
-          }
-        `}
-      />
-
-      {/* =====================================================
-          MENU FULLSCREEN
-      ====================================================== */}
-
-      <div
-        className={`
-          fixed
-          inset-0
-          z-[10002]
-          flex
-          flex-col
-          bg-[#f7f6f3]
-          transition-all
-          duration-500
-          ${
-            open
-              ? "translate-x-0 opacity-100"
-              : "pointer-events-none translate-x-full opacity-0"
-          }
-        `}
+        id="menu-mobile"
+        role="dialog"
+        aria-modal="true"
+        aria-label="Menu"
+        className={cn(
+          "fixed inset-0 z-[10002] flex flex-col bg-canvas px-3 pb-6 pt-3 transition-all duration-300 sm:px-5 sm:pt-4 lg:hidden",
+          open ? "visible opacity-100" : "invisible pointer-events-none opacity-0"
+        )}
       >
-
-        {/* =================================================
-            CLOSE
-        ================================================== */}
-
-        <button
-          type="button"
-          onClick={() => setOpen(false)}
-          aria-label="Fermer le menu"
-          className="
-            absolute
-            right-6
-            top-6
-            z-[10005]
-            flex
-            h-12
-            w-12
-            items-center
-            justify-center
-            rounded-full
-            border
-            border-neutral-300
-            transition-all
-            duration-300
-            hover:rotate-90
-            hover:bg-black
-            hover:text-white
-          "
-        >
-          <X
-            size={22}
-            strokeWidth={1.5}
-          />
-        </button>
-
-        {/* =================================================
-            MENU CONTENT
-        ================================================== */}
-
-        <div
-          className="
-            mx-auto
-            flex
-            h-full
-            w-full
-            max-w-7xl
-            flex-col
-            justify-center
-            px-8
-            lg:px-16
-          "
-        >
-
-          {/* LABEL */}
-
-          <div className="mb-10">
-            <span
-              className="
-                text-[10px]
-                uppercase
-                tracking-[0.35em]
-                text-[#5A3E2B]
-              "
-            >
-              GIKORA ARCHITECTS
-            </span>
-          </div>
-
-          {/* =================================================
-              LINKS
-          ================================================== */}
-
-          <nav className="flex flex-col">
-
-            {navLinks.map((link, index) => (
-              <Link
-                key={link.href}
-                href={link.href}
-                onClick={() => setOpen(false)}
-                className="
-                  group
-                  flex
-                  items-center
-                  gap-5
-                  border-b
-                  border-neutral-300
-                  py-5
-                  transition-all
-                  duration-300
-                  hover:pl-4
-                "
-              >
-
-                {/* NUMERO */}
-
-                <span
-                  className="
-                    w-8
-                    text-[10px]
-                    tracking-[0.2em]
-                    text-neutral-400
-                  "
-                >
-                  0{index + 1}
-                </span>
-
-                {/* NOM */}
-
-                <span
-                  className="
-                    text-3xl
-                    font-light
-                    tracking-[-0.04em]
-                    text-neutral-900
-                    sm:text-5xl
-                    lg:text-6xl
-                  "
-                >
-                  {link.label}
-                </span>
-
-                {/* FLECHE */}
-
-                <ArrowUpRight
-                  size={22}
-                  strokeWidth={1.3}
-                  className="
-                    ml-auto
-                    opacity-0
-                    transition-all
-                    duration-300
-                    group-hover:-translate-y-1
-                    group-hover:translate-x-1
-                    group-hover:opacity-100
-                  "
-                />
-
-              </Link>
-            ))}
-
-          </nav>
-
-          {/* =================================================
-              INFORMATIONS
-          ================================================== */}
-
-          <div
-            className="
-              mt-12
-              flex
-              flex-col
-              gap-3
-              text-[10px]
-              uppercase
-              tracking-[0.25em]
-              text-neutral-400
-              sm:flex-row
-              sm:items-center
-              sm:gap-5
-            "
+        <div className="flex items-center justify-between">
+          <Link
+            href="/"
+            onClick={() => setOpen(false)}
+            className="flex h-14 items-center rounded-2xl bg-white px-4 ring-1 ring-black/5"
           >
+            <LogoLockup />
+          </Link>
 
-            <span>Lomé</span>
+          <button
+            type="button"
+            onClick={() => setOpen(false)}
+            aria-label="Fermer le menu"
+            className="flex h-14 w-14 items-center justify-center rounded-2xl bg-white text-ink ring-1 ring-black/5"
+          >
+            <X size={22} strokeWidth={1.6} />
+          </button>
+        </div>
 
-            <span className="hidden h-px w-8 bg-neutral-300 sm:block" />
+        <nav aria-label="Navigation mobile" className="mt-4 flex-1 overflow-y-auto rounded-[2rem] bg-white p-3">
+          {navLinks.map((link) => (
+            <Link
+              key={link.href}
+              href={link.href}
+              onClick={() => setOpen(false)}
+              aria-current={isActive(link.href) ? "page" : undefined}
+              className={cn(
+                "flex items-center justify-between rounded-2xl px-4 py-4 text-3xl tracking-[-0.03em] text-ink transition-colors hover:bg-canvas",
+                isActive(link.href) && "bg-canvas"
+              )}
+            >
+              {link.label}
+              <ArrowUpRight size={22} strokeWidth={1.4} className="text-taupe" />
+            </Link>
+          ))}
+        </nav>
 
-            <span>Togo</span>
+        <div className="mt-3 grid gap-3">
+          <ButtonLink href="/contact" onClick={() => setOpen(false)} className="justify-between">
+            Démarrer un projet
+          </ButtonLink>
 
-            <span className="hidden h-px w-8 bg-neutral-300 sm:block" />
-
-            <span>Architecture & Design</span>
-
+          <div className="flex items-center justify-between rounded-2xl bg-white px-4 py-3 ring-1 ring-black/5">
+            <a href={`tel:${siteConfig.phoneE164}`} className="text-[15px] text-ink">
+              {siteConfig.phoneDisplay}
+            </a>
+            <div className="flex items-center gap-2">
+              <a
+                href={whatsappUrl()}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="WhatsApp"
+                className="flex h-10 w-10 items-center justify-center rounded-xl bg-canvas"
+              >
+                <FaWhatsapp size={17} />
+              </a>
+              <a
+                href={siteConfig.socials.instagram}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Instagram"
+                className="flex h-10 w-10 items-center justify-center rounded-xl bg-canvas"
+              >
+                <FaInstagram size={16} />
+              </a>
+              <a
+                href={siteConfig.socials.tiktok}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="TikTok"
+                className="flex h-10 w-10 items-center justify-center rounded-xl bg-canvas"
+              >
+                <FaTiktok size={15} />
+              </a>
+            </div>
           </div>
-
         </div>
       </div>
     </>

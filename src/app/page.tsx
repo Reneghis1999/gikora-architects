@@ -1,14 +1,13 @@
-import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
+import StatsSection from "@/components/Statsection";
 import Aboutsection from "@/components/Aboutsection";
 import FeaturedProjects from "@/components/FeaturedProject";
 import Services from "@/components/Services";
 import Philosophy from "@/components/Philosophy";
+import Process from "@/components/Process";
 import Avis from "@/components/Avis";
 import Faq, { faqs } from "@/components/Faq";
-import Footer from "@/components/Footer";
-import StatsSection from "@/components/Statsection";
-import ScrollToTop from "@/components/ScrollToTop";
+import ContactSection from "@/components/ContactSection";
 import { jsonLd } from "@/lib/site";
 
 const faqJsonLd = {
@@ -28,27 +27,17 @@ export default function Home() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: jsonLd(faqJsonLd) }}
       />
-      <Navbar />
 
       <Hero />
-
       <StatsSection />
-
       <Aboutsection />
-
       <FeaturedProjects />
-
       <Services />
-
       <Philosophy />
-
+      <Process />
       <Avis />
-
       <Faq />
-
-      <Footer />
-
-      <ScrollToTop />
+      <ContactSection />
     </main>
   );
 }

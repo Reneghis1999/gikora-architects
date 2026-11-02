@@ -76,6 +76,12 @@ En cas d’échec d’envoi, le visiteur voit un message l’invitant à écrire
 
 ---
 
+## 🎨 Design
+
+Charte inspirée de Reinvent Labs (grandes cartes arrondies, menu flottant en pilules, boutons avec flèche) et de Veone (typographie Questrial, chiffres clés, étapes, bloc contact). Couleurs définies dans `src/app/globals.css` (`canvas`, `ink`, `brand`, `deep`, `sand`…) et composants partagés dans `src/components/site/ui.tsx`.
+
+Version précédente du design conservée sur la branche `sauvegarde/avant-refonte-design`.
+
 ## 🔒 Sécurité
 
 - Next.js maintenu à jour (`npm audit --omit=dev` : 0 vulnérabilité)

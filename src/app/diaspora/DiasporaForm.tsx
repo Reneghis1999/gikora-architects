@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import type { ChangeEvent, FormEvent } from "react";
+import { ArrowUpRight } from "lucide-react";
 import { whatsappUrl } from "@/lib/site";
 
 const projectTypes = [
@@ -12,20 +13,8 @@ const projectTypes = [
   "Autre",
 ];
 
-const inputClass = `
-  w-full
-  border-b
-  border-neutral-300
-  bg-transparent
-  py-4
-  font-light
-  text-neutral-900
-  outline-none
-  transition-colors
-  duration-300
-  placeholder:text-neutral-400
-  focus:border-neutral-900
-`;
+const inputClass =
+  "w-full rounded-2xl border-0 bg-canvas px-4 py-3.5 text-[15px] text-ink outline-none ring-1 ring-inset ring-transparent transition placeholder:text-taupe/70 focus:bg-white focus:ring-brand/40";
 
 const emptyForm = {
   name: "",
@@ -99,7 +88,7 @@ export default function DiasporaForm() {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="relative flex flex-col gap-2">
+    <form onSubmit={handleSubmit} className="relative flex flex-col gap-3">
       {/* HONEYPOT — invisible pour les humains */}
 
       <div
@@ -134,7 +123,7 @@ export default function DiasporaForm() {
         className={inputClass}
       />
 
-      <div className="grid gap-2 sm:grid-cols-2 sm:gap-6">
+      <div className="grid gap-3 sm:grid-cols-2">
         <label htmlFor="diaspora-country" className="sr-only">
           Pays de résidence
         </label>
@@ -216,12 +205,15 @@ export default function DiasporaForm() {
       <button
         type="submit"
         disabled={status === "sending"}
-        className="mt-8 flex h-12 cursor-pointer items-center justify-center rounded-full bg-neutral-900 px-7 text-[11px] uppercase tracking-[0.2em] text-white transition-all duration-300 hover:bg-[#5A3E2B] disabled:cursor-not-allowed disabled:opacity-60"
+        className="group mt-3 inline-flex h-14 cursor-pointer items-center justify-between gap-3 rounded-full bg-deep pl-6 pr-2 text-[15px] text-white transition-colors duration-300 hover:bg-brand disabled:cursor-not-allowed disabled:opacity-60"
       >
-        {status === "sending" ? "Envoi en cours…" : "Envoyer ma demande"}
+        <span>{status === "sending" ? "Envoi en cours…" : "Envoyer ma demande"}</span>
+        <span className="flex h-10 w-10 items-center justify-center rounded-full bg-sand text-ink transition-transform duration-300 group-hover:rotate-45">
+          <ArrowUpRight size={17} strokeWidth={1.6} />
+        </span>
       </button>
 
-      <p aria-live="polite" className="mt-3 min-h-5 text-sm font-light">
+      <p aria-live="polite" className="mt-1 min-h-5 text-[15px] leading-6">
         {status === "sent" && (
           <span className="text-green-700">
             Merci ! Votre demande nous a bien été transmise. Finalisez
