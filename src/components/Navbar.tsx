@@ -52,10 +52,10 @@ export default function Navbar() {
   const isActive = (href: string) =>
     href === "/" ? pathname === "/" : !href.includes("#") && pathname.startsWith(href);
 
-  // En haut de page, le menu est intégré au bloc d'en-tête de la page :
-  // pastilles blanches sur la photo de l'accueil, beiges sur les cartes
-  // blanches des autres pages. Une fois la page défilée, il flotte.
-  const tinted = !scrolled && pathname !== "/";
+  // En haut de page, le menu est intégré au bloc d'en-tête de la page
+  // (pastilles beiges sur la carte blanche). Une fois la page défilée,
+  // il redevient une barre flottante blanche.
+  const tinted = !scrolled;
   const accent = tinted ? "bg-white" : "bg-canvas";
 
   const pill = cn(
