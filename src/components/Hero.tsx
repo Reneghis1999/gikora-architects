@@ -48,8 +48,7 @@ const stats = [
 ];
 
 /** Même condition que la variante CSS `pin:` (globals.css). */
-const PIN_QUERY =
-  "(min-width: 1024px) and (min-height: 740px) and (prefers-reduced-motion: no-preference)";
+const PIN_QUERY = "(min-width: 1024px) and (min-height: 620px)";
 
 const RADIUS = 25.6; // 1.6rem
 
@@ -210,14 +209,14 @@ export default function Hero() {
             <div className="grid gap-3 sm:gap-5 lg:grid-cols-[1fr_1.05fr] pin:min-h-0 pin:flex-1">
               {/* TEXTE */}
 
-              <div className="flex flex-col justify-between px-3 py-8 sm:px-5 sm:py-10 lg:py-8 lg:pr-8">
+              <div className="flex flex-col justify-between px-3 py-8 sm:px-5 sm:py-10 lg:py-[clamp(1rem,3svh,2.5rem)] lg:pr-8">
                 <div>
                   <Badge>
                     <span className="h-1.5 w-1.5 rounded-full bg-brand" />
                     Cabinet d’architecture · Lomé, Togo
                   </Badge>
 
-                  <h1 className="mt-7 text-[3.1rem] leading-[0.95] tracking-[-0.045em] text-ink sm:text-7xl lg:text-[min(5.8rem,8.4svh,7vw)]">
+                  <h1 className="mt-7 text-[3.1rem] leading-[0.95] tracking-[-0.045em] text-ink sm:text-7xl lg:mt-[clamp(1rem,2.6svh,1.75rem)] lg:text-[min(5.8rem,8svh,7vw)]">
                     Au-delà
                     <br />
                     de bâtir,
@@ -225,14 +224,14 @@ export default function Hero() {
                     <span className="text-brand">nous créons.</span>
                   </h1>
 
-                  <p className="mt-7 max-w-xl text-base leading-7 text-taupe sm:text-lg sm:leading-8">
+                  <p className="mt-7 max-w-xl text-base leading-7 text-taupe sm:text-lg sm:leading-8 lg:mt-[clamp(1rem,2.6svh,1.75rem)] lg:text-[clamp(0.95rem,2svh,1.125rem)] lg:leading-[1.7]">
                     Conception architecturale, design d’intérieur, rendus 3D et
                     suivi de chantier : nous accompagnons vos projets au Togo,
                     de la première esquisse jusqu’à la remise des clés.
                   </p>
                 </div>
 
-                <div className="mt-10 flex flex-col gap-3 sm:flex-row">
+                <div className="mt-10 flex flex-col gap-3 sm:flex-row lg:mt-[clamp(1.25rem,4svh,2.5rem)]">
                   <ButtonLink href="/contact">Démarrer un projet</ButtonLink>
                   <ButtonLink href="/projects" variant="secondary">
                     Voir nos réalisations
@@ -363,14 +362,14 @@ export default function Hero() {
                 <div
                   key={stat.label}
                   className={cn(
-                    "flex flex-col-reverse gap-2 px-6 py-6 sm:px-8 pin:py-5",
+                    "flex flex-col-reverse gap-2 px-6 py-6 sm:px-8 lg:py-[clamp(0.9rem,2.4svh,1.5rem)]",
                     index % 2 === 1 && "border-l border-line",
                     index >= 2 && "border-t border-line lg:border-t-0",
                     index === 2 && "lg:border-l"
                   )}
                 >
                   <dt className="text-[13px] text-taupe sm:text-[14px]">{stat.label}</dt>
-                  <dd className="text-3xl leading-none tracking-[-0.04em] text-ink sm:text-[2.6rem]">
+                  <dd className="text-3xl leading-none tracking-[-0.04em] text-ink sm:text-[2.6rem] lg:text-[clamp(1.6rem,4svh,2.6rem)]">
                     {stat.value}
                   </dd>
                 </div>

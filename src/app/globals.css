@@ -4,9 +4,9 @@
 
 @custom-variant dark (&:is(.dark *));
 
-/* Hero épinglé (animation au défilement) : grands écrans uniquement,
-   et seulement si l'utilisateur n'a pas demandé à réduire les animations */
-@custom-variant pin (@media (min-width: 1024px) and (min-height: 740px) and (prefers-reduced-motion: no-preference));
+/* Hero épinglé (animation au défilement, façon Reinvent Labs) :
+   écrans d'ordinateur (y compris avec mise à l'échelle Windows 125 %) */
+@custom-variant pin (@media (min-width: 1024px) and (min-height: 620px));
 
 /* =========================================================
    CHARTE GIKORA — palette chaude, inspirée des matériaux
