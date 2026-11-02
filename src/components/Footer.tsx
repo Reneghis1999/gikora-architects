@@ -1,6 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { ArrowUpRight } from "lucide-react";
+import { siteConfig } from "@/lib/site";
 
 export default function Footer() {
   return (
@@ -14,8 +15,8 @@ export default function Footer() {
           {/* BRAND */}
           <div>
             <Image
-              src="/images/image (2).webp"
-              alt="Gikora Architects"
+              src="/images/logo/gikora-logo.webp"
+              alt="Logo Gikora Architects"
               width={160}
               height={60}
               className="mb-6"
@@ -46,13 +47,23 @@ export default function Footer() {
                 </Link>
               </li>
               <li>
-                <Link className="hover:text-[#5A3E2B] transition" href="#about">
+                <Link className="hover:text-[#5A3E2B] transition" href="/#about">
                   À propos
                 </Link>
               </li>
               <li>
                 <Link className="hover:text-[#5A3E2B] transition" href="/team">
                   Équipe
+                </Link>
+              </li>
+              <li>
+                <Link className="hover:text-[#5A3E2B] transition" href="/diaspora">
+                  Espace Diaspora
+                </Link>
+              </li>
+              <li>
+                <Link className="hover:text-[#5A3E2B] transition" href="/contact">
+                  Contact
                 </Link>
               </li>
             </ul>
@@ -64,11 +75,30 @@ export default function Footer() {
               Contact
             </p>
 
-            <ul className="space-y-4 text-sm text-neutral-700">
-              <li>Lomé, Togo</li>
-              <li>(+228) 93 63 15 78</li>
-              <li>gikoragroup@gmail.com</li>
-            </ul>
+            <address className="not-italic">
+              <ul className="space-y-4 text-sm text-neutral-700">
+                <li>
+                  {siteConfig.address.street}, {siteConfig.address.city},{" "}
+                  {siteConfig.address.countryName}
+                </li>
+                <li>
+                  <a
+                    className="transition hover:text-[#5A3E2B]"
+                    href={`tel:${siteConfig.phoneE164}`}
+                  >
+                    {siteConfig.phoneDisplay}
+                  </a>
+                </li>
+                <li>
+                  <a
+                    className="transition hover:text-[#5A3E2B]"
+                    href={`mailto:${siteConfig.email}`}
+                  >
+                    {siteConfig.email}
+                  </a>
+                </li>
+              </ul>
+            </address>
 
             <div className="mt-6">
               <Link

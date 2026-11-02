@@ -1,5 +1,3 @@
-"use client";
-
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
@@ -11,7 +9,7 @@ const projects = [
     title: "Complexe Scolaire",
     category: "Etablissement Scolaire",
     location: "Lomé",
-    image:  "/images/projectss/Complexe Scolaire/2.jpeg",
+    image:  "/images/projets/complexe-scolaire/2.webp",
     featured: true,
   },
 
@@ -19,19 +17,19 @@ const projects = [
     title: "Résidence Moderne",
     category: "Architecture",
     location: "Lomé",
-    image: "/projects/projet2.png",
+    image: "/images/accueil/projet-2.webp",
   },
   {
     title: "Design d'intérieur",
     category: "Intérieur",
     location: "Lomé",
-    image: "/projects/projet3.png",
+    image: "/images/accueil/projet-3.webp",
   },
   {
     title: "Complexe Premium",
     category: "Commercial",
     location: "Lomé",
-    image: "/projects/projet4.png",
+    image: "/images/accueil/projet-4.webp",
     featured: true,
   },
 ];
@@ -125,7 +123,7 @@ export default function FeaturedProjects() {
             "
           >
             Une sélection de réalisations illustrant notre approche de
-            l'architecture contemporaine, de la conception à la visualisation.
+            l&apos;architecture contemporaine, de la conception à la visualisation.
           </p>
         </div>
 

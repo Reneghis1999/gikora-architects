@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import { useState } from "react";
 import { ArrowUpRight } from "lucide-react";
 
@@ -10,7 +11,7 @@ const services = [
     title: "Études architecturales",
     description:
       "Conception de projets architecturaux contemporains, de l’esquisse à la validation technique.",
-    image: "/images/etude.jpg",
+    image: "/images/services/etude-conception.webp",
     label: "Conception architecturale",
   },
   {
@@ -18,7 +19,7 @@ const services = [
     title: "Design d’intérieur",
     description:
       "Création d’espaces intérieurs élégants, fonctionnels et adaptés aux usages modernes.",
-    image: "/projects/projet3.png",
+    image: "/images/accueil/projet-3.webp",
     label: "Design intérieur",
   },
   {
@@ -26,7 +27,7 @@ const services = [
     title: "Modélisation 3D",
     description:
       "Visualisation architecturale photoréaliste pour donner vie aux projets avant leur construction.",
-    image: "/projects/projet2.png",
+    image: "/images/accueil/projet-2.webp",
     label: "Visualisation 3D",
   },
   {
@@ -34,7 +35,7 @@ const services = [
     title: "Suivi de chantier",
     description:
       "Supervision rigoureuse des travaux pour garantir la fidélité entre la conception et la réalisation.",
-    image: "/images/suividechantier.jpg",
+    image: "/images/services/suivi-de-chantier.webp",
     label: "Suivi & réalisation",
   },
   {
@@ -42,7 +43,7 @@ const services = [
     title: "Aménagement urbain",
     description:
       "Conception d’espaces urbains harmonieux, pensés pour les usages, les flux humains et leur environnement.",
-    image: "/images/amenagementurbain.jpg" ,
+    image: "/images/services/amenagement-urbain.jpg" ,
     label: "Urbanisme & territoire",
   },
 ];
@@ -280,8 +281,8 @@ export default function Services() {
               dans chaque détail.
             </p>
 
-            <a
-              href="#contact"
+            <Link
+              href="/contact"
               className="group inline-flex items-center gap-3 text-sm font-medium text-[#5A3E2B]"
             >
               <span className="border-b border-[#5A3E2B] pb-1">
@@ -293,7 +294,7 @@ export default function Services() {
                 strokeWidth={1.4}
                 className="transition-transform duration-300 group-hover:-translate-y-1 group-hover:translate-x-1"
               />
-            </a>
+            </Link>
           </div>
         </div>
       </div>

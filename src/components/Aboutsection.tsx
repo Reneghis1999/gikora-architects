@@ -30,10 +30,9 @@ export default function About() {
               {/* Main image */}
               <div className="absolute left-0 top-0 h-[78%] w-[76%] overflow-hidden">
                 <Image
-                  src="/projects/projet4.png"
+                  src="/images/accueil/projet-4.webp"
                   alt="Projet architectural Gikora Architects"
                   fill
-                  priority
                   className="object-cover transition-transform duration-700 hover:scale-105"
                   sizes="(max-width: 1024px) 0vw, 55vw"
                 />
@@ -45,7 +44,7 @@ export default function About() {
               {/* Small image */}
               <div className="absolute bottom-0 right-0 h-[52%] w-[58%] overflow-hidden border-[10px] border-white shadow-2xl">
                 <Image
-                  src="/projects/projet5.png"
+                  src="/images/accueil/projet-5.webp"
                   alt="Visualisation 3D d'un projet architectural"
                   fill
                   className="object-cover transition-transform duration-700 hover:scale-105"
@@ -75,10 +74,9 @@ export default function About() {
             <div className="relative h-[420px] lg:hidden">
               <div className="absolute left-0 top-0 h-[75%] w-[82%] overflow-hidden">
                 <Image
-                  src="/projects/projet4.png"
+                  src="/images/accueil/projet-4.webp"
                   alt="Projet architectural Gikora Architects"
                   fill
-                  priority
                   className="object-cover"
                   sizes="90vw"
                 />
@@ -86,7 +84,7 @@ export default function About() {
 
               <div className="absolute bottom-0 right-0 h-[55%] w-[62%] overflow-hidden border-[6px] border-white shadow-xl">
                 <Image
-                  src="/projects/projet5.png"
+                  src="/images/accueil/projet-5.webp"
                   alt="Visualisation 3D d'un projet architectural"
                   fill
                   className="object-cover"

@@ -1,5 +1,3 @@
-"use client";
-
 const testimonials = [
   {
     name: "Client Privé",

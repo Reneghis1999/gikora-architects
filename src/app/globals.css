@@ -136,3 +136,7 @@ html {
     font-family: var(--font-questrial), Questrial, sans-serif;
   }
 }
+/* Loader déjà vu pendant la session : masqué avant l'hydratation */
+.loader-seen [data-loader] {
+  display: none !important;
+}

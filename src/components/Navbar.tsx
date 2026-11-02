@@ -9,10 +9,11 @@ import {
   X,
   ArrowUpRight,
 } from "lucide-react";
+import { whatsappUrl } from "@/lib/site";
 
 const navLinks = [
   { label: "Accueil", href: "/" },
-  { label: "À propos", href: "#about" },
+  { label: "À propos", href: "/#about" },
   { label: "Équipe", href: "/team" },
   { label: "Projets", href: "/projects" },
   { label: "Diaspora", href: "/diaspora" },
@@ -124,11 +125,11 @@ export default function Navbar() {
           >
             {/* Logo blanc — Hero */}
             <Image
-              src="/images/gikorawhite1.png"
+              src="/images/logo/gikora-logo-blanc.png"
               alt="GIKORA Architects"
               width={180}
               height={60}
-              priority
+              preload
               className={`
                 absolute
                 left-0
@@ -150,11 +151,11 @@ export default function Navbar() {
 
             {/* Logo noir — Scroll */}
             <Image
-              src="/images/gikoralogo17.png"
-              alt="GIKORA Architects"
+              src="/images/logo/gikora-logo-noir.png"
+              alt=""
+              aria-hidden="true"
               width={180}
               height={60}
-              priority
               className={`
                 h-auto
                 w-[125px]
@@ -225,7 +226,7 @@ export default function Navbar() {
             ================================================== */}
 
             <a
-              href="https://wa.me/22893631578"
+              href={whatsappUrl()}
               target="_blank"
               rel="noopener noreferrer"
               aria-label="Contacter GIKORA sur WhatsApp"

@@ -3,14 +3,38 @@
 import { useEffect, useState } from "react";
 import Image from "next/image";
 
+const SESSION_KEY = "gikora-loader-seen";
+const DURATION = 1800;
+
 export default function Loader() {
   const [progress, setProgress] = useState(0);
+  const [hiding, setHiding] = useState(false);
   const [visible, setVisible] = useState(true);
 
   useEffect(() => {
-    const duration = 1800;
+    let alreadySeen = false;
+
+    try {
+      alreadySeen = sessionStorage.getItem(SESSION_KEY) === "1";
+      sessionStorage.setItem(SESSION_KEY, "1");
+    } catch {
+      // stockage indisponible (navigation privée…) : on affiche le loader
+    }
+
+    const reducedMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)"
+    ).matches;
+
+    // Déjà vu pendant cette session ou animations réduites : pas de loader
+    if (alreadySeen || reducedMotion) {
+      const skip = setTimeout(() => setVisible(false), 0);
+      return () => clearTimeout(skip);
+    }
+
+    document.documentElement.style.overflow = "hidden";
+
     const interval = 20;
-    const increment = 100 / (duration / interval);
+    const increment = 100 / (DURATION / interval);
 
     const progressTimer = setInterval(() => {
       setProgress((prev) => {
@@ -25,20 +49,33 @@ export default function Loader() {
       });
     }, interval);
 
+    const fadeTimer = setTimeout(() => {
+      setHiding(true);
+      document.documentElement.style.overflow = "";
+    }, DURATION + 150);
+
     const hideTimer = setTimeout(() => {
       setVisible(false);
-    }, duration + 250);
+    }, DURATION + 700);
 
     return () => {
       clearInterval(progressTimer);
+      clearTimeout(fadeTimer);
       clearTimeout(hideTimer);
+      document.documentElement.style.overflow = "";
     };
   }, []);
 
   if (!visible) return null;
 
   return (
-    <div className="fixed inset-0 z-[9999] flex flex-col justify-between bg-[#faf9f7] text-[#171717]">
+    <div
+      data-loader
+      aria-hidden="true"
+      className={`fixed inset-0 z-[20000] flex flex-col justify-between bg-[#faf9f7] text-[#171717] transition-opacity duration-500 ${
+        hiding ? "pointer-events-none opacity-0" : "opacity-100"
+      }`}
+    >
       
       {/* TOP */}
       <div className="flex items-center justify-between px-6 py-6 sm:px-10 sm:py-8">
@@ -58,11 +95,11 @@ export default function Loader() {
           {/* LOGO */}
           <div className="relative w-44 sm:w-56 animate-logoReveal">
             <Image
-              src="/images/gikoralogo17.png"
-              alt="GIKORA Architects"
+              src="/images/logo/gikora-logo-noir.png"
+              alt=""
               width={280}
               height={110}
-              priority
+              preload
               className="h-auto w-full"
             />
           </div>

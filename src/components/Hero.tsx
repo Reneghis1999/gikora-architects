@@ -5,17 +5,42 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowDown, ArrowRight } from "lucide-react";
 
-const images = [
-  "/images/1.jpg",
-  "/images/projectss/Complexe Scolaire/2.jpeg",
-  "/images/rt_5 - Photo.png",
-  "/images/1.jpg",
-  "/images/1.png",
-  "/images/test 1_7 - Photo.png",
+const slides = [
+  {
+    src: "/images/accueil/interieur-cuisine-escalier.webp",
+    alt: "Cuisine contemporaine avec escalier hélicoïdal — design d'intérieur Gikora Architects",
+  },
+  {
+    src: "/images/projets/complexe-scolaire/2.webp",
+    alt: "Complexe scolaire conçu par Gikora Architects à Lomé",
+  },
+  {
+    src: "/images/accueil/residence-abt.webp",
+    alt: "Rendu 3D d'une résidence familiale contemporaine — Projet ABT",
+  },
+  {
+    src: "/images/accueil/architecture-contemporaine.webp",
+    alt: "Projet d'architecture contemporaine au Togo par Gikora Architects",
+  },
+  {
+    src: "/images/accueil/villa-kpl.webp",
+    alt: "Villa KPL, résidence familiale contemporaine — rendu 3D",
+  },
 ];
+
+const images = slides.map((slide) => slide.src);
 
 export default function Hero() {
   const [currentImage, setCurrentImage] = useState(0);
+
+  // Les images sont chargées au fur et à mesure du diaporama
+  // (et non toutes au chargement de la page) pour accélérer le site.
+  const [loadedUpTo, setLoadedUpTo] = useState(1);
+
+  const showImage = (index: number) => {
+    setCurrentImage(index);
+    setLoadedUpTo((prev) => Math.max(prev, index + 1));
+  };
 
   /* =========================================================
      SLIDER AUTOMATIQUE
@@ -24,6 +49,8 @@ export default function Hero() {
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentImage((prev) => (prev + 1) % images.length);
+      // précharge l'image suivante
+      setLoadedUpTo((loaded) => Math.min(images.length, loaded + 1));
     }, 5000);
 
     return () => clearInterval(interval);
@@ -36,9 +63,9 @@ export default function Hero() {
           IMAGES DE FOND
       ====================================================== */}
 
-      {images.map((image, index) => (
+      {slides.map((slide, index) => (
         <div
-          key={`${image}-${index}`}
+          key={slide.src}
           className={`
             absolute inset-0
             transition-opacity duration-[1400ms] ease-in-out
@@ -49,11 +76,12 @@ export default function Hero() {
             }
           `}
         >
+          {index <= loadedUpTo && (
           <Image
-            src={image}
-            alt="GIKORA Architects"
+            src={slide.src}
+            alt={slide.alt}
             fill
-            priority={index === 0}
+            preload={index === 0}
             sizes="100vw"
             className={`
               object-cover
@@ -67,6 +95,7 @@ export default function Hero() {
               }
             `}
           />
+          )}
         </div>
       ))}
 
@@ -376,7 +405,7 @@ export default function Hero() {
           <button
             key={index}
             type="button"
-            onClick={() => setCurrentImage(index)}
+            onClick={() => showImage(index)}
             aria-label={`Afficher l'image ${index + 1}`}
             className="
               flex
@@ -532,7 +561,7 @@ export default function Hero() {
           <button
             key={index}
             type="button"
-            onClick={() => setCurrentImage(index)}
+            onClick={() => showImage(index)}
             aria-label={`Aller à l'image ${index + 1}`}
             className={`
               h-[2px]

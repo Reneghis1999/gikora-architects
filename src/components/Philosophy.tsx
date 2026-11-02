@@ -1,5 +1,3 @@
-"use client";
-
 import Image from "next/image";
 import { ArrowDownRight } from "lucide-react";
 
@@ -14,7 +12,7 @@ export default function Philosophy() {
       ====================================================== */}
       <div className="absolute inset-0">
         <Image
-          src="/projects/projet2.png"
+          src="/images/accueil/projet-2.webp"
           alt="Projet architectural Gikora Architects"
           fill
           className="scale-105 object-cover"

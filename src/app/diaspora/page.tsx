@@ -1,14 +1,16 @@
-
 import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowLeft, ArrowUpRight } from "lucide-react";
 import DiasporaForm from "./DiasporaForm";
+import { jsonLd, siteConfig, whatsappUrl } from "@/lib/site";
+import { pageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "Espace Diaspora | GIKORA Architects",
+export const metadata: Metadata = pageMetadata({
+  title: "Espace Diaspora — Construire au Togo depuis l'étranger",
   description:
     "Vous vivez à l'étranger ? GIKORA Architects vous accompagne dans vos projets immobiliers au Togo : permis de construire, sécurisation foncière, suivi de chantier et gestion de vos biens.",
-};
+  path: "/diaspora",
+});
 
 /* =========================================================
    CONTENU
@@ -60,8 +62,37 @@ const faqs = [
 ========================================================== */
 
 export default function DiasporaPage() {
+  const structuredData = [
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      mainEntity: faqs.map((faq) => ({
+        "@type": "Question",
+        name: faq.q,
+        acceptedAnswer: { "@type": "Answer", text: faq.a },
+      })),
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        { "@type": "ListItem", position: 1, name: "Accueil", item: siteConfig.url },
+        {
+          "@type": "ListItem",
+          position: 2,
+          name: "Espace Diaspora",
+          item: `${siteConfig.url}/diaspora`,
+        },
+      ],
+    },
+  ];
+
   return (
     <main className="bg-[#f7f6f3] text-neutral-900">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: jsonLd(structuredData) }}
+      />
 
       {/* =====================================================
           HERO
@@ -109,7 +140,7 @@ export default function DiasporaPage() {
             </Link>
 
             <a
-              href="https://wa.me/22893631578"
+              href={whatsappUrl()}
               target="_blank"
               rel="noopener noreferrer"
               className="flex h-12 items-center justify-center rounded-full border border-white/30 px-7 text-[11px] uppercase tracking-[0.2em] text-white transition-colors duration-300 hover:bg-white hover:text-black"
@@ -200,7 +231,7 @@ export default function DiasporaPage() {
         <div className="mx-auto max-w-6xl">
 
           <span className="text-[10px] uppercase tracking-[0.3em] text-neutral-400">
-            Besoin d'informations ?
+            Besoin d&apos;informations ?
           </span>
 
           <h2 className="mt-3 text-3xl font-light tracking-[-0.04em] sm:text-4xl">
@@ -250,18 +281,19 @@ export default function DiasporaPage() {
             </h2>
 
             <p className="mt-4 max-w-sm font-light leading-relaxed text-neutral-600">
-              Présentez-nous votre projet immobilier au Togo. Le formulaire
-              ouvre WhatsApp avec votre message déjà rédigé. Nous vous
-              répondrons en tenant compte de votre fuseau horaire.
+              Présentez-nous votre projet immobilier au Togo. Votre demande
+              nous est transmise par email et WhatsApp s&apos;ouvre avec votre
+              message déjà rédigé. Nous vous répondrons en tenant compte de
+              votre fuseau horaire.
             </p>
 
             <a
-              href="https://wa.me/22893631578"
+              href={whatsappUrl()}
               target="_blank"
               rel="noopener noreferrer"
               className="group mt-8 inline-flex items-center gap-2 text-[11px] uppercase tracking-[0.2em]"
             >
-              +228 93 63 15 78
+              {siteConfig.phoneDisplay}
 
               <ArrowUpRight
                 size={14}

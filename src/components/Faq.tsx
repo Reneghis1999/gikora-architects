@@ -1,6 +1,4 @@
-"use client";
-
-const faqs = [
+export const faqs = [
   {
     q: "Quels types de projets réalisez-vous ?",
     a: "Nous réalisons des projets résidentiels, commerciaux, intérieurs et urbains, de la conception à la supervision.",

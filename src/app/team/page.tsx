@@ -1,10 +1,17 @@
-"use client";
-
 import Image from "next/image";
 import Link from "next/link";
+import type { Metadata } from "next";
 import { ArrowLeft, ArrowUpRight } from "lucide-react";
+import { pageMetadata } from "@/lib/seo";
 
-export default function EquipePage() {
+export const metadata: Metadata = pageMetadata({
+  title: "Notre équipe — Architectes et ingénieurs à Lomé",
+  description:
+    "Découvrez l'équipe de Gikora Architects à Lomé : architectes, ingénieurs et professionnels de la construction réunis autour d'une même exigence de qualité.",
+  path: "/team",
+});
+
+export default function TeamPage() {
   const team = [
     {
       name: "Arthur Kofi AWAGA",

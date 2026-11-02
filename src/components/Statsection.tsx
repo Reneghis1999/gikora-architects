@@ -1,39 +1,66 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
-function useCountUp(end: number, duration = 1500) {
-  const [count, setCount] = useState(0);
+/* =========================================================
+   Le rendu serveur affiche les VRAIS chiffres (lisibles par
+   Google et sans JavaScript). L'animation de comptage se
+   lance seulement quand la section devient visible.
+========================================================== */
+
+function useCountUp(end: number, start: boolean, duration = 1500) {
+  const [count, setCount] = useState(end);
 
   useEffect(() => {
-    let start = 0;
-    const increment = end / (duration / 16);
+    if (!start) return;
 
-    const timer = setInterval(() => {
-      start += increment;
+    let frame = 0;
+    const startedAt = performance.now();
 
-      if (start >= end) {
-        setCount(end);
-        clearInterval(timer);
-      } else {
-        setCount(Math.floor(start));
-      }
-    }, 16);
+    const tick = (now: number) => {
+      const progress = Math.min(1, (now - startedAt) / duration);
+      setCount(Math.floor(progress * end));
+      if (progress < 1) frame = requestAnimationFrame(tick);
+    };
 
-    return () => clearInterval(timer);
-  }, [end, duration]);
+    frame = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(frame);
+  }, [end, start, duration]);
 
   return count;
 }
 
 export default function StatsSection() {
-  const projects = useCountUp(50);
-  const team = useCountUp(9);
-  const years = useCountUp(6);
-  const countries = useCountUp(6);
+  const ref = useRef<HTMLElement>(null);
+  const [inView, setInView] = useState(false);
+
+  useEffect(() => {
+    const element = ref.current;
+    if (!element) return;
+
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setInView(true);
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.4 }
+    );
+
+    observer.observe(element);
+    return () => observer.disconnect();
+  }, []);
+
+  const projects = useCountUp(50, inView);
+  const team = useCountUp(9, inView);
+  const years = useCountUp(6, inView);
+  const countries = useCountUp(6, inView);
 
   return (
-    <section className="bg-white py-16 sm:py-20 lg:py-24">
+    <section ref={ref} className="bg-white py-16 sm:py-20 lg:py-24">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
 
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-16 text-center">
