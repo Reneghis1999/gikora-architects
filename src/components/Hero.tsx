@@ -68,6 +68,7 @@ export default function Hero() {
   const panelRef = useRef<HTMLDivElement>(null);
   const shadeRef = useRef<HTMLDivElement>(null);
   const headlineRef = useRef<HTMLDivElement>(null);
+  const cardRef = useRef<HTMLDivElement>(null);
 
   const goTo = (index: number) => {
     const next = (index + slides.length) % slides.length;
@@ -105,7 +106,8 @@ export default function Hero() {
     const panel = panelRef.current;
     const shade = shadeRef.current;
     const headline = headlineRef.current;
-    if (!section || !sticky || !cell || !panel || !shade || !headline) return;
+    const card = cardRef.current;
+    if (!section || !sticky || !cell || !panel || !shade || !headline || !card) return;
 
     const mq = window.matchMedia(PIN_QUERY);
     let frame = 0;
@@ -129,6 +131,8 @@ export default function Hero() {
       headline.style.opacity = "";
       headline.style.transform = "";
       headline.style.pointerEvents = "";
+      card.style.right = "";
+      card.style.bottom = "";
     };
 
     const update = () => {
@@ -149,10 +153,18 @@ export default function Hero() {
       panel.style.inset = `${-gaps.top * expand}px ${-gaps.right * expand}px ${-gaps.bottom * expand}px ${-gaps.left * expand}px`;
       panel.style.borderRadius = `${RADIUS * (1 - expand)}px`;
 
-      shade.style.opacity = String(reveal);
+      // Le panneau s'assombrit en s'agrandissant (comme le panneau
+      // sombre de Reinvent), puis le titre apparaît.
+      shade.style.opacity = String(expand);
       headline.style.opacity = String(reveal);
       headline.style.transform = `translateY(${(1 - reveal) * 40}px)`;
       headline.style.pointerEvents = reveal > 0.6 ? "auto" : "none";
+
+      // La carte "Projet à la une" glisse du coin vers le centre-droit
+      const cardRight = 20 + (window.innerWidth * 0.11 - 20) * expand;
+      const cardBottom = 20 + (window.innerHeight * 0.13 - 20) * expand;
+      card.style.right = `${cardRight}px`;
+      card.style.bottom = `${cardBottom}px`;
     };
 
     const onScroll = () => {
@@ -266,36 +278,31 @@ export default function Hero() {
 
                   <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
 
-                  {/* Voile pour la lisibilité du titre (visible une fois agrandi) */}
+                  {/* Voile brun : le panneau devient sombre en s'agrandissant */}
                   <div
                     ref={shadeRef}
-                    className="pointer-events-none absolute inset-0 bg-gradient-to-r from-black/65 via-black/25 to-transparent opacity-0"
+                    className="pointer-events-none absolute inset-0 bg-gradient-to-r from-deep/90 via-deep/60 to-deep/25 opacity-0"
                   />
 
-                  {/* Titre révélé quand le panneau couvre tout l'écran */}
+                  {/* Grand titre révélé quand le panneau couvre tout l'écran */}
                   <div
                     ref={headlineRef}
-                    className="pointer-events-none absolute bottom-10 left-6 hidden max-w-[calc(100%-460px)] text-white opacity-0 pin:block lg:left-12 xl:bottom-14 xl:left-14 xl:max-w-3xl"
+                    className="pointer-events-none absolute bottom-12 left-6 hidden text-white opacity-0 pin:block lg:left-12 xl:bottom-16 xl:left-16"
                   >
-                    <h2 className="text-6xl leading-[0.98] tracking-[-0.045em] xl:text-[5.4rem]">
-                      Des espaces conçus
+                    <h2 className="text-[clamp(4rem,7.4vw,7.8rem)] leading-[0.94] tracking-[-0.05em]">
+                      Vos projets,
                       <br />
-                      pour durer.
+                      conçus pour
+                      <br />
+                      durer.
                     </h2>
-                    <p className="mt-6 max-w-lg text-lg leading-8 text-white/75">
-                      Résidences, immeubles, équipements et intérieurs : chaque
-                      projet est pensé pour son contexte, à Lomé et partout au
-                      Togo.
-                    </p>
-                    <div className="mt-8">
-                      <ButtonLink href="/projects" variant="light">
-                        Découvrir nos projets
-                      </ButtonLink>
-                    </div>
                   </div>
 
                   {/* Projet à la une */}
-                  <div className="absolute inset-x-3 bottom-3 rounded-[1.25rem] bg-white/95 p-4 backdrop-blur sm:inset-x-auto sm:bottom-5 sm:right-5 sm:w-[360px] sm:p-5">
+                  <div
+                    ref={cardRef}
+                    className="absolute inset-x-3 bottom-3 rounded-[1.25rem] bg-white/95 p-4 shadow-[0_20px_50px_-20px_rgba(0,0,0,0.45)] backdrop-blur sm:inset-x-auto sm:bottom-5 sm:right-5 sm:w-[360px] sm:p-5"
+                  >
                     <div className="flex items-center justify-between text-[12px] text-taupe">
                       <span>Projet à la une</span>
                       <span className="flex items-center gap-2 tabular-nums">
