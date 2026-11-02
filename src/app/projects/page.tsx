@@ -222,6 +222,19 @@ const projects: Project[] = [
   },
 
   {
+    title: "IMMEUBLE MJ",
+    category: "Immeuble de Bureau",
+    description:
+      "Un projet immobilier développé autour d'une architecture contemporaine, avec une attention particulière portée à la composition des volumes et à l'organisation des espaces.",
+    intention:
+      "Proposer une architecture cohérente et fonctionnelle, en associant expression contemporaine, lisibilité des volumes et qualité des espaces.",
+    images: [
+      "/images/projectss/Immeuble MJ/3.png",
+      "/images/projectss/Immeuble MJ/7.png",
+    ],
+  },
+
+  {
     title: "Projet ABT",
     category: "Résidence Familiale",
     description:
@@ -244,16 +257,12 @@ const projects: Project[] = [
     intention:
       "Créer un espace identifiable et rassembleur, où architecture, lumière et expérience collective participent à l'identité du lieu.",
     images: [
-      "/images/projectss/Eglise/4.png",
-      "/images/projectss/Eglise/1.png",
-      "/images/projectss/Eglise/2.png",
-      "/images/projectss/Eglise/3.png",
+      "/images/projectss/Eglise/gs1.jpg",
       "/images/projectss/Eglise/audi1.jpg",
       "/images/projectss/Eglise/4.jpg",
       "/images/projectss/Eglise/audi2.jpg",
       "/images/projectss/Eglise/bu1.jpg",
       "/images/projectss/Eglise/bu2.jpg",
-      "/images/projectss/Eglise/gs1.jpg",
       "/images/projectss/Eglise/gs2.jpg",
       "/images/projectss/Eglise/gs3.jpg",
       "/images/projectss/Eglise/gs4.jpg",
