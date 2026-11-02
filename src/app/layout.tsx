@@ -1,13 +1,14 @@
 import type { Metadata } from "next";
 import "./globals.css";
 
-import { Aclonica } from "next/font/google";
+import { Questrial } from "next/font/google";
 import AppClient from "@/components/AppClient";
 
-const aclonica = Aclonica({
+// Police utilisée par veone.net (Questrial)
+const questrial = Questrial({
   weight: "400",
   subsets: ["latin"],
-  variable: "--font-aclonica",
+  variable: "--font-questrial",
   display: "swap",
 });
 
@@ -38,8 +39,8 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="fr" className={aclonica.variable}>
-      <body className={aclonica.className}>
+    <html lang="fr" className={questrial.variable}>
+      <body className={questrial.className}>
         <AppClient>{children}</AppClient>
       </body>
     </html>

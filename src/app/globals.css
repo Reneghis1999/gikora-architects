@@ -9,9 +9,9 @@
   --color-foreground: var(--foreground);
 
   /* FONT SYSTEM */
-  --font-sans: var(--font-aclonica), Aclonica, sans-serif;
+  --font-sans: var(--font-questrial), Questrial, sans-serif;
   --font-mono: var(--font-geist-mono);
-  --font-heading: var(--font-aclonica), Aclonica, sans-serif;
+  --font-heading: var(--font-questrial), Questrial, sans-serif;
 
   --color-sidebar-ring: var(--sidebar-ring);
   --color-sidebar-border: var(--sidebar-border);
@@ -133,6 +133,6 @@ html {
   html,
   body {
     @apply bg-background text-foreground;
-    font-family: Aclonica, sans-serif;
+    font-family: var(--font-questrial), Questrial, sans-serif;
   }
 }
