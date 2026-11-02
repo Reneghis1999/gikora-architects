@@ -68,7 +68,7 @@ const themes = {
 
 export default function Services() {
   return (
-    <section id="services" className="scroll-mt-28 pb-20 sm:pb-28">
+    <section id="services" className="scroll-mt-28 pb-24 sm:pb-36">
       <Container>
         <Reveal>
           <SectionHeading
@@ -83,26 +83,30 @@ export default function Services() {
           />
         </Reveal>
 
-        <div className="mt-12 space-y-3">
+        <div className="mt-14 space-y-6 lg:mt-20 lg:space-y-10">
           {services.map((service, index) => {
             const theme = themes[service.theme];
 
             return (
+              <Reveal key={service.id}>
               <article
-                key={service.id}
                 className={cn(
-                  "grid gap-8 rounded-[2rem] p-6 sm:p-10 lg:sticky lg:grid-cols-[1fr_1fr] lg:gap-14 lg:p-12",
+                  "grid gap-10 rounded-[2rem] p-6 sm:p-12 lg:grid-cols-2 lg:items-center lg:gap-20 lg:p-16",
                   theme.card
                 )}
-                style={{ top: `${112 + index * 14}px` }}
               >
-                <div className="flex flex-col justify-between gap-10">
+                <div
+                  className={cn(
+                    "flex flex-col justify-between gap-12",
+                    index % 2 === 1 && "lg:order-2"
+                  )}
+                >
                   <div>
                     <Badge tone={theme.chip}>{service.id}</Badge>
                     <h3 className="mt-6 text-3xl tracking-[-0.035em] sm:text-4xl lg:text-5xl">
                       {service.title}
                     </h3>
-                    <p className={cn("mt-5 max-w-md text-base leading-7", theme.muted)}>
+                    <p className={cn("mt-6 max-w-md text-base leading-8 sm:text-lg", theme.muted)}>
                       {service.description}
                     </p>
                   </div>
@@ -111,7 +115,7 @@ export default function Services() {
                     {service.points.map((point) => (
                       <li
                         key={point}
-                        className={cn("flex items-center justify-between border-b py-4 text-[15px]", theme.line)}
+                        className={cn("flex items-center justify-between border-b py-5 text-[15px]", theme.line)}
                       >
                         {point}
                         <ArrowUpRight size={16} strokeWidth={1.5} className={theme.muted} />
@@ -120,7 +124,7 @@ export default function Services() {
                   </ul>
                 </div>
 
-                <div className="relative min-h-[260px] overflow-hidden rounded-[1.5rem] sm:min-h-[340px]">
+                <div className="relative aspect-[4/3] overflow-hidden rounded-[1.5rem] lg:aspect-[5/4]">
                   <Image
                     src={service.image}
                     alt={`${service.title} — Gikora Architects`}
@@ -130,13 +134,14 @@ export default function Services() {
                   />
                 </div>
               </article>
+              </Reveal>
             );
           })}
         </div>
 
         {/* AUTRES EXPERTISES */}
 
-        <div className="mt-3 flex flex-col gap-5 rounded-[2rem] bg-white p-6 sm:p-8 lg:flex-row lg:items-center lg:justify-between">
+        <div className="mt-6 flex flex-col gap-6 rounded-[2rem] bg-white p-6 sm:p-10 lg:mt-10 lg:flex-row lg:items-center lg:justify-between lg:px-16">
           <p className="text-[15px] text-taupe">Également :</p>
           <ul className="flex flex-wrap gap-2">
             {otherExpertises.map((item) => (

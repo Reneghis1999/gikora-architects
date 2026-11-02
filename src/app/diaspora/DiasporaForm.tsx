@@ -14,7 +14,7 @@ const projectTypes = [
 ];
 
 const inputClass =
-  "w-full rounded-2xl border-0 bg-canvas px-4 py-3.5 text-[15px] text-ink outline-none ring-1 ring-inset ring-transparent transition placeholder:text-taupe/70 focus:bg-white focus:ring-brand/40";
+  "w-full rounded-2xl border-0 bg-canvas px-5 py-4 text-[15px] text-ink outline-none ring-1 ring-inset ring-transparent transition placeholder:text-taupe/70 focus:bg-white focus:ring-brand/40";
 
 const emptyForm = {
   name: "",
@@ -88,7 +88,7 @@ export default function DiasporaForm() {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="relative flex flex-col gap-3">
+    <form onSubmit={handleSubmit} className="relative flex flex-col gap-4">
       {/* HONEYPOT — invisible pour les humains */}
 
       <div
@@ -123,7 +123,7 @@ export default function DiasporaForm() {
         className={inputClass}
       />
 
-      <div className="grid gap-3 sm:grid-cols-2">
+      <div className="grid gap-4 sm:grid-cols-2">
         <label htmlFor="diaspora-country" className="sr-only">
           Pays de résidence
         </label>
@@ -205,7 +205,7 @@ export default function DiasporaForm() {
       <button
         type="submit"
         disabled={status === "sending"}
-        className="group mt-3 inline-flex h-14 cursor-pointer items-center justify-between gap-3 rounded-full bg-deep pl-6 pr-2 text-[15px] text-white transition-colors duration-300 hover:bg-brand disabled:cursor-not-allowed disabled:opacity-60"
+        className="group mt-4 inline-flex h-14 cursor-pointer items-center justify-between gap-3 rounded-full bg-deep pl-6 pr-2 text-[15px] text-white transition-colors duration-300 hover:bg-brand disabled:cursor-not-allowed disabled:opacity-60"
       >
         <span>{status === "sending" ? "Envoi en cours…" : "Envoyer ma demande"}</span>
         <span className="flex h-10 w-10 items-center justify-center rounded-full bg-sand text-ink transition-transform duration-300 group-hover:rotate-45">

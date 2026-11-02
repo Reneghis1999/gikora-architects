@@ -45,9 +45,9 @@ export default function Process() {
           </Reveal>
 
           <Reveal delay={0.08}>
-          <ol className="mt-14 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+          <ol className="mt-14 grid gap-4 sm:grid-cols-2 lg:mt-20 lg:grid-cols-4 lg:gap-6">
             {steps.map((step, index) => (
-                <li key={step.title} className="flex h-full flex-col rounded-[1.5rem] bg-white/[0.06] p-7 ring-1 ring-inset ring-white/10">
+                <li key={step.title} className="flex h-full flex-col rounded-[1.5rem] bg-white/[0.06] p-8 ring-1 ring-inset ring-white/10">
                   <span className="flex h-11 w-11 items-center justify-center rounded-full bg-sand text-[15px] text-ink">
                     {index + 1}
                   </span>

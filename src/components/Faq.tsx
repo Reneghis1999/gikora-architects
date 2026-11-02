@@ -28,11 +28,11 @@ export const faqs = [
 
 export function FaqList({ items }: { items: { q: string; a: string }[] }) {
   return (
-    <div className="space-y-3">
+    <div className="space-y-4">
       {items.map((item, index) => (
         <details
           key={item.q}
-          className="group rounded-[1.5rem] bg-white px-6 py-5 sm:px-8 sm:py-6"
+          className="group rounded-[1.5rem] bg-white px-6 py-6 sm:px-9 sm:py-7"
           open={index === 0}
         >
           <summary className="flex cursor-pointer list-none items-center justify-between gap-6 text-lg tracking-[-0.01em] text-ink [&::-webkit-details-marker]:hidden">
@@ -41,7 +41,7 @@ export function FaqList({ items }: { items: { q: string; a: string }[] }) {
               <Plus size={16} strokeWidth={1.6} />
             </span>
           </summary>
-          <p className="mt-4 max-w-2xl pr-10 text-[15px] leading-7 text-taupe">
+          <p className="mt-5 max-w-2xl pr-10 text-[15px] leading-8 text-taupe">
             {item.a}
           </p>
         </details>

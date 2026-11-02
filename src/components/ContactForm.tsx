@@ -14,9 +14,9 @@ const emptyForm = {
 };
 
 const fieldClass =
-  "w-full rounded-2xl border-0 bg-canvas px-4 py-3.5 text-[15px] text-ink outline-none ring-1 ring-inset ring-transparent transition placeholder:text-taupe/60 focus:bg-white focus:ring-brand/40";
+  "w-full rounded-2xl border-0 bg-canvas px-5 py-4 text-[15px] text-ink outline-none ring-1 ring-inset ring-transparent transition placeholder:text-taupe/60 focus:bg-white focus:ring-brand/40";
 
-const labelClass = "mb-2 block text-[13px] text-taupe";
+const labelClass = "mb-2.5 block text-[13px] text-taupe";
 
 export default function ContactForm({ idPrefix = "contact" }: { idPrefix?: string }) {
   const [form, setForm] = useState(emptyForm);
@@ -64,7 +64,7 @@ export default function ContactForm({ idPrefix = "contact" }: { idPrefix?: strin
   };
 
   return (
-    <form onSubmit={handleSubmit} className="relative grid gap-4">
+    <form onSubmit={handleSubmit} className="relative grid gap-6">
       {/* HONEYPOT — invisible pour les humains */}
       <div aria-hidden="true" className="absolute -left-[9999px] h-px w-px overflow-hidden">
         <label htmlFor={id("website")}>Ne pas remplir ce champ</label>
@@ -79,7 +79,7 @@ export default function ContactForm({ idPrefix = "contact" }: { idPrefix?: strin
         />
       </div>
 
-      <div className="grid gap-4 sm:grid-cols-2">
+      <div className="grid gap-6 sm:grid-cols-2">
         <div>
           <label htmlFor={id("name")} className={labelClass}>
             Nom complet *

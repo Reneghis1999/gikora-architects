@@ -127,13 +127,13 @@ export default function DiasporaPage() {
               </div>
             </div>
 
-            <ul className="grid gap-2">
+            <ul className="grid gap-3">
               {[
                 { value: "À distance", label: "Échanges en visioconférence ou sur WhatsApp, sans vous déplacer" },
                 { value: "Photos & vidéos", label: "Rapports réguliers sur l’avancement de votre chantier" },
                 { value: "Transparence", label: "Dépenses et justificatifs communiqués à chaque étape" },
               ].map((item) => (
-                <li key={item.value} className="rounded-[1.5rem] bg-white/[0.06] px-6 py-5 ring-1 ring-inset ring-white/10">
+                <li key={item.value} className="rounded-[1.5rem] bg-white/[0.06] px-7 py-6 ring-1 ring-inset ring-white/10">
                   <p className="text-2xl tracking-[-0.03em]">{item.value}</p>
                   <p className="mt-1.5 text-[14px] leading-6 text-white/60">{item.label}</p>
                 </li>
@@ -147,7 +147,7 @@ export default function DiasporaPage() {
           SERVICES
       ====================================================== */}
 
-      <section className="py-20 sm:py-28">
+      <section className="py-24 sm:py-36">
         <Container>
           <SectionHeading
             badge="Notre accompagnement"
@@ -160,14 +160,19 @@ export default function DiasporaPage() {
             intro="De la sécurisation de votre terrain à la gestion de votre patrimoine immobilier, nous mettons notre expertise à votre service, même à distance."
           />
 
-          <div className="mt-12 grid gap-3 sm:grid-cols-2">
+          <div className="mt-14 grid gap-6 sm:grid-cols-2 lg:mt-20 lg:gap-8">
             {services.map((service, index) => (
-              <article key={service.title} className="rounded-[2rem] bg-white p-8 sm:p-10">
-                <Badge>0{index + 1}</Badge>
-                <h3 className="mt-6 text-2xl tracking-[-0.02em] text-ink sm:text-3xl">
-                  {service.title}
-                </h3>
-                <p className="mt-4 text-[15px] leading-7 text-taupe">{service.text}</p>
+              <article
+                key={service.title}
+                className="flex flex-col gap-10 rounded-[2rem] bg-white p-8 sm:p-12 lg:p-14"
+              >
+                <Badge className="self-start">0{index + 1}</Badge>
+                <div>
+                  <h3 className="text-2xl tracking-[-0.025em] text-ink sm:text-3xl">
+                    {service.title}
+                  </h3>
+                  <p className="mt-5 max-w-lg text-base leading-8 text-taupe">{service.text}</p>
+                </div>
               </article>
             ))}
           </div>
@@ -178,22 +183,22 @@ export default function DiasporaPage() {
           ÉTAPES
       ====================================================== */}
 
-      <section className="pb-20 sm:pb-28">
+      <section className="pb-24 sm:pb-36">
         <Container>
-          <div className="rounded-[2rem] bg-sand px-6 py-14 sm:px-10 lg:px-16 lg:py-20">
+          <div className="rounded-[2rem] bg-sand px-6 py-16 sm:px-12 lg:px-20 lg:py-28">
             <SectionHeading
               badge="Notre méthode"
               title="Comment ça marche"
               className="[&_span]:bg-white"
             />
 
-            <ol className="mt-12 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+            <ol className="mt-14 grid gap-x-12 gap-y-12 sm:grid-cols-2 lg:mt-20 lg:grid-cols-4">
               {steps.map((step, index) => (
-                <li key={step} className="rounded-[1.5rem] bg-white/70 p-7">
-                  <span className="flex h-11 w-11 items-center justify-center rounded-full bg-deep text-[15px] text-white">
+                <li key={step} className="border-t border-ink/15 pt-8">
+                  <span className="flex h-12 w-12 items-center justify-center rounded-full bg-deep text-[15px] text-white">
                     {index + 1}
                   </span>
-                  <p className="mt-6 text-[15px] leading-7 text-ink">{step}</p>
+                  <p className="mt-7 text-base leading-8 text-ink">{step}</p>
                 </li>
               ))}
             </ol>
@@ -205,9 +210,9 @@ export default function DiasporaPage() {
           FAQ
       ====================================================== */}
 
-      <section className="pb-20 sm:pb-28">
+      <section className="pb-24 sm:pb-36">
         <Container>
-          <div className="grid gap-10 lg:grid-cols-[0.8fr_1.2fr] lg:gap-16">
+          <div className="grid gap-12 lg:grid-cols-[0.8fr_1.2fr] lg:gap-24">
             <SectionHeading
               badge="Besoin d’informations ?"
               title={
@@ -216,6 +221,7 @@ export default function DiasporaPage() {
                   <span className="text-taupe"> fréquentes.</span>
                 </>
               }
+              intro="Les réponses aux questions que nous posent le plus souvent les Togolais de la diaspora."
             />
             <FaqList items={faqs.map((faq) => ({ q: faq.q, a: faq.a }))} />
           </div>
@@ -228,8 +234,8 @@ export default function DiasporaPage() {
 
       <section id="contact-diaspora" className="scroll-mt-28">
         <Container>
-          <div className="grid gap-3 lg:grid-cols-[0.9fr_1.1fr]">
-            <div className="flex flex-col justify-between gap-10 rounded-[2rem] bg-brand px-6 py-12 text-white sm:px-10 lg:px-12">
+          <div className="grid gap-6 lg:grid-cols-[0.9fr_1.1fr] lg:gap-8">
+            <div className="flex flex-col justify-between gap-12 rounded-[2rem] bg-brand px-6 py-14 text-white sm:px-12 lg:px-14 lg:py-16">
               <div>
                 <Badge tone="outline-light">Parlons ensemble</Badge>
                 <h2 className="mt-7 text-4xl leading-[1.02] tracking-[-0.035em] sm:text-5xl">
@@ -256,12 +262,12 @@ export default function DiasporaPage() {
               </a>
             </div>
 
-            <div className="rounded-[2rem] bg-white px-6 py-10 sm:px-10 sm:py-12 lg:px-12">
+            <div className="rounded-[2rem] bg-white px-6 py-12 sm:px-12 sm:py-14 lg:px-14 lg:py-16">
               <p className="text-[13px] text-taupe">Formulaire Diaspora</p>
               <h3 className="mt-2 text-2xl tracking-[-0.02em] text-ink sm:text-3xl">
                 Présentez votre projet
               </h3>
-              <div className="mt-8">
+              <div className="mt-10">
                 <DiasporaForm />
               </div>
             </div>
