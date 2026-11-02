@@ -8,20 +8,32 @@ import Avis from "@/components/Avis";
 import Faq from "@/components/Faq";
 import Footer from "@/components/Footer";
 import StatsSection from "@/components/Statsection";
+import ScrollToTop from "@/components/ScrollToTop";
 
 export default function Home() {
   return (
     <main>
       <Navbar />
+
       <Hero />
+
       <StatsSection />
+
       <Aboutsection />
+
       <FeaturedProjects />
+
       <Services />
+
       <Philosophy />
+
       <Avis />
+
       <Faq />
+
       <Footer />
+
+      <ScrollToTop />
     </main>
   );
 }

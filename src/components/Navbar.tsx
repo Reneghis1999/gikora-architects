@@ -15,6 +15,7 @@ const navLinks = [
   { label: "À propos", href: "#about" },
   { label: "Équipe", href: "/team" },
   { label: "Projets", href: "/projects" },
+  { label: "Diaspora", href: "/diaspora" },
   { label: "Contact", href: "/contact" },
 ];
 
@@ -172,10 +173,52 @@ export default function Navbar() {
 
           {/* =================================================
               DESKTOP ACTIONS
-              TELEPHONE + MENU
+              DIASPORA + TELEPHONE + MENU
           ================================================== */}
 
           <div className="hidden items-center gap-3 lg:flex">
+
+            {/* =================================================
+                DIASPORA
+            ================================================== */}
+
+            <Link
+              href="/diaspora"
+              aria-label="Espace diaspora GIKORA"
+              className={`
+                flex
+                h-12
+                items-center
+                rounded-full
+                border
+                px-5
+                text-[11px]
+                uppercase
+                tracking-[0.2em]
+                transition-all
+                duration-300
+                hover:scale-105
+                ${
+                  isScrolled
+                    ? `
+                      border-neutral-300
+                      bg-white
+                      text-neutral-900
+                      hover:bg-neutral-100
+                    `
+                    : `
+                      border-white/60
+                      bg-black/10
+                      text-white
+                      backdrop-blur-md
+                      hover:bg-white
+                      hover:text-black
+                    `
+                }
+              `}
+            >
+              Vous êtes de la diaspora ?
+            </Link>
 
             {/* =================================================
                 WHATSAPP / TELEPHONE
