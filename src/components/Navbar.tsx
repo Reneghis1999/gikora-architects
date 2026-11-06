@@ -132,7 +132,7 @@ export default function Navbar() {
 
             <ButtonLink
               href="/contact"
-              className="hidden h-[60px] shadow-[0_8px_30px_-12px_rgba(38,29,22,0.45)] sm:inline-flex"
+              className="hidden h-[60px] shadow-[0_8px_30px_-12px_rgba(38,29,22,0.45)] ring-1 ring-inset ring-white/15 sm:inline-flex"
             >
               Démarrer un projet
             </ButtonLink>
