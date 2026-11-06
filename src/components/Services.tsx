@@ -3,6 +3,7 @@ import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 
 import Reveal from "@/components/site/Reveal";
+import StackedCards from "@/components/site/StackedCards";
 import { Badge, Container, SectionHeading } from "@/components/site/ui";
 import { cn } from "@/lib/utils";
 
@@ -40,7 +41,7 @@ const services = [
     description:
       "Supervision rigoureuse des travaux pour garantir la fidélité entre la conception et la réalisation.",
     points: ["Contrôle de la qualité", "Maîtrise du budget et des délais", "Rapports réguliers"],
-    image: "/images/services/suivi-de-chantier.webp",
+    image: "/images/services/suivi-de-chantier-equipe.webp",
     theme: "white",
   },
   {
@@ -83,15 +84,15 @@ export default function Services() {
           />
         </Reveal>
 
-        <div className="mt-14 space-y-6 lg:mt-20 lg:space-y-10">
+        <StackedCards className="mt-14 flex flex-col gap-6 lg:mt-20 lg:gap-10">
           {services.map((service, index) => {
             const theme = themes[service.theme];
 
             return (
-              <Reveal key={service.id}>
               <article
+                key={service.id}
                 className={cn(
-                  "grid gap-10 rounded-[2rem] p-6 sm:p-12 lg:grid-cols-2 lg:items-center lg:gap-20 lg:p-16",
+                  "sticky top-24 grid origin-top gap-10 rounded-[2rem] p-6 sm:p-12 lg:grid-cols-2 lg:items-center lg:gap-20 lg:p-16",
                   theme.card
                 )}
               >
@@ -134,10 +135,9 @@ export default function Services() {
                   />
                 </div>
               </article>
-              </Reveal>
             );
           })}
-        </div>
+        </StackedCards>
 
         {/* AUTRES EXPERTISES */}
 
