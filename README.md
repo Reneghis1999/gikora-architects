@@ -6,6 +6,9 @@
 
 <img width="1917" height="907" alt="Page projets Gikora Architects" src="https://github.com/user-attachments/assets/c34c4f4e-63c4-42e0-a779-d987cf9d15d7" />
 
+<img width="1917" height="907" alt="image" src="https://github.com/user-attachments/assets/ed758996-b9a2-45ea-98cc-cb7a57570ba5" />
+
+
 ---
 
 ## Stack technique
