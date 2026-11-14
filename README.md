@@ -2,9 +2,7 @@
 
 **Studio d’architecture contemporain basé à Lomé**, spécialisé dans la conception architecturale, le design d’intérieur et la visualisation 3D.
 
-<img width="1917" height="907" alt="Page d'accueil Gikora Architects" src="https://github.com/user-attachments/assets/686edc5f-e604-41eb-8641-e58ac16966b9" />
 
-<img width="1917" height="907" alt="Page projets Gikora Architects" src="https://github.com/user-attachments/assets/c34c4f4e-63c4-42e0-a779-d987cf9d15d7" />
 
 <img width="1917" height="907" alt="image" src="https://github.com/user-attachments/assets/ed758996-b9a2-45ea-98cc-cb7a57570ba5" />
 
